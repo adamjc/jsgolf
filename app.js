@@ -12,11 +12,8 @@ app.get('/', function(req, res) {
     res.render('index', {title: 'Test', message: 'Hello World!'});
 });
 
-var addOneTestData = {
-    '1': 2,
-    '0': 1,
-    '-1': 0,
-    '100': 101
+var exerciseMap = {
+    'exerciseOne': 'exercise_1_add-one.js'
 };
 
 app.post('/exercise/:exercise/', function(req, res) {
@@ -29,7 +26,7 @@ app.post('/exercise/:exercise/', function(req, res) {
 
     var processData = function() {
         var promises = Q();
-        
+
         addOneTestDataKeys.forEach(function (f, index) {
             promises = promises.then(function () {
                 var testInput = testFunc + "(" + addOneTestDataKeys[index] + ")";
