@@ -1,0 +1,28 @@
+{
+  "name": "jsgolf",
+  "version": "0.0.0",
+  "description": "JS Golf Website",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://adamjc86@bitbucket.org/adamjc86/jsgolf.git"
+  },
+  "keywords": [
+    "js",
+    "golf"
+  ],
+  "author": "Adam Cook",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.0",
+    "jade": "^1.11.0",
+    "body-parser": "^1.13.1",
+    "q": "^1.2.0"
+  },
+  "devDependencies": {
+    "sandbox": "^0.8.6"
+  }
+}

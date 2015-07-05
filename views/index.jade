@@ -1,0 +1,25 @@
+html
+    head
+        title!=title
+    body
+        h1!=message
+        textarea#test
+        button#go go!
+        
+        script(src='https://code.jquery.com/jquery-2.1.4.min.js')
+        script(type='text/javascript').
+            var stuff = {
+                testFunc: "function(input) { return 'hello ' + input; }"
+            }
+            
+            $('#go').click(function () {
+                var func = $('#test').val();
+            
+                var request = {
+                    testFunc: func
+                };
+            
+                $.post('http://localhost:3000/exercise/test', request).done(function(data) {
+                    console.log(data);
+                }); 
+            });
