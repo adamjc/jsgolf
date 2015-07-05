@@ -19,24 +19,24 @@ var exerciseMap = {
 app.post('/exercise/:exercise/', function(req, res) {
     var sandbox = new Sandbox();
     var results = [];
-    var addOneTestDataKeys = Object.keys(addOneTestData);
+    var testData = Object.keys(testDataAnswers);
 
     // Wrap the function so it can be executed by the sandbox.
-    var testFunc = "(" + req.body.testFunc + ")";
+    var usersFunc = "(" + req.body.testFunc + ")";
 
     var processData = function() {
         var promises = Q();
 
         addOneTestDataKeys.forEach(function (f, index) {
             promises = promises.then(function () {
-                var testInput = testFunc + "(" + addOneTestDataKeys[index] + ")";
+                var input = usersFunc + "(" + testData[index] + ")";
                 var deferred = Q.defer();
 
                 sandbox.run(testInput, function(output) {
                     results[index] = {
-                        input: addOneTestDataKeys[index],
+                        input: testData[index],
                         output: output.result,
-                        correct: parseInt(addOneTestData[addOneTestDataKeys[index]]) === parseInt(output.result)
+                        correct: parseInt(testDataAnswers[testData[index]]) === parseInt(output.result)
                     };
 
                     deferred.resolve();
