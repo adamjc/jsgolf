@@ -4,7 +4,6 @@ var bodyParser = require('body-parser');
 var Q = require('Q');
 var app = express();
 
-//app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('view engine', 'jade');
@@ -21,23 +20,41 @@ var addOneTestData = {
 };
 
 app.post('/exercise/:exercise/', function(req, res) {
-    var s = new Sandbox();
-    var result = [];
+    var sandbox = new Sandbox();
+    var results = [];
+    var addOneTestDataKeys = Object.keys(addOneTestData);
+
+    // Wrap the function so it can be executed by the sandbox.
     var testFunc = "(" + req.body.testFunc + ")";
-    var handler = function(output) {
-        console.log('outputResult: ' + output.result);
-        result[i] = output.result;
+
+    var processData = function() {
+        var promises = Q();
+        
+        addOneTestDataKeys.forEach(function (f, index) {
+            promises = promises.then(function () {
+                var testInput = testFunc + "(" + addOneTestDataKeys[index] + ")";
+                var deferred = Q.defer();
+
+                sandbox.run(testInput, function(output) {
+                    results[index] = {
+                        input: addOneTestDataKeys[index],
+                        output: output.result,
+                        correct: parseInt(addOneTestData[addOneTestDataKeys[index]]) === parseInt(output.result)
+                    };
+
+                    deferred.resolve();
+                });
+
+                return deferred.promise;
+            });
+        });
+
+        return promises;
     };
 
-    var addOneTestDataKeys = Object.keys(addOneTestData);
-    for (var i = 0; i < addOneTestDataKeys.length; i++) {
-        console.log('index: ' + addOneTestDataKeys[i]);
-        var testInput = testFunc + "(" + addOneTestData[addOneTestDataKeys[i]] + ")";
-        s.run(testInput, handler);
-    }
-
-    console.log(result);
-    res.send(result);
+    processData().then(function () {
+        res.send(results);
+    });
 });
 
 var server = app.listen(3000, function () {

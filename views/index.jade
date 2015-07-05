@@ -5,13 +5,10 @@ html
         h1!=message
         textarea#test
         button#go go!
+        div.results
         
         script(src='https://code.jquery.com/jquery-2.1.4.min.js')
-        script(type='text/javascript').
-            var stuff = {
-                testFunc: "function(input) { return 'hello ' + input; }"
-            }
-            
+        script(type='text/javascript').            
             $('#go').click(function () {
                 var func = $('#test').val();
             
@@ -20,6 +17,15 @@ html
                 };
             
                 $.post('http://localhost:3000/exercise/test', request).done(function(data) {
+                    data.forEach(function(element) {  
+                        if (element.correct) {
+                            $('.results').append('<h3>Golf GTI Bro!</h3>');
+                        } else {
+                            $('.results').append('<h3>Dats like, a Skoda, innit.</h3>');
+                        }
+                        $('.results').append('<p>Input: ' + element.input + '</p>');
+                        $('.results').append('<p>Output: ' + element.output + '</p>');
+                    })
                     console.log(data);
                 }); 
             });
