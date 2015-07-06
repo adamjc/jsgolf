@@ -27,7 +27,7 @@ app.post('/exercise/:exercise/', function(req, res) {
     var processData = function() {
         var promises = Q();
 
-        addOneTestDataKeys.forEach(function (f, index) {
+        testData.forEach(function (testDataElement, index) {
             promises = promises.then(function () {
                 var input = usersFunc + "(" + testData[index] + ")";
                 var deferred = Q.defer();
