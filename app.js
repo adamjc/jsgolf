@@ -15,10 +15,25 @@ app.get('/', function(req, res) {
 var exerciseMap = {
     '1': 'exercise_1_hello-world.js',
     '2': 'exercise_2_add-one.js',
-    '3': 'exercise_3_times_n.js',
-    '4': 'exercise_4_fibonacci.js',
-    '5': 'exercise_5_fizz_buzz.js'
+    '3': 'exercise_3_times-n.js',
+    '4': 'exercise_4_fizz-buzz.js',
+    '5': 'exercise_5_fibonacci.js'
 };
+
+app.get('/exercise/:exercise/', function(req, res) {
+    var exerciseToLoad = exerciseMap[req.params.exercise];
+    var exercise;
+    var testDataAnswers;
+    if (exerciseToLoad) {
+        exercise = './exercises/' + exerciseToLoad;
+        exerciseData = require(exercise);
+    } else {
+        res.status(500).send('Nah m8');
+        return;
+    }
+
+    res.render('exercise', exerciseData);
+});
 
 app.post('/exercise/:exercise/', function(req, res) {
     var exerciseToLoad = exerciseMap[req.params.exercise];
@@ -26,7 +41,7 @@ app.post('/exercise/:exercise/', function(req, res) {
     var testDataAnswers;
     if (exerciseToLoad) {
         exercise = './exercises/' + exerciseToLoad;
-        testDataAnswers = require(exercise);
+        exerciseData = require(exercise);
     } else {
         res.status(500).send('Nah m8');
         return;
@@ -34,7 +49,7 @@ app.post('/exercise/:exercise/', function(req, res) {
 
     var sandbox = new Sandbox();
     var results = [];
-    var testData = Object.keys(testDataAnswers);
+    var testData = Object.keys(exerciseData.testData);
 
     // e.g. foo(){} -> (foo(){})
     var usersFunc = "(" + req.body.testFunc + ")";
@@ -49,8 +64,8 @@ app.post('/exercise/:exercise/', function(req, res) {
                 var deferred = Q.defer();
 
                 sandbox.run(input, function(output) {
-                    var correct = parseInt(output.result) === parseInt(testDataAnswers[testData[index]]);
-
+                    var correct = output.result == exerciseData.testData[testData[index]];
+                    console.log(output.result, output.result.length, exerciseData.testData[testData[index]].length);
                     results[index] = {
                         input: testData[index],
                         output: output.result,
