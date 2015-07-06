@@ -6,18 +6,18 @@ html
         textarea#test
         button#go go!
         div.results
-        
+
         script(src='https://code.jquery.com/jquery-2.1.4.min.js')
-        script(type='text/javascript').            
+        script(type='text/javascript').
             $('#go').click(function () {
                 var func = $('#test').val();
-            
+
                 var request = {
                     testFunc: func
                 };
-            
-                $.post('http://localhost:3000/exercise/test', request).done(function(data) {
-                    data.forEach(function(element) {  
+
+                $.post('http://localhost:3000/exercise/exerciseOne', request).done(function(data) {
+                    data.forEach(function(element) {
                         if (element.correct) {
                             $('.results').append('<h3>Golf GTI Bro!</h3>');
                         } else {
@@ -26,7 +26,7 @@ html
                         $('.results').append('<p>Input: ' + element.input + '</p>');
                         $('.results').append('<p>Output: ' + element.output + '</p>');
                     })
-                    
+
                     console.log(data);
-                }); 
+                });
             });

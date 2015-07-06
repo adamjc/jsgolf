@@ -13,15 +13,30 @@ app.get('/', function(req, res) {
 });
 
 var exerciseMap = {
-    'exerciseOne': 'exercise_1_add-one.js'
+    '1': 'exercise_1_hello-world.js',
+    '2': 'exercise_2_add-one.js',
+    '3': 'exercise_3_times_n.js',
+    '4': 'exercise_4_fibonacci.js',
+    '5': 'exercise_5_fizz_buzz.js'
 };
 
 app.post('/exercise/:exercise/', function(req, res) {
+    var exerciseToLoad = exerciseMap[req.params.exercise];
+    var exercise;
+    var testDataAnswers;
+    if (exerciseToLoad) {
+        exercise = './exercises/' + exerciseToLoad;
+        testDataAnswers = require(exercise);
+    } else {
+        res.status(500).send('Nah m8');
+        return;
+    }
+
     var sandbox = new Sandbox();
     var results = [];
     var testData = Object.keys(testDataAnswers);
 
-    // Wrap the function so it can be executed by the sandbox.
+    // e.g. foo(){} -> (foo(){})
     var usersFunc = "(" + req.body.testFunc + ")";
 
     var processData = function() {
@@ -29,14 +44,17 @@ app.post('/exercise/:exercise/', function(req, res) {
 
         testData.forEach(function (testDataElement, index) {
             promises = promises.then(function () {
+                // e.g. (foo(){}) -> (foo(){})(testData[index])
                 var input = usersFunc + "(" + testData[index] + ")";
                 var deferred = Q.defer();
 
-                sandbox.run(testInput, function(output) {
+                sandbox.run(input, function(output) {
+                    var correct = parseInt(output.result) === parseInt(testDataAnswers[testData[index]]);
+
                     results[index] = {
                         input: testData[index],
                         output: output.result,
-                        correct: parseInt(testDataAnswers[testData[index]]) === parseInt(output.result)
+                        correct: correct
                     };
 
                     deferred.resolve();
