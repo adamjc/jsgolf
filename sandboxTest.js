@@ -2,7 +2,7 @@ var Sandbox = require('Sandbox');
 
 var s = new Sandbox();
 
-var userFunc = 'function (i) { return i + 1; }';
+var userFunc = 'function () { return "Hello World"; }';
 
 // HNNNNG...
 var func = '(function(){ \
@@ -19,10 +19,12 @@ var func = '(function(){ \
             })()';
 
 func = func.replace("usersFunc", userFunc);
-func = newFunc.replace('testInput', 1);
-func = newFunc.replace('testOutput', 2);
+func = func.replace('testInput', 1);
+func = func.replace('testOutput', 2);
 
-s.run(newFunc, function(o) {
+console.log(func);
+
+s.run(func, function(o) {
     var x = o.result.split('');
     x.pop();
     x.shift();

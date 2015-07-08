@@ -1,7 +1,7 @@
 var title = "Exercise 1 - Hello World";
 var exerciseText = "Produce a function returns the string 'Hello World'.";
 var testData = {
-    '': 'Hello World'
+    '': "Hello World"
 };
 
 module.exports = {

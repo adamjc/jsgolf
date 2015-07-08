@@ -51,31 +51,58 @@ app.post('/exercise/:exercise/', function(req, res) {
     var results = [];
     var testData = Object.keys(exerciseData.testData);
 
-    // e.g. foo(){} -> (foo(){})
-    var usersFunc = "(" + req.body.testFunc + ")";
+    var userFunc = req.body.testFunc;
+
+    var func = '(function(){ \
+                    var input = testInput; \
+                    var expectedOutput = testOutput; \
+                    var result = usersFunc(input); \
+                    var correct = expectedOutput == result; \
+                    var x = { \
+                        "output" : result, \
+                        "input" : input, \
+                        "correct" : correct, \
+                    }; \
+                    return "" + JSON.stringify(x); + "" \
+                })()';
 
     var processData = function() {
         var promises = Q();
 
         testData.forEach(function (testDataElement, index) {
             promises = promises.then(function () {
-                // e.g. (foo(){}) -> (foo(){})(testData[index])
-                var input = usersFunc + "(" + testData[index] + ")";
                 var deferred = Q.defer();
 
-                sandbox.run(input, function(output) {
-                    // Because the sandbox returns everything as a string...
-                    // look at the first and last elements of the result, and if
-                    // it is a ', delete it.
-                    
+                var testInput = testData[index];
 
-                    var correct = output.result == exerciseData.testData[testData[index]];
-                    console.log(output.result, output.result.length, exerciseData.testData[testData[index]].length);
-                    results[index] = {
-                        input: testData[index],
-                        output: output.result,
-                        correct: correct
-                    };
+                if (typeof testInput === 'string') {
+                    testInput = '"' + testInput + '"';
+                }
+
+                var newFunc;
+                newFunc = func.replace("usersFunc", userFunc);
+                newFunc = newFunc.replace('testInput', testInput);
+
+                var testOutput = exerciseData.testData[testData[index]];
+
+                // As we are replacing strings, when doing so, we have to wrap it
+                // with quotes, as otherwise it will just dump e.g. Hello World,
+                // without the quotes, so it won't be valid JS.
+                if (typeof testOutput === 'string') {
+                    testOutput = '"' + testOutput + '"';
+                }
+
+                newFunc = newFunc.replace('testOutput', testOutput);
+
+                console.log(newFunc);
+                sandbox.run(newFunc, function(output) {
+                    console.log(output);
+                    var result = output.result.split('');
+                    result.pop();
+                    result.shift();
+                    result = result.join('');
+
+                    results[index] = JSON.parse(result);
 
                     deferred.resolve();
                 });
