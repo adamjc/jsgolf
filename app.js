@@ -56,14 +56,14 @@ app.post('/exercise/:exercise/', function(req, res) {
     var func = '(function(){ \
                     var input = testInput; \
                     var expectedOutput = testOutput; \
-                    var result = usersFunc(input); \
-                    var correct = expectedOutput == result; \
-                    var x = { \
-                        "output" : result, \
+                    var output = usersFunc(output); \
+                    var correct = assert.deepEqual(expectedOutput, result); \
+                    var result = { \
+                        "output" : output, \
                         "input" : input, \
                         "correct" : correct, \
                     }; \
-                    return "" + JSON.stringify(x); + "" \
+                    return "" + JSON.stringify(result); + "" \
                 })()';
 
     var processData = function() {
@@ -74,30 +74,19 @@ app.post('/exercise/:exercise/', function(req, res) {
                 var deferred = Q.defer();
 
                 var testInput = testData[index];
+                testInput = wrapWithQuotesIfString(testInput);
 
-                if (typeof testInput === 'string') {
-                    testInput = '"' + testInput + '"';
-                }
+                var testOutput = exerciseData.testData[testData[index]];
+                testOutput = wrapWithQuotesIfString(testOutput);
 
                 var newFunc;
                 newFunc = func.replace("usersFunc", userFunc);
                 newFunc = newFunc.replace('testInput', testInput);
-
-                var testOutput = exerciseData.testData[testData[index]];
-
-                // As we are replacing strings, when doing so, we have to wrap it
-                // with quotes, as otherwise it will just dump e.g. Hello World,
-                // without the quotes, so it won't be valid JS.
-                if (typeof testOutput === 'string') {
-                    testOutput = '"' + testOutput + '"';
-                }
-
                 newFunc = newFunc.replace('testOutput', testOutput);
 
-                console.log(newFunc);
                 sandbox.run(newFunc, function(output) {
-                    console.log(output);
-                    var result = output.result.split('');
+                    var result;
+                    result = output.result.split('');
                     result.pop();
                     result.shift();
                     result = result.join('');
@@ -118,6 +107,19 @@ app.post('/exercise/:exercise/', function(req, res) {
         res.send(results);
     });
 });
+
+/**
+ * As we are replacing strings, when doing so, we have to wrap it
+ * with quotes, as otherwise it will just dump e.g. Hello World,
+ * without the quotes, so it won't be valid JS, and you get Syntax Error
+ */
+var wrapWithQuotesIfString = function(input) {
+    if (typeof input === 'string') {
+        return "'" + input + "'";
+    }
+
+    return input;
+}
 
 var server = app.listen(3000, function () {
     var host = server.address().address;
