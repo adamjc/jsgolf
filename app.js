@@ -64,6 +64,11 @@ app.post('/exercise/:exercise/', function(req, res) {
                 var deferred = Q.defer();
 
                 sandbox.run(input, function(output) {
+                    // Because the sandbox returns everything as a string...
+                    // look at the first and last elements of the result, and if
+                    // it is a ', delete it.
+                    
+
                     var correct = output.result == exerciseData.testData[testData[index]];
                     console.log(output.result, output.result.length, exerciseData.testData[testData[index]].length);
                     results[index] = {
