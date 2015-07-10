@@ -17,9 +17,10 @@
   "author": "Adam Cook",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.13.1",
     "express": "^4.13.0",
     "jade": "^1.11.0",
-    "body-parser": "^1.13.1",
+    "lodash": "^3.10.0",
     "q": "^1.2.0"
   },
   "devDependencies": {

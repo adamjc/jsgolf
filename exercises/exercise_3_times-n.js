@@ -1,5 +1,5 @@
-var number = 2;
-var title = "Exercise 2 - Add One";
+var number = 3;
+var title = "Exercise 3 - Times N";
 var exerciseText = "Produce a function that takes a Number, and adds 1 to it.";
 var testData = {
     '1': 2,

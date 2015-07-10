@@ -1,32 +1,14 @@
 html
     head
-        title!=title
-    body
-        h1!=message
-        textarea#test
-        button#go go!
-        div.results
-
+        title!= title
         script(src='https://code.jquery.com/jquery-2.1.4.min.js')
-        script(type='text/javascript').
-            $('#go').click(function () {
-                var func = $('#test').val();
+        
+    body
+        h1!= message
 
-                var request = {
-                    testFunc: func
-                };
-
-                $.post('http://localhost:3000/exercise/exerciseOne', request).done(function(data) {
-                    data.forEach(function(element) {
-                        if (element.correct) {
-                            $('.results').append('<h3>Golf GTI Bro!</h3>');
-                        } else {
-                            $('.results').append('<h3>Dats like, a Skoda, innit.</h3>');
-                        }
-                        $('.results').append('<p>Input: ' + element.input + '</p>');
-                        $('.results').append('<p>Output: ' + element.output + '</p>');
-                    })
-
-                    console.log(data);
-                });
-            });
+        div Hello this is some text.
+        
+        ul
+            each exercise in exercises
+                li 
+                    a(href= "http://localhost:3000/exercise/" + exercise.number)= exercise.title
