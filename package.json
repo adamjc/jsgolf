@@ -24,6 +24,11 @@
     "q": "^1.2.0"
   },
   "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-sass": "^1.0.0",
+    "load-grunt-tasks": "^3.2.0",
     "sandbox": "^0.8.6"
   }
 }

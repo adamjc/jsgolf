@@ -2,13 +2,12 @@ html
     head
         title!= title
         script(src='https://code.jquery.com/jquery-2.1.4.min.js')
+        style
+            include ../public/css/main.css
         
-    body
-        h1!= message
-
-        div Hello this is some text.
+    body.grid
+        div.grid__item.one-whole This is a header.
         
-        ul
-            each exercise in exercises
-                li 
-                    a(href= "http://localhost:3000/exercise/" + exercise.number)= exercise.title
+        div.grid__item.one-whole This is the body.
+        
+        div.grid__item.one-whole This is a footer.

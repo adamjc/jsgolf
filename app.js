@@ -6,6 +6,7 @@ var app = express();
 var _ = require('lodash');
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/static', express.static(__dirname + '/public'));
 
 app.set('view engine', 'jade');
 
