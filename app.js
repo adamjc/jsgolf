@@ -10,7 +10,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'jade');
 
 app.get('/', (req, res) => {
-    res.render('index', {title: 'Test', message: 'Hello World!'});
+    res.render('index', {
+        title: 'Test',
+        message: 'Hello World!'
+    });
 });
 
 app.get('/exercise/:exercise/', (req, res) => {
@@ -42,18 +45,16 @@ app.post('/exercise/:exercise/', (req, res) => {
 
     var sandbox = new Sandbox();
     var results = [];
-    var testData = Object.keys(exerciseData.testData);
+    var tests = exerciseData.tests;
     var processData = () => {
         var promises = Q();
 
-        testData.forEach((testDataElement, index) => {
+        Object.keys(tests).forEach((testDataElement, index) => {
             promises = promises.then(() => {
                 var deferred = Q.defer();
 
-                // TODO: Correctly data structure test inputs and test outputs.
-
                 var func = '(function(){ \
-                                var input = parseInt(testInput) || testInput; \
+                                var input = testInput; \
                                 var output = usersFunction(input); \
                                 var result = { \
                                     "output" : output, \
@@ -66,7 +67,8 @@ app.post('/exercise/:exercise/', (req, res) => {
                 var newFunc;
                 newFunc = func.replace('usersFunction', usersFunction);
 
-                var testInput = testData[index];
+                var testInput = tests[index].testInput;
+
                 testInput = wrapWithQuotesIfString(testInput);
                 newFunc = newFunc.replace('testInput', testInput);
 
@@ -80,7 +82,7 @@ app.post('/exercise/:exercise/', (req, res) => {
                     var resultObject = {};
                     try {
                         resultObject = JSON.parse(result);
-                        resultObject.correct = _.isEqual(resultObject.output, exerciseData.testData[testData[index]]);
+                        resultObject.correct = _.isEqual(resultObject.output, exerciseData.tests[index].expectedOutput);
                     } catch (e) {
                         console.log('Error:', e);
                         resultObject.output = 'Error';
