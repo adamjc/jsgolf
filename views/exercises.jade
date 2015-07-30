@@ -1,7 +1,21 @@
+include ./exercise-partial.jade
+include ./header.jade
+include ./footer.jade
+
 html
     head
-        title!=title
-    body
-        h1!=message
-
+        title!= title
         script(src='https://code.jquery.com/jquery-2.1.4.min.js')
+        link(rel='stylesheet' href='../static/css/main.css')
+    
+    body.grid
+        +header
+        
+        ul
+            each exercise in exercises
+                li
+                    a(href!=exercise.url)!= exercise.title
+        
+        +footer
+
+        

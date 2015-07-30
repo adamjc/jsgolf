@@ -1,14 +1,19 @@
 mixin exercise-partial(exercise)
-    h1!=exercise.title
-    div.message!=exercise.exerciseText
-    textarea#test
-    button#go go!
-    div.results
+    div.grid__item.one-whole
+        h1!=exercise.title
+        
+        div.message!=exercise.exerciseText
+        
+        div.grid__item.one-half.user-input
+            textarea.user-input__textarea
+            button#go go!
+            
+        div.grid__item.one-half
+            div.results
     
-    script(src='https://code.jquery.com/jquery-2.1.4.min.js')
     script(type='text/javascript').
         $('#go').click(function () {
-            var func = $('#test').val();
+            var func = $('.user-input__textarea').val();
             var postUrl = window.location.href;
             var request = {
                 testFunc: func

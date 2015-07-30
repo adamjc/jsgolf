@@ -1,12 +1,13 @@
+include ./header.jade
+
 html
     head
         title!= title
         script(src='https://code.jquery.com/jquery-2.1.4.min.js')
-        style
-            include ../public/css/main.css
+        link(rel='stylesheet' href='../static/css/main.css')
         
     body.grid
-        div.grid__item.one-whole This is a header.
+        +header
         
         div.grid__item.one-whole This is the body.
         

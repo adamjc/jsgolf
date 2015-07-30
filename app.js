@@ -30,7 +30,10 @@ app.get('/exercise/:exercise/', (req, res) => {
 app.get('/exercise', (req, res) => {
     var exercises = []
     Object.keys(exerciseMap).forEach((exercise) => {
-        exercises.push(require('./exercises/' + exerciseMap[exercise]));
+        var fetchedExercise = require('./exercises/' + exerciseMap[exercise]);
+        fetchedExercise.url = '/exercise/' + fetchedExercise.number;
+
+        exercises.push(fetchedExercise);
     });
 
     res.render('exercises', {title: 'Exercises', message: 'Exercises', exercises: exercises});
@@ -120,10 +123,7 @@ var wrapWithQuotesIfString = (input) => {
 
 var exerciseMap = {
     '1': 'exercise_1_hello-world.js',
-    '2': 'exercise_2_add-one.js',
-    '3': 'exercise_3_times-n.js',
-    '4': 'exercise_4_fizz-buzz.js',
-    '5': 'exercise_5_fibonacci.js'
+    '2': 'exercise_2_add-one.js'
 };
 
 var getExerciseData = (exercise) => {
