@@ -7,28 +7,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script type="text/jsx" src="static/js/header.jsx"></script>
-    <script type="text/jsx" src="static/js/footer.jsx"></script>
+    <!-- <script type="text/jsx" src="static/js/header.jsx"></script>
+    <script type="text/jsx" src="static/js/footer.jsx"></script> -->
+    <script src="static/js/main.js"></script>
 </head>
 <body>
     <div id="content"></div>
-    <script type="text/jsx">
-        var App = React.createClass({
-            render: function () {
-                return (
-                    <div className="commentBox">
-                        <Header />
-                        Hello World! I am a CommentBox.
-                        <Footer />
-                    </div>
-                );
-            }
-        });
-
-        React.render(
-            <App />,
-            document.getElementById('content')
-        );
-    </script>
 </body>
 </html>
