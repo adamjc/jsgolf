@@ -23,6 +23,7 @@ var App = React.createClass({
     render: function () {
         return (
             <div>
+                <div>Test!</div>
                 <Header />
                 <ul>
                     <li><Link to="test">Dashboard</Link></li>
@@ -40,7 +41,7 @@ var App = React.createClass({
 var routes = (
     <Route name='app' path='/' handler={App}>
         <Route name='test' handler={Test} />
-        <DefaultRoute handler={App} />
+        <DefaultRoute handler={Test} />
     </Route>
 );
 
