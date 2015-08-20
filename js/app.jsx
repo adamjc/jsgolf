@@ -1,5 +1,5 @@
 var React = require('react');
-var Router = require('react-router'); // or var Router = ReactRouter; in browsers
+var Router = require('react-router');
 
 var DefaultRoute = Router.DefaultRoute;
 var Link = Router.Link;
@@ -23,7 +23,6 @@ var App = React.createClass({
     render: function () {
         return (
             <div>
-                <div>Test!</div>
                 <Header />
                 <ul>
                     <li><Link to="test">Dashboard</Link></li>

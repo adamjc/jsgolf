@@ -24,7 +24,6 @@ var App = React.createClass({displayName: "App",
     render: function () {
         return (
             React.createElement("div", null, 
-                React.createElement("div", null, "Test!"), 
                 React.createElement(Header, null), 
                 React.createElement("ul", null, 
                     React.createElement("li", null, React.createElement(Link, {to: "test"}, "Dashboard")), 

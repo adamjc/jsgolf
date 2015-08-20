@@ -6,7 +6,7 @@ var reactify = require('reactify');
 var run = require('gulp-run');
 
 var paths = {
-    scripts: ['js/*.jsx']
+    scripts: ['js/**/*.jsx']
 };
 
 gulp.task('browserify', function () {
@@ -18,7 +18,6 @@ gulp.task('browserify', function () {
             .pipe(gulp.dest('./public/js'));
 });
 
-// Rerun the task when a file changes
 gulp.task('watch', function () {
     gulp.watch(paths.scripts, ['browserify']);
 });
