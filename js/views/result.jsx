@@ -18,6 +18,18 @@ module.exports = React.createClass({
     }
 
     render() {
+        if (this.state.errorMessage) {
+            return (
+                <div>Something bad happened.</div>
+            );
+        }
+
+        if (!this.state.results.length) {
+            return (
+                <div>loading-spinner.gif</div>
+            );
+        }
+
         return (
             <ul>
                 {this.state.results.map((result) => {
