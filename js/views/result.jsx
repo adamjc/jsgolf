@@ -1,4 +1,5 @@
 var ResultStore = require('../stores/result-store');
+var ResultActions = require('../actions/result-actions');
 
 module.exports = React.createClass({
     getInitialState() {
@@ -15,7 +16,11 @@ module.exports = React.createClass({
 
     onChange(state) {
         this.setState(state);
-    }
+    },
+
+    handleClick() {
+        ResultActions.fetchResults();
+    },
 
     render() {
         if (this.state.errorMessage) {
@@ -26,7 +31,10 @@ module.exports = React.createClass({
 
         if (!this.state.results.length) {
             return (
-                <div>loading-spinner.gif</div>
+                <div>
+                    loading-spinner.gif
+                    <button onClick={this.handleClick}></button>
+                </div>
             );
         }
 
@@ -34,9 +42,9 @@ module.exports = React.createClass({
             <ul>
                 {this.state.results.map((result) => {
                     return (
-                        <li>{result.name}</li>
+                        <li key={result.id}>{result.text}</li>
                     );
-                })};
+                })}
             </ul>
         );
     }

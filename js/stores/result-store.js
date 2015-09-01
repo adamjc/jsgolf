@@ -1,12 +1,12 @@
 var alt = require('../alt');
-var ResultActions = require('../actions/ResultActions');
+var ResultActions = require('../actions/result-actions');
 
 class ResultsStore {
     constructor() {
         this.results = [];
         this.errorMessage = null;
 
-        this.bindListenders({
+        this.bindListeners({
             handleUpdateResults: ResultActions.UPDATE_RESULTS,
             handleFetchResults: ResultActions.FETCH_RESULTS,
             handleResultsFailed: ResultActions.RESULTS_FAILED
@@ -27,4 +27,4 @@ class ResultsStore {
     }
 }
 
-module.exports = alt.createStore(ResultStore, 'ResultStore');
+module.exports = alt.createStore(ResultsStore, 'ResultStore');

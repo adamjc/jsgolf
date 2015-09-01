@@ -30,3 +30,5 @@ var resultsFetcher = {
         });
     }
 };
+
+module.exports = resultsFetcher;

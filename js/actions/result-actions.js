@@ -10,7 +10,7 @@ class ResultActions {
         // we dispatch an event here so we can have a 'loading' event.
         this.dispatch();
 
-        ResultFetcher.fetch()
+        ResultsFetcher.fetch()
             .then((results) => {
                 this.actions.updateResults(results);
             })

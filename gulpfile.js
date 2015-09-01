@@ -4,6 +4,7 @@ var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var reactify = require('reactify');
 var run = require('gulp-run');
+var babelify = require('babelify');
 
 var paths = {
     scripts: ['js/**/*.jsx']
@@ -12,6 +13,7 @@ var paths = {
 gulp.task('browserify', function () {
     var b = browserify();
     b.transform(reactify);
+    b.transform(babelify);
     b.add('js/app.jsx');
     return b.bundle()
             .pipe(source('main.js'))

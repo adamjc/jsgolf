@@ -27,6 +27,7 @@
     "react-router": "^0.13.3"
   },
   "devDependencies": {
+    "babelify": "^6.3.0",
     "browserify": "^11.0.1",
     "gulp": "^3.9.0",
     "gulp-run": "^1.6.10",
