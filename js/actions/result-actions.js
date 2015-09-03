@@ -1,5 +1,6 @@
 var alt = require('../alt');
 var ResultsFetcher = require('../utils/results-fetcher');
+var rp = require('request-promise');
 
 class ResultActions {
     updateResults(results) {
@@ -10,12 +11,12 @@ class ResultActions {
         // we dispatch an event here so we can have a 'loading' event.
         this.dispatch();
 
-        ResultsFetcher.fetch()
+        rp('http://localhost:3000/test')
             .then((results) => {
                 this.actions.updateResults(results);
             })
             .catch((errorMessage) => {
-                this.actions.resultsFailed(errorMessage);
+                console.log(errorMessage);
             });
     }
 

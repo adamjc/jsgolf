@@ -17,6 +17,19 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/react/index.html');
 });
 
+app.get('/test', (req, res) => {
+    res.send([
+        {
+            id: 0,
+            text: 'yo'
+        },
+        {
+            id: 1,
+            text: 'test'
+        }
+    ]);
+});
+
 // app.get('/', (req, res) => {
 //     res.render('index', {
 //         title: 'Test',

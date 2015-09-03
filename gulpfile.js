@@ -7,7 +7,7 @@ var run = require('gulp-run');
 var babelify = require('babelify');
 
 var paths = {
-    scripts: ['js/**/*.jsx']
+    scripts: ['js/**/*.jsx', 'js/**/*.js']
 };
 
 gulp.task('browserify', function () {

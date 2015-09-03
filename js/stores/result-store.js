@@ -14,7 +14,7 @@ class ResultsStore {
     }
 
     handleUpdateResults(results) {
-        this.results = results;
+        this.results = JSON.parse(results);
         this.errorMessage = null;
     }
 

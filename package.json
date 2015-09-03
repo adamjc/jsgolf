@@ -24,7 +24,8 @@
     "lodash": "^3.10.0",
     "q": "^1.2.0",
     "react": "^0.13.3",
-    "react-router": "^0.13.3"
+    "react-router": "^0.13.3",
+    "request-promise": "^0.4.3"
   },
   "devDependencies": {
     "babelify": "^6.3.0",

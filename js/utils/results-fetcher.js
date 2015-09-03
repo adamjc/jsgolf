@@ -1,3 +1,5 @@
+var requestPromise = require('request-promise');
+
 var mockData = [
     {
         id: 0,
@@ -23,11 +25,16 @@ var mockData = [
 
 var resultsFetcher = {
     fetch: function () {
-        return new Promise(function (resolve, reject) {
-            setTimeout(function () {
-                resolve(mockData);
-            }, 250);
+        return requestPromise('http://localhost:3000/test').then((result) => {
+            console.log(result);
+
+            resolve(result);
         });
+        // return new Promise(function (resolve, reject) {
+        //     setTimeout(function () {
+        //         resolve(mockData);
+        //     }, 250);
+        // });
     }
 };
 
