@@ -11,6 +11,7 @@ var RouteHandler = Router.RouteHandler;
 var Header = require('./header.jsx');
 var Footer = require('./footer.jsx');
 var Result = require('./views/result.jsx');
+var ExerciseInput = require('./views/exercise-input.jsx');
 
 var Test = React.createClass({
     render: function () {
@@ -31,6 +32,8 @@ var App = React.createClass({
                     <li><Link to="test">Dashboard</Link></li>
                     <li><Link to="app">Home</Link></li>
                 </ul>
+
+                <ExerciseInput />
 
                 <Result />
 

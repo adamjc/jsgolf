@@ -18,8 +18,6 @@ class ResultActions {
         // we dispatch an event here so we can have a 'loading' event.
         this.dispatch();
 
-        answer = 'helloooooo!';
-
         requestPromise(requestOptions)
             .then((results) => {
                 this.actions.updateResults(results);
