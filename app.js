@@ -17,7 +17,9 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/react/index.html');
 });
 
-app.get('/test', (req, res) => {
+app.post('/exercise/:exericse', (req, res) => {
+    console.log(req.params);
+
     res.send([
         {
             id: 0,
@@ -30,13 +32,6 @@ app.get('/test', (req, res) => {
     ]);
 });
 
-// app.get('/', (req, res) => {
-//     res.render('index', {
-//         title: 'Test',
-//         message: 'Hello World!'
-//     });
-// });
-//
 // app.get('/exercise/:exercise/', (req, res) => {
 //     var exerciseData = getExerciseData(req.params.exercise);
 //

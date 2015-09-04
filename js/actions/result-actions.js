@@ -1,17 +1,26 @@
 var alt = require('../alt');
 var ResultsFetcher = require('../utils/results-fetcher');
-var rp = require('request-promise');
+var requestPromise = require('request-promise');
 
 class ResultActions {
     updateResults(results) {
         this.dispatch(results);
     }
 
-    fetchResults() {
+    fetchResults(exercise, answer) {
+        var url = 'http://localhost:3000/exercise/1';
+        var requestOptions = {
+            uri: url,
+            body: answer,
+            method: 'POST'
+        };
+
         // we dispatch an event here so we can have a 'loading' event.
         this.dispatch();
 
-        rp('http://localhost:3000/test')
+        answer = 'helloooooo!';
+
+        requestPromise(requestOptions)
             .then((results) => {
                 this.actions.updateResults(results);
             })

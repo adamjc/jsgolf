@@ -19,7 +19,7 @@ module.exports = React.createClass({
     },
 
     handleClick() {
-        ResultActions.fetchResults();
+        ResultActions.fetchResults(window.location.hash, 'yo');
     },
 
     render() {

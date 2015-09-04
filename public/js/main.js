@@ -7,7 +7,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var alt = require('../alt');
 var ResultsFetcher = require('../utils/results-fetcher');
-var rp = require('request-promise');
+var requestPromise = require('request-promise');
 
 var ResultActions = (function () {
     function ResultActions() {
@@ -21,13 +21,22 @@ var ResultActions = (function () {
         }
     }, {
         key: 'fetchResults',
-        value: function fetchResults() {
+        value: function fetchResults(exercise, answer) {
             var _this = this;
+
+            var url = 'http://localhost:3000/exercise/1';
+            var requestOptions = {
+                uri: url,
+                body: answer,
+                method: 'POST'
+            };
 
             // we dispatch an event here so we can have a 'loading' event.
             this.dispatch();
 
-            rp('http://localhost:3000/test').then(function (results) {
+            answer = 'helloooooo!';
+
+            requestPromise(requestOptions).then(function (results) {
                 _this.actions.updateResults(results);
             })['catch'](function (errorMessage) {
                 console.log(errorMessage);
@@ -158,35 +167,9 @@ module.exports = alt.createStore(ResultsStore, 'ResultStore');
 
 var requestPromise = require('request-promise');
 
-var mockData = [{
-    id: 0,
-    text: 'hello1'
-}, {
-    id: 1,
-    text: 'hello2'
-}, {
-    id: 2,
-    text: 'hello3'
-}, {
-    id: 3,
-    text: 'hello4'
-}, {
-    id: 4,
-    text: 'hello5'
-}];
-
 var resultsFetcher = {
     fetch: function fetch() {
-        return requestPromise('http://localhost:3000/test').then(function (result) {
-            console.log(result);
-
-            resolve(result);
-        });
-        // return new Promise(function (resolve, reject) {
-        //     setTimeout(function () {
-        //         resolve(mockData);
-        //     }, 250);
-        // });
+        return requestPromise('http://localhost:3000/test');
     }
 };
 
@@ -216,7 +199,7 @@ module.exports = React.createClass({ displayName: "exports",
     },
 
     handleClick: function handleClick() {
-        ResultActions.fetchResults();
+        ResultActions.fetchResults(window.location.hash, 'yo');
     },
 
     render: function render() {
