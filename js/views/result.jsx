@@ -33,7 +33,6 @@ module.exports = React.createClass({
             return (
                 <div>
                     loading-spinner.gif
-                    <button onClick={this.handleClick}></button>
                 </div>
             );
         }

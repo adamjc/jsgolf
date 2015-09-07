@@ -6,21 +6,18 @@ module.exports = React.createClass({
 
     getInitialState() {
         return {
-            inputValue: ''
+            answer: ''
         };
     },
 
     handleClick() {
-        console.log('handle click triggered');
-        //ResultActions.fetchResults(window.location.hash, 'yo');
+        ResultActions.fetchResults('exercise 1', this.state.answer);
     },
 
     render() {
-        console.log(this.state);
-
         return (
             <div>
-                <textarea valueLink={this.linkState('inputValue')} />
+                <textarea valueLink={this.linkState('answer')} />
                 <button onClick={this.handleClick}>Submit!</button>
             </div>
         )
