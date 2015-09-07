@@ -91,7 +91,7 @@ var App = React.createClass({ displayName: "App",
 var routes = React.createElement(Route, { name: "app", path: "/", handler: App }, React.createElement(Route, { name: "test", handler: Test }), React.createElement(DefaultRoute, { handler: Test }));
 
 $(document).ready(function () {
-    Router.run(routes, function (Handler) {
+    Router.run(routes, Router.HistoryLocation, function (Handler) {
         React.render(React.createElement(Handler, null), document.body);
     });
 });
@@ -185,19 +185,16 @@ module.exports = React.createClass({ displayName: "exports",
 
     getInitialState: function getInitialState() {
         return {
-            inputValue: ''
+            answer: ''
         };
     },
 
     handleClick: function handleClick() {
-        console.log('handle click triggered');
-        //ResultActions.fetchResults(window.location.hash, 'yo');
+        ResultActions.fetchResults('exercise 1', this.state.answer);
     },
 
     render: function render() {
-        console.log(this.state);
-
-        return React.createElement("div", null, React.createElement("textarea", { valueLink: this.linkState('inputValue') }), React.createElement("button", { onClick: this.handleClick }, "Submit!"));
+        return React.createElement("div", null, React.createElement("textarea", { valueLink: this.linkState('answer') }), React.createElement("button", { onClick: this.handleClick }, "Submit!"));
     }
 });
 
@@ -234,7 +231,7 @@ module.exports = React.createClass({ displayName: "exports",
         }
 
         if (!this.state.results.length) {
-            return React.createElement("div", null, "loading-spinner.gif", React.createElement("button", { onClick: this.handleClick }));
+            return React.createElement("div", null, "loading-spinner.gif");
         }
 
         return React.createElement("ul", null, this.state.results.map(function (result) {
