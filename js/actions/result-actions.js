@@ -1,6 +1,9 @@
+'use strict';
+
 var alt = require('../alt');
-var ResultsFetcher = require('../utils/results-fetcher');
 var requestPromise = require('request-promise');
+
+var baseUrl = 'http://localhost:3000/api/exercises/';
 
 class ResultActions {
     updateResults(results) {
@@ -8,10 +11,13 @@ class ResultActions {
     }
 
     fetchResults(exercise, answer) {
-        var url = 'http://localhost:3000/exercise/1';
+        console.log(answer);
+
         var requestOptions = {
-            uri: url,
-            body: answer,
+            uri: baseUrl + exercise,
+            json: {
+                answer: answer
+            },
             method: 'POST'
         };
 

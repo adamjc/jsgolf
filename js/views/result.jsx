@@ -1,5 +1,7 @@
+var React = require('react');
 var ResultStore = require('../stores/result-store');
 var ResultActions = require('../actions/result-actions');
+
 
 module.exports = React.createClass({
     getInitialState() {

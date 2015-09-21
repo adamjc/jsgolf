@@ -4,44 +4,36 @@ var bodyParser = require('body-parser');
 var Q = require('Q');
 var app = express();
 var _ = require('lodash');
+var path = require('path');
 
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/public', express.static(path.join(__dirname, '/public')));
 
-app.use('/static', express.static(__dirname + '/public'));
-
-app.set('view engine', 'jade');
-
-app.get('/', (req, res) => {
+app.get('/*', (req, res) => {
     res.sendFile(__dirname + '/react/index.html');
 });
 
-app.post('/exercise/:exericse', (req, res) => {
-    console.log(req.params);
+app.get('/api/exercises/:exercise', (req, res) => {
+    console.log('i am an exercise GET');
 
-    res.send([
-        {
-            id: 0,
-            text: 'yo'
-        },
-        {
-            id: 1,
-            text: 'test'
-        }
-    ]);
+    res.send({
+        a: 'hello'
+    });
 });
 
-// app.get('/exercise/:exercise/', (req, res) => {
-//     var exerciseData = getExerciseData(req.params.exercise);
-//
-//     if (exerciseData) {
-//         res.render('exercise', { exerciseData: exerciseData });
-//     } else {
-//         res.status(404).send('404: Nah m8.');
-//     }
-// });
-//
+app.post('/api/exercises/:exercise', (req, res) => {
+    var answer = req.body.answer;
+    var exerciseData = getExerciseData(answer);
+
+    if (!exerciseData) {
+        res.status(500).send('500: Nah m8.');
+        return;
+    }
+
+    res.send(exerciseData);
+});
+
 // app.get('/exercise', (req, res) => {
 //     var exercises = []
 //     Object.keys(exerciseMap).forEach((exercise) => {

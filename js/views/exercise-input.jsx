@@ -1,3 +1,6 @@
+'use strict';
+
+var React = require('react');
 var ReactAddons = require('react-addons');
 var ResultActions = require('../actions/result-actions');
 
@@ -11,7 +14,7 @@ module.exports = React.createClass({
     },
 
     handleClick() {
-        ResultActions.fetchResults('exercise 1', this.state.answer);
+        ResultActions.fetchResults(this.props.exercise, this.state.answer);
     },
 
     render() {
