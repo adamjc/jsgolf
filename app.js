@@ -14,46 +14,40 @@ app.get('/*', (req, res) => {
     res.sendFile(__dirname + '/react/index.html');
 });
 
-app.get('/api/exercises/:exercise', (req, res) => {
-    console.log('i am an exercise GET');
-
-    res.send({
-        a: 'hello'
-    });
+/* Returns the list of exercises available. */
+app.get('/api/exercises', (req, res) => {
+    res.send('/api/exercises');
 });
 
+/* Fetches data around the exercise, e.g. title, problem. */
+app.get('/api/exercises/:exercise', (req, res) => {
+    var exercises = [];
+    var fetchedExercise;
+
+    Object.keys(exerciseMap).forEach((exercise) => {
+        fetchedExercise = require('./exercises/' + exerciseMap[exercise]);
+        fetchedExercise.url = '/exercise/' + fetchedExercise.number;
+
+        exercises.push(fetchedExercise);
+    });
+
+    res.send(fetchedExercise);
+});
+
+/* Calculates answer and returns array of results. */
 app.post('/api/exercises/:exercise', (req, res) => {
-    var answer = req.body.answer;
-    var exerciseData = getExerciseData(answer);
+    var exercise = req.params.exercise;
+    var exerciseData = getExerciseData(exercise);
 
     if (!exerciseData) {
-        res.status(500).send('500: Nah m8.');
+        res.status(500).send('Exercise data not found.');
         return;
     }
 
     res.send(exerciseData);
 });
 
-// app.get('/exercise', (req, res) => {
-//     var exercises = []
-//     Object.keys(exerciseMap).forEach((exercise) => {
-//         var fetchedExercise = require('./exercises/' + exerciseMap[exercise]);
-//         fetchedExercise.url = '/exercise/' + fetchedExercise.number;
-//
-//         exercises.push(fetchedExercise);
-//     });
-//
-//     res.render('exercises', {title: 'Exercises', message: 'Exercises', exercises: exercises});
-// });
-//
 // app.post('/exercise/:exercise/', (req, res) => {
-//     var exerciseData = getExerciseData(req.params.exercise);
-//
-//     if (!exerciseData) {
-//         res.status(500).send('500: Nah m8.');
-//         return;
-//     }
-//
 //     var sandbox = new Sandbox();
 //     var results = [];
 //     var tests = exerciseData.tests;
