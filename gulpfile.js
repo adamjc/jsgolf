@@ -5,6 +5,8 @@ var source = require('vinyl-source-stream');
 var reactify = require('reactify');
 var run = require('gulp-run');
 var babelify = require('babelify');
+var mocha = require('gulp-mocha');
+var babel = require('babel/register');
 
 var paths = {
     scripts: ['js/**/*.jsx', 'js/**/*.js']
@@ -22,4 +24,13 @@ gulp.task('browserify', function () {
 
 gulp.task('watch', function () {
     gulp.watch(paths.scripts, ['browserify']);
+});
+
+gulp.task('test', function () {
+    return gulp.src('tests/**/*.js')
+        .pipe(mocha({
+            compilers: {
+                js: babel
+            }
+        }));
 });

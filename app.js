@@ -10,17 +10,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/public', express.static(path.join(__dirname, '/public')));
 
-app.get('/*', (req, res) => {
-    res.sendFile(__dirname + '/react/index.html');
-});
+var getExerciseList = require('./api/getExercisesList.js');
+var getExercise = require('./api/getExercise.js');
 
 /* Returns the list of exercises available. */
-app.get('/api/exercises', (req, res) => {
-    res.send('/api/exercises');
-});
+app.get('/api/exercises', getExerciseList);
 
 /* Fetches data around the exercise, e.g. title, problem. */
-app.get('/api/exercises/:exercise', (req, res) => {
+app.get('/api/exercises/:exercise', getExercise);
+
+/* Calculates answer and returns array of results. */
+app.post('/api/exercises/:exercise', (req, res) => {
     var exercise = req.params.exercise;
     var exerciseData = getExerciseData(exercise);
     var exercises = [];
@@ -31,20 +31,6 @@ app.get('/api/exercises/:exercise', (req, res) => {
         return;
     }
 
-    res.send(exerciseData);
-
-    Object.keys(exerciseMap).forEach((exercise) => {
-        fetchedExercise = require('./exercises/' + exerciseMap[exercise]);
-        fetchedExercise.url = '/exercise/' + fetchedExercise.number;
-
-        exercises.push(fetchedExercise);
-    });
-
-    res.send(fetchedExercise);
-});
-
-/* Calculates answer and returns array of results. */
-app.post('api/exercises/:exercise/', (req, res) => {
     var sandbox = new Sandbox();
     var results = [];
     var tests = exerciseData.tests;
@@ -106,6 +92,10 @@ app.post('api/exercises/:exercise/', (req, res) => {
     });
 });
 
+app.get('/*', (req, res) => {
+    res.sendFile(__dirname + '/react/index.html');
+});
+
 /**
  * As we are replacing strings, when doing so, we have to wrap it
  * with quotes, as otherwise it will just dump e.g. Hello World,
@@ -118,11 +108,6 @@ var wrapWithQuotesIfString = (input) => {
 
     return input;
 }
-
-var exerciseMap = {
-    '1': 'exercise_1_hello-world.js',
-    '2': 'exercise_2_add-one.js'
-};
 
 var getExerciseData = (exercise) => {
     var exerciseToLoad = exerciseMap[exercise];
