@@ -5,14 +5,14 @@ var fs = require('fs');
 var _ = require('lodash');
 
 describe('getExercise', function () {
-    var getExercisesList = require('../../../api/getExercise.js');
+    var getExercise = require('../../../api/getExercise.js');
     var req;
     var res;
 
     beforeEach(function () {
         req = httpMocks.createRequest({
             method: 'GET',
-            url: '/api/exercise/1',
+            url: '/api/exercises/1',
             params: {
                 exercise: '1'
             }
@@ -24,7 +24,7 @@ describe('getExercise', function () {
     it('should respond', function () {
         res.json = sinon.spy();
 
-        getExercisesList(req, res);
+        getExercise(req, res);
 
         expect(res.json.called).to.equal(true);
     });
@@ -32,7 +32,7 @@ describe('getExercise', function () {
     it('should return the exercise requested', function () {
         var parsedResponse;
 
-        getExercisesList(req, res);
+        getExercise(req, res);
 
         parsedResponse = JSON.parse(res._getData());
 
@@ -44,7 +44,7 @@ describe('getExercise', function () {
             var file = require('../../../exercises/exercise_1_hello-world');
             var parsedResponse;
 
-            getExercisesList(req, res);
+            getExercise(req, res);
 
             parsedResponse = JSON.parse(res._getData());
 
@@ -56,7 +56,7 @@ describe('getExercise', function () {
 
             var parsedResponse;
 
-            getExercisesList(req, res);
+            getExercise(req, res);
 
             parsedResponse = JSON.parse(res._getData());
 
