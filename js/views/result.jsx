@@ -20,10 +20,6 @@ module.exports = React.createClass({
         this.setState(state);
     },
 
-    handleClick() {
-        ResultActions.fetchResults(window.location.hash, 'yo');
-    },
-
     render() {
         if (this.state.errorMessage) {
             return (
@@ -31,7 +27,7 @@ module.exports = React.createClass({
             );
         }
 
-        if (!this.state.results.length) {
+        if (!this.state.results) {
             return (
                 <div>
                     loading-spinner.gif
@@ -43,7 +39,11 @@ module.exports = React.createClass({
             <ul>
                 {this.state.results.map((result) => {
                     return (
-                        <li key={result.id}>{result.text}</li>
+                        <li key={result.id}>
+                            <div>{result.correct}</div>
+                            <div>{result.input}</div>
+                            <div>{result.output}</div>
+                        </li>
                     );
                 })}
             </ul>

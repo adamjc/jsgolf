@@ -3,6 +3,7 @@
 var React = require('react');
 var ReactAddons = require('react-addons');
 var ResultActions = require('../actions/result-actions');
+var ExerciseActions = require('../actions/exercise-actions');
 
 module.exports = React.createClass({
     mixins: [ReactAddons.LinkedStateMixin],
@@ -15,6 +16,7 @@ module.exports = React.createClass({
 
     handleClick() {
         ResultActions.fetchResults(this.props.exercise, this.state.answer);
+        ExerciseActions.exerciseInputClicked(true);
     },
 
     render() {

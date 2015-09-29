@@ -1,7 +1,11 @@
 'use strict';
 
-var ExerciseInput = require('./exercise-input.jsx');
 var React = require('react');
+
+var ExerciseInput = require('./exercise-input.jsx');
+var Result = require('./result.jsx');
+
+var ExerciseStore = require('../stores/exercise-store');
 
 module.exports = React.createClass({
     getInitialState() {
@@ -10,10 +14,30 @@ module.exports = React.createClass({
         };
     },
 
+    componentDidMount() {
+        ExerciseStore.listen(this.onChange);
+    },
+
+    componentWillUnmount() {
+        ExerciseStore.unlisten(this.onChange);
+    },
+
+    onChange(state) {
+        this.setState(state);
+    },
+
     render() {
+        var result;
+
+        if (this.state.exerciseButtonClicked) {
+             result = <Result />;
+        }
+
         return(
             <div>
                 <ExerciseInput exercise={this.state.exercise}/>
+
+                {result}
             </div>
         );
     }

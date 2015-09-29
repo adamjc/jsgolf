@@ -3,7 +3,7 @@ var ResultActions = require('../actions/result-actions');
 
 class ResultsStore {
     constructor() {
-        this.results = [];
+        this.results = null;
         this.errorMessage = null;
 
         this.bindListeners({
@@ -14,7 +14,7 @@ class ResultsStore {
     }
 
     handleUpdateResults(results) {
-        this.results = JSON.parse(results);
+        this.results = results;
         this.errorMessage = null;
     }
 

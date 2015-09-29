@@ -13,14 +13,12 @@ function postExercise(req, res) {
     var exercises = [];
     var userFunction;
 
-    if (!exerciseData) {
+    if (!(exerciseData && req.body && req.body.answer)) {
         res.status(500).send('Exercise data not found.');
         return;
     }
 
-    if (req.body) {
-        userFunction = req.body.userFunction;
-    }
+    userFunction = req.body.answer;
 
     return Promise.resolve(processData(userFunction, exerciseData).then(() => {
         res.json(results);

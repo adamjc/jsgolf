@@ -11,8 +11,6 @@ class ResultActions {
     }
 
     fetchResults(exercise, answer) {
-        console.log(answer);
-
         var requestOptions = {
             uri: baseUrl + exercise,
             json: {
