@@ -75,7 +75,7 @@ var ExerciseListActions = (function () {
             this.dispatch();
 
             requestPromise(requestOptions).then(function (results) {
-                _this.actions.updateResults(results);
+                _this.actions.updateExerciseList(results);
             })['catch'](function (errorMessage) {
                 console.log(errorMessage);
             });
@@ -267,8 +267,6 @@ var ExerciseListStore = (function () {
     function ExerciseListStore() {
         _classCallCheck(this, ExerciseListStore);
 
-        this.exerciseList = 'Hello this is a test list.';
-
         this.bindListeners({
             handleUpdateExerciseList: ExerciseListActions.UPDATE_EXERCISE_LIST
         });
@@ -423,10 +421,11 @@ module.exports = React.createClass({ displayName: "exports",
 
     onChange: function onChange(state) {
         this.setState(state);
+        console.log(state);
     },
 
     render: function render() {
-        return React.createElement("div", null, this.state.exerciseList);
+        return React.createElement("div", null, this.state.exerciseList.title, this.state.exerciseList.url);
     }
 });
 

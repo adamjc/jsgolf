@@ -23,12 +23,15 @@ module.exports = React.createClass({
 
     onChange(state) {
         this.setState(state);
+        console.log(state);
     },
 
     render() {
         return(
             <div>
-                {this.state.exerciseList}
+                // for each!
+                {this.state.exerciseList.title}
+                {this.state.exerciseList.url}
             </div>
         );
     }

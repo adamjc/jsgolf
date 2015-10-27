@@ -4,8 +4,6 @@ var ExerciseListActions = require('../actions/exercise-list-actions');
 
 class ExerciseListStore {
     constructor() {
-        this.exerciseList = 'Hello this is a test list.';
-
         this.bindListeners({
             handleUpdateExerciseList: ExerciseListActions.UPDATE_EXERCISE_LIST
         });
