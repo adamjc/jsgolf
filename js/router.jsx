@@ -4,6 +4,7 @@ var React = require('react');
 var page = require('page');
 
 var Exercise = require('./views/exercise.jsx');
+var ExerciseList = require('./views/exercise-list.jsx');
 
 module.exports = React.createClass({
     getInitialState() {
@@ -25,7 +26,7 @@ module.exports = React.createClass({
 
         page('/exercises', (ctx) => {
             self.setState({
-                component: <div>Exercises</div>
+                component: <ExerciseList></ExerciseList>
             });
         });
 

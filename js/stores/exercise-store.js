@@ -12,11 +12,11 @@ class ExerciseStore {
     }
 
     handleUpdateExercise() {
-        this.exerciseButtonClicked = true;
+        this.answerSubmitted = true;
     }
 
     handleUpdateExerciseList() {
-        
+
     }
 }
 

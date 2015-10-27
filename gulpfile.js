@@ -34,3 +34,5 @@ gulp.task('test', function () {
             }
         }));
 });
+
+gulp.task('default', ['browserify'], function () {});

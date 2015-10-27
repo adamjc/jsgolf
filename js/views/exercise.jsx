@@ -29,7 +29,7 @@ module.exports = React.createClass({
     render() {
         var result;
 
-        if (this.state.exerciseButtonClicked) {
+        if (this.state.answerSubmitted) {
              result = <Result />;
         }
 
