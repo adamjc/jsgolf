@@ -8,7 +8,7 @@ var ExerciseListActions = require('../actions/exercise-list-actions');
 module.exports = React.createClass({
     getInitialState() {
         return {
-            exerciseList: 'example...'
+            exerciseList: ''
         };
     },
 
@@ -27,11 +27,20 @@ module.exports = React.createClass({
     },
 
     render() {
+        var exercises;
+
+        if (this.state.exerciseList) {
+            exercises = this.state.exerciseList.map(function(exercise) {
+                return <li>
+                           <a href={exercise.url}>{exercise.title}</a>
+                       </li>
+            });
+        }
+
+
         return(
             <div>
-                // for each!
-                {this.state.exerciseList.title}
-                {this.state.exerciseList.url}
+                {exercises}
             </div>
         );
     }

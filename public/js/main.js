@@ -75,7 +75,7 @@ var ExerciseListActions = (function () {
             this.dispatch();
 
             requestPromise(requestOptions).then(function (results) {
-                _this.actions.updateExerciseList(results);
+                _this.actions.updateExerciseList(JSON.parse(results));
             })['catch'](function (errorMessage) {
                 console.log(errorMessage);
             });
@@ -406,7 +406,7 @@ var ExerciseListActions = require('../actions/exercise-list-actions');
 module.exports = React.createClass({ displayName: "exports",
     getInitialState: function getInitialState() {
         return {
-            exerciseList: 'example...'
+            exerciseList: ''
         };
     },
 
@@ -425,7 +425,15 @@ module.exports = React.createClass({ displayName: "exports",
     },
 
     render: function render() {
-        return React.createElement("div", null, this.state.exerciseList.title, this.state.exerciseList.url);
+        var exercises;
+
+        if (this.state.exerciseList) {
+            exercises = this.state.exerciseList.map(function (exercise) {
+                return React.createElement("li", null, React.createElement("a", { href: exercise.url }, exercise.title));
+            });
+        }
+
+        return React.createElement("div", null, exercises);
     }
 });
 

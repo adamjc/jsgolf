@@ -21,7 +21,7 @@ class ExerciseListActions {
 
         requestPromise(requestOptions)
             .then((results) => {
-                this.actions.updateExerciseList(results);
+                this.actions.updateExerciseList(JSON.parse(results));
             })
             .catch((errorMessage) => {
                 console.log(errorMessage);
