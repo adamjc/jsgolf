@@ -23,29 +23,28 @@
     "jade": "^1.11.0",
     "jquery": "^2.1.4",
     "lodash": "^3.10.1",
-    "q": "^1.2.0",
     "react": "^0.13.3",
     "react-addons": "^0.9.1-deprecated",
     "react-router": "^0.13.3",
-    "request-promise": "^0.4.3"
-  },
-  "devDependencies": {
+    "request-promise": "^0.4.3",
     "babel": "^5.8.23",
     "babelify": "^6.3.0",
     "browserify": "^11.0.1",
-    "chai": "^3.3.0",
-    "express-mocks-http": "0.0.11",
     "gulp": "^3.9.0",
-    "gulp-jasmine": "^2.1.0",
-    "gulp-mocha": "^2.1.3",
     "gulp-run": "^1.6.10",
     "gulp-watch": "^4.3.5",
+    "vinyl-source-stream": "^1.1.0",
+    "reactify": "^1.1.1",
+    "sandbox": "^0.8.6"
+  },
+  "devDependencies": {
+    "chai": "^3.3.0",
+    "express-mocks-http": "0.0.11",
+    "gulp-jasmine": "^2.1.0",
+    "gulp-mocha": "^2.1.3",
     "jasmine": "^2.3.2",
     "mocha": "^2.3.3",
     "node-mocks-http": "^1.4.4",
-    "reactify": "^1.1.1",
-    "sandbox": "^0.8.6",
-    "sinon": "^1.16.1",
-    "vinyl-source-stream": "^1.1.0"
+    "sinon": "^1.16.1"
   }
 }

@@ -1,7 +1,6 @@
 'use strict';
 
 var Sandbox = require('sandbox');
-var Q = require('Q');
 var _ = require('lodash');
 
 var exerciseMap = require('../utils/exercise-map');

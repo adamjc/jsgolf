@@ -3,7 +3,6 @@ var expect = require('chai').expect;
 var sinon = require('sinon');
 var fs = require('fs');
 var _ = require('lodash');
-var Q = require('Q');
 
 describe('postExercise', function () {
     var postExercise = require('../../../api/postExercise.js');
