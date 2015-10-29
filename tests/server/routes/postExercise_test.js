@@ -18,7 +18,7 @@ describe('postExercise', function () {
                 exercise: '1'
             },
             body: {
-                userFunction: 'function () { return "Hello World!"; }'
+                answer: 'function () { return "Hello World!"; }'
             }
         });
 

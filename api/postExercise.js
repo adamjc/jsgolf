@@ -20,19 +20,18 @@ function postExercise(req, res) {
 
     userFunction = req.body.answer;
 
-    return Promise.resolve(processData(userFunction, exerciseData).then(() => {
+    return Promise.all(processData(userFunction, exerciseData)).then(() => {
         res.json(results);
-    }));
+    });
 }
 
 function processData(userFunction, exerciseData) {
-    var promises = Q();
+    var promises = [];
     var tests = exerciseData.tests;
     var sandbox = new Sandbox();
 
     Object.keys(tests).forEach((testDataElement, index) => {
-        promises = promises.then(() => {
-            var deferred = Q.defer();
+        var promise = Promise.resolve(function() {
             var parsedFunction;
             var testInput;
             var func = '(function(){ \
@@ -50,30 +49,30 @@ function processData(userFunction, exerciseData) {
             testInput = wrapWithQuotesIfString(testInput);
             parsedFunction = parsedFunction.replace('testInput', testInput);
 
-            sandbox.run(parsedFunction, (output) => {
-                var result;
-                var resultObject = {};
+            return Promise.resolve(function() {
+                sandbox.run(parsedFunction, (output) => {
+                    var result;
+                    var resultObject = {};
 
-                result = output.result.split('');
-                result.pop();
-                result.shift();
-                result = result.join('');
+                    result = output.result.split('');
+                    result.pop();
+                    result.shift();
+                    result = result.join('');
 
-                try {
-                    resultObject = JSON.parse(result);
-                    resultObject.correct = _.isEqual(resultObject.output, exerciseData.tests[index].expectedOutput);
-                } catch (e) {
-                    console.log('Error:', e);
-                    resultObject.output = 'Error';
-                }
+                    try {
+                        resultObject = JSON.parse(result);
+                        resultObject.correct = _.isEqual(resultObject.output, exerciseData.tests[index].expectedOutput);
+                    } catch (e) {
+                        console.log('Error:', e);
+                        resultObject.output = 'Error';
+                    }
 
-                results[index] = resultObject;
-
-                deferred.resolve();
+                    results[index] = resultObject;
+                });
             });
-
-            return deferred.promise;
         });
+
+        promises.push(promise);
     });
 
     return promises;
