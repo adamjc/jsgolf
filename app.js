@@ -27,7 +27,9 @@ app.get('/*', (req, res) => {
     res.sendFile(__dirname + '/react/index.html');
 });
 
-var server = app.listen(3000, () => {
+app.set('port', (process.env.PORT || 5000));
+
+var server = app.listen(app.get('port'), () => {
     var port = server.address().port;
 
     console.log('jsgolf listening at http://localhost:%s', port);
