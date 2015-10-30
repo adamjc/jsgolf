@@ -3,7 +3,7 @@
 var alt = require('../alt');
 var requestPromise = require('request-promise');
 
-var baseUrl = 'http://localhost:3000/api/exercises/';
+var baseUrl = 'http://localhost:5000/api/exercises/';
 
 class ResultActions {
     updateResults(results) {
