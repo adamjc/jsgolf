@@ -36,9 +36,7 @@
     "gulp-watch": "^4.3.5",
     "vinyl-source-stream": "^1.1.0",
     "reactify": "^1.1.1",
-    "sandbox": "^0.8.6"
-  },
-  "devDependencies": {
+    "sandbox": "^0.8.6",
     "chai": "^3.3.0",
     "express-mocks-http": "0.0.11",
     "gulp-jasmine": "^2.1.0",
