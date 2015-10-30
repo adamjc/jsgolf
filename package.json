@@ -4,7 +4,8 @@
   "description": "JS Golf Website",
   "main": "index.js",
   "scripts": {
-    "test": "echo 'Everything is fine.'"
+    "test": "echo 'Everything is fine.'",
+    "start": "gulp browserify && node --harmony app.js"
   },
   "repository": {
     "type": "git",
