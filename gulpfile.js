@@ -9,7 +9,7 @@ var mocha = require('gulp-mocha');
 var babel = require('babel/register');
 
 var paths = {
-    scripts: ['js/**/*.jsx', 'js/**/*.js']
+    scripts: ['./js/**/*.jsx', './js/**/*.js']
 };
 
 gulp.task('browserify', function () {
