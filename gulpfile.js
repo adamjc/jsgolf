@@ -7,26 +7,56 @@ var run = require('gulp-run');
 var babelify = require('babelify');
 var mocha = require('gulp-mocha');
 var babel = require('babel/register');
+var del = require('del');
+var rename = require('gulp-rename');
 
 var paths = {
     scripts: ['./js/**/*.jsx', './js/**/*.js']
 };
 
-gulp.task('browserify', function () {
+var settings = {
+    environment: process.env.NODE_ENV || 'production',
+    configFolder: './client/source/js/config',
+    sourceFolder: './client/source/js',
+    buildFolder: './client/pre-build/js',
+    destFolder: './public/js'
+};
+
+gulp.task('clean', function() {
+    return del(settings.buildFolder + '/**/*');
+});
+
+gulp.task('config', ['clean'], function() {
+    console.log('building for ' + settings.environment + '...');
+    return gulp.src(settings.configFolder + '/' + settings.environment + '.js')
+               .pipe(rename('config.js'))
+               .pipe(gulp.dest(settings.buildFolder));
+});
+
+gulp.task('copy-source', ['clean'], function() {
+    return gulp.src([
+        settings.sourceFolder + '/**/*',
+        '!' + settings.sourceFolder + '/config',
+        '!' + settings.sourceFolder + '/config/**/*'
+    ]).pipe(gulp.dest(settings.buildFolder));
+});
+
+gulp.task('browserify', ['config', 'copy-source'], function() {
     var b = browserify();
     b.transform(reactify);
     b.transform(babelify);
-    b.add('js/app.jsx');
+    b.add(settings.buildFolder + '/app.jsx');
     return b.bundle()
             .pipe(source('main.js'))
-            .pipe(gulp.dest('./public/js'));
+            .pipe(gulp.dest(settings.destFolder));
 });
 
-gulp.task('watch', function () {
-    gulp.watch(paths.scripts, ['browserify']);
-});
+// TODO: Fix.
+// gulp.task('watch', function() {
+//     gulp.watch(paths.scripts, ['browserify']);
+// });
 
-gulp.task('test', function () {
+gulp.task('test', function() {
     return gulp.src('tests/**/*.js')
         .pipe(mocha({
             compilers: {
@@ -35,4 +65,5 @@ gulp.task('test', function () {
         }));
 });
 
-gulp.task('default', ['browserify'], function () {});
+gulp.task('default', ['browserify'], function () {
+});

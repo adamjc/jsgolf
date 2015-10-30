@@ -3,7 +3,8 @@
 var alt = require('../alt');
 var requestPromise = require('request-promise');
 
-var baseUrl = '/api/exercises/';
+var config = require('../config');
+var url = config.host + '/api/exercises/';
 
 class ExerciseListActions {
     updateExerciseList(data) {
@@ -12,7 +13,7 @@ class ExerciseListActions {
 
     getExerciseList(data) {
         var requestOptions = {
-            uri: baseUrl,
+            uri: url,
             method: 'GET'
         };
 

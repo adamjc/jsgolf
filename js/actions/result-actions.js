@@ -3,7 +3,8 @@
 var alt = require('../alt');
 var requestPromise = require('request-promise');
 
-var baseUrl = '/api/exercises/';
+var config = require('../config');
+var url = config.host + '/api/exercises/';
 
 class ResultActions {
     updateResults(results) {
@@ -12,7 +13,7 @@ class ResultActions {
 
     fetchResults(exercise, answer) {
         var requestOptions = {
-            uri: baseUrl + exercise,
+            uri: url + exercise,
             json: {
                 answer: answer
             },
