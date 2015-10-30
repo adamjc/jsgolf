@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo 'Everything is fine.'",
-    "start": "gulp browserify && node --harmony app.js"
+    "start": "npm install && gulp browserify && node --harmony app.js"
   },
   "repository": {
     "type": "git",
