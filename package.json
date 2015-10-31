@@ -42,7 +42,6 @@
     "page": "^1.6.4",
     "react": "^0.13.3",
     "react-addons": "^0.9.1-deprecated",
-    "react-router": "^0.13.3",
     "reactify": "^1.1.1",
     "request-promise": "^0.4.3",
     "sandbox": "^0.8.6",
