@@ -13,6 +13,6 @@ var helloWorld = {
             'expectedOutput': 'Hello World!'
         }
     ]
-}
+};
 
 module.exports = helloWorld;
