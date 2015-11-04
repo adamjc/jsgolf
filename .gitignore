@@ -1,3 +1,4 @@
 node_modules
 public
 client/pre-build
+.DS_Store

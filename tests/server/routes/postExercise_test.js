@@ -5,7 +5,7 @@ var fs = require('fs');
 var _ = require('lodash');
 
 describe('postExercise', function () {
-    var postExercise = require('../../../api/postExercise.js');
+    var postExercise = require('../../../server/api/postExercise.js');
     var req;
     var res;
 

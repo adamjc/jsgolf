@@ -5,7 +5,7 @@ var fs = require('fs');
 var _ = require('lodash');
 
 describe('getExercisesList', function () {
-    var getExercisesList = require('../../../api/getExercisesList.js');
+    var getExercisesList = require('../../../server/api/getExercisesList.js');
     var req;
     var res;
 
@@ -27,7 +27,7 @@ describe('getExercisesList', function () {
     });
 
     it('should return a list of all the exercises available', function () {
-        var files = fs.readdirSync('./exercises');
+        var files = fs.readdirSync('./server/exercises');
         var parsedResponse;
 
         getExercisesList(req, res);

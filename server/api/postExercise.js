@@ -19,7 +19,7 @@ function postExercise(req, res) {
 
     userFunction = req.body.answer;
 
-    return Promise.all(processData(userFunction, exerciseData)).then(() => {
+    return Promise.all(processData(userFunction, exerciseData)).then((results) => {
         res.json(results);
     });
 }
@@ -29,10 +29,10 @@ function processData(userFunction, exerciseData) {
     var tests = exerciseData.tests;
     var sandbox = new Sandbox();
 
-    Object.keys(tests).forEach((testDataElement, index) => {
-        var promise = Promise.resolve(function() {
+    Object.keys(tests).forEach((element, index) => {
+        var promise = new Promise(function(resolve, reject) {
+            var testInput = wrapWithQuotesIfString(tests[index].testInput);
             var parsedFunction;
-            var testInput;
             var func = '(function(){ \
                             var input = testInput; \
                             var output = usersFunction(input); \
@@ -44,30 +44,26 @@ function processData(userFunction, exerciseData) {
                         })()';
 
             parsedFunction = func.replace('usersFunction', userFunction);
-            testInput = tests[index].testInput;
-            testInput = wrapWithQuotesIfString(testInput);
             parsedFunction = parsedFunction.replace('testInput', testInput);
 
-            return Promise.resolve(function() {
-                sandbox.run(parsedFunction, (output) => {
-                    var result;
-                    var resultObject = {};
+            sandbox.run(parsedFunction, (output) => {
+                var result;
+                var resultObject = {};
 
-                    result = output.result.split('');
-                    result.pop();
-                    result.shift();
-                    result = result.join('');
+                result = output.result.split('');
+                result.pop();
+                result.shift();
+                result = result.join('');
 
-                    try {
-                        resultObject = JSON.parse(result);
-                        resultObject.correct = _.isEqual(resultObject.output, exerciseData.tests[index].expectedOutput);
-                    } catch (e) {
-                        console.log('Error:', e);
-                        resultObject.output = 'Error';
-                    }
+                try {
+                    resultObject = JSON.parse(result);
+                    resultObject.correct = _.isEqual(resultObject.output, exerciseData.tests[index].expectedOutput);
+                } catch (e) {
+                    console.log('Error:', e);
+                    resultObject.output = 'Error';
+                }
 
-                    results[index] = resultObject;
-                });
+                resolve(resultObject);
             });
         });
 

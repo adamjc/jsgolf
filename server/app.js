@@ -12,7 +12,7 @@ var postExercise = require('./api/postExercise');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/public', express.static(path.join(__dirname, '/public')));
+app.use('/public', express.static(path.resolve(__dirname, '../public')));
 
 /* Returns the list of exercises available. */
 app.get('/api/exercises', getExerciseList);
@@ -24,7 +24,7 @@ app.get('/api/exercises/:exercise', getExercise);
 app.post('/api/exercises/:exercise', postExercise);
 
 app.get('/*', (req, res) => {
-    res.sendFile(__dirname + '/react/index.html');
+    res.sendFile(path.resolve(__dirname, '../index.html'));
 });
 
 app.set('port', (process.env.PORT || 5000));

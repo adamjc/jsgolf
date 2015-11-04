@@ -5,7 +5,7 @@ var fs = require('fs');
 var _ = require('lodash');
 
 describe('getExercise', function () {
-    var getExercise = require('../../../api/getExercise.js');
+    var getExercise = require('../../../server/api/getExercise.js');
     var req;
     var res;
 
@@ -41,7 +41,7 @@ describe('getExercise', function () {
 
     describe('The returned json object', function () {
         it('should contain a title', function () {
-            var file = require('../../../exercises/exercise_1_hello-world');
+            var file = require('../../../server/exercises/exercise_1_hello-world');
             var parsedResponse;
 
             getExercise(req, res);
@@ -52,7 +52,7 @@ describe('getExercise', function () {
         });
 
         it('should contain some exercise text', function () {
-            var file = require('../../../exercises/exercise_1_hello-world');
+            var file = require('../../../server/exercises/exercise_1_hello-world');
 
             var parsedResponse;
 
