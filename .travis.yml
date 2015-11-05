@@ -5,3 +5,9 @@ install:
     - npm install
 script:
     - gulp test
+after_success:
+    - eval "$(ssh-agent -s)" #start the ssh agent
+    - chmod 600 ~/.ssh/id_rsa_travis # this key should have push access
+    - ssh-add ~/.ssh/id_rsa_travis
+    - git remote add deploy root@jsgolf.co/
+    - git push deploy
