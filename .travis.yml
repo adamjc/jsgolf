@@ -1,4 +1,6 @@
 language: javascript
+before_install:
+    - openssl aes-256-cbc -K $encrypted_4128878653b2_key -iv $encrypted_4128878653b2_iv -in id_rsa_travis.enc -out ~\/.ssh/id_rsa_travis -d
 install:
     - npm install
 script:
