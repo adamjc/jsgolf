@@ -231,30 +231,28 @@ module.exports = React.createClass({ displayName: "exports",
     },
 
     componentDidMount: function componentDidMount() {
-        var self = this;
+        var _this = this;
 
         page('/', function (ctx) {
-            self.setState({
+            _this.setState({
                 component: React.createElement("div", null, "Home")
             });
         });
 
         page('/exercises', function (ctx) {
-            self.setState({
+            _this.setState({
                 component: React.createElement(ExerciseList, null)
             });
         });
 
         page('/exercises/:exercise', function (ctx) {
-            console.log(ctx.params.exercise);
-
-            self.setState({
+            _this.setState({
                 component: React.createElement(Exercise, { exercise: ctx.params.exercise })
             });
         });
 
         page('*', function (ctx) {
-            self.setState({
+            _this.setState({
                 component: React.createElement("div", null, "404")
             });
         });

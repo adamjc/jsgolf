@@ -1,14 +1,14 @@
 'use strict';
 
-var React = require('react');
-var page = require('page');
+const React = require('react');
+const page = require('page');
 
-var Exercise = require('./views/exercise.jsx');
-var ExerciseList = require('./views/exercise-list.jsx');
+const Exercise = require('./views/exercise.jsx');
+const ExerciseList = require('./views/exercise-list.jsx');
 
 module.exports = React.createClass({
     getInitialState() {
-        return { component: <div /> }
+        return { component: <div /> };
     },
 
     render() {
@@ -16,30 +16,26 @@ module.exports = React.createClass({
     },
 
     componentDidMount() {
-        var self = this;
-
         page('/', (ctx) => {
-            self.setState({
+            this.setState({
                 component: <div>Home</div>
             });
         });
 
         page('/exercises', (ctx) => {
-            self.setState({
+            this.setState({
                 component: <ExerciseList></ExerciseList>
             });
         });
 
         page('/exercises/:exercise', (ctx) => {
-            console.log(ctx.params.exercise);
-
-            self.setState({
+            this.setState({
                 component: <Exercise exercise={ctx.params.exercise} />
             });
         });
 
         page('*', (ctx) => {
-            self.setState({
+            this.setState({
                 component: <div>404</div>
             });
         });
