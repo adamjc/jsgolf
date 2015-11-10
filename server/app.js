@@ -1,14 +1,14 @@
 'use strict';
 
-var express = require('express');
-var bodyParser = require('body-parser');
-var app = express();
-var _ = require('lodash');
-var path = require('path');
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const  _ = require('lodash');
+const path = require('path');
 
-var getExerciseList = require('./api/getExercisesList');
-var getExercise = require('./api/getExercise');
-var postExercise = require('./api/postExercise');
+const getExerciseList = require('./api/getExercisesList');
+const getExercise = require('./api/getExercise');
+const postExercise = require('./api/postExercise');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -29,8 +29,8 @@ app.get('/*', (req, res) => {
 
 app.set('port', (process.env.PORT || 5000));
 
-var server = app.listen(app.get('port'), () => {
-    var port = server.address().port;
+let server = app.listen(app.get('port'), () => {
+    let port = server.address().port;
 
     console.log('jsgolf listening at http://localhost:%s', port);
 });

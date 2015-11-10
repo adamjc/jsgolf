@@ -1,16 +1,12 @@
 'use strict';
 
-var Sandbox = require('sandbox');
-var _ = require('lodash');
-
-var exerciseMap = require('../utils/exercise-map');
-
-var results = [];
+const Sandbox = require('sandbox');
+const _ = require('lodash');
+const exerciseMap = require('../utils/exercise-map');
 
 function postExercise(req, res) {
-    var exerciseData = getExerciseData(req.params.exercise);
-    var exercises = [];
-    var userFunction;
+    let exerciseData = getExerciseData(req.params.exercise);
+    let userFunction;
 
     if (!(exerciseData && req.body && req.body.answer)) {
         res.status(500).send('Exercise data not found.');
@@ -25,15 +21,15 @@ function postExercise(req, res) {
 }
 
 function processData(userFunction, exerciseData) {
-    var promises = [];
-    var tests = exerciseData.tests;
-    var sandbox = new Sandbox();
+    let promises = [];
+    let tests = exerciseData.tests;
+    let sandbox = new Sandbox();
 
     Object.keys(tests).forEach((element, index) => {
-        var promise = new Promise(function(resolve, reject) {
-            var testInput = wrapWithQuotesIfString(tests[index].testInput);
-            var parsedFunction;
-            var func = '(function(){ \
+        let promise = new Promise((resolve, reject) => {
+            let testInput = wrapWithQuotesIfString(tests[index].testInput);
+            let parsedFunction;
+            let func = '(function(){ \
                             var input = testInput; \
                             var output = usersFunction(input); \
                             var result = { \
@@ -47,8 +43,8 @@ function processData(userFunction, exerciseData) {
             parsedFunction = parsedFunction.replace('testInput', testInput);
 
             sandbox.run(parsedFunction, (output) => {
-                var result;
-                var resultObject = {};
+                let result;
+                let resultObject = {};
 
                 result = output.result.split('');
                 result.pop();
@@ -86,12 +82,12 @@ function wrapWithQuotesIfString(input) {
 }
 
 function getExerciseData(exercise) {
-    var exerciseToLoad = exerciseMap[exercise];
-    var exercise;
+    let exerciseToLoad = exerciseMap[exercise];
+    let exerciseData;
 
     if (exerciseToLoad) {
-        exercise = '../exercises/' + exerciseToLoad;
-        return require(exercise);
+        exerciseData = '../exercises/' + exerciseToLoad;
+        return require(exerciseData);
     } else {
         return null;
     }

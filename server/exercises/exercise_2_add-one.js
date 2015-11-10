@@ -1,4 +1,4 @@
-var addOne = {
+const addOne = {
     number: 2,
     title: "Exercise 2 - Add One",
     description: "Produce a function that takes a Number, and adds 1 to it.",

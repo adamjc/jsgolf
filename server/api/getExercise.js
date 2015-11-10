@@ -1,13 +1,12 @@
 'use strict';
 
-var fs = require('fs');
-
-var exerciseMap = require('../utils/exercise-map');
+const fs = require('fs');
+const exerciseMap = require('../utils/exercise-map');
 
 /* Returns the list of exercises available. */
 function getExercise(req, res) {
-    var exerciseNumber = req.params.exercise;
-    var fullExercise;
+    let exerciseNumber = req.params.exercise;
+    let fullExercise;
 
     Object.keys(exerciseMap).forEach((exercise) => {
         if (exercise === exerciseNumber) {
