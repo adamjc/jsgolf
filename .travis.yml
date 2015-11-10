@@ -11,3 +11,6 @@ after_success:
     - ssh-add ./travis
     - git remote add deploy ssh://root@jsgolf.co/var/repo/jsgolf.git
     - git push deploy
+addons:
+  ssh_known_hosts:
+      - jsgolf.co
