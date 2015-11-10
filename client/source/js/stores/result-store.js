@@ -1,5 +1,5 @@
-var alt = require('../alt');
-var ResultActions = require('../actions/result-actions');
+const alt = require('../alt');
+const ResultActions = require('../actions/result-actions');
 
 class ResultsStore {
     constructor() {

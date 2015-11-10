@@ -1,10 +1,9 @@
 'use strict';
 
-var alt = require('../alt');
-var requestPromise = require('request-promise');
-
-var config = require('../config');
-var url = config.host + '/api/exercises/';
+const alt = require('../alt');
+const requestPromise = require('request-promise');
+const config = require('../config');
+const url = config.host + '/api/exercises/';
 
 class ExerciseListActions {
     updateExerciseList(data) {
@@ -12,7 +11,7 @@ class ExerciseListActions {
     }
 
     getExerciseList(data) {
-        var requestOptions = {
+        let requestOptions = {
             uri: url,
             method: 'GET'
         };

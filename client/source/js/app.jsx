@@ -1,10 +1,9 @@
 'use strict';
 
-var React = require('react');
-
-var Header = require('./header.jsx');
-var Footer = require('./footer.jsx');
-var Router = require('./router.jsx');
+const React = require('react');
+const Header = require('./header.jsx');
+const Footer = require('./footer.jsx');
+const Router = require('./router.jsx');
 
 var App = React.createClass({
     render() {

@@ -1,9 +1,8 @@
 'use strict';
 
-var React = require('react');
-
-var ExerciseListStore = require('../stores/exercise-list-store');
-var ExerciseListActions = require('../actions/exercise-list-actions');
+const React = require('react');
+const ExerciseListStore = require('../stores/exercise-list-store');
+const ExerciseListActions = require('../actions/exercise-list-actions');
 
 module.exports = React.createClass({
     getInitialState() {
@@ -27,10 +26,10 @@ module.exports = React.createClass({
     },
 
     render() {
-        var exercises;
+        let exercises;
 
         if (this.state.exerciseList) {
-            exercises = this.state.exerciseList.map(function(exercise) {
+            exercises = this.state.exerciseList.map((exercise) => {
                 return <li>
                            <a href={exercise.url}>{exercise.title}</a>
                        </li>

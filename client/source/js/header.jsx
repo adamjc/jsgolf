@@ -1,7 +1,7 @@
 'use strict';
 
-var React = require('react');
-var page = require('page');
+const React = require('react');
+const page = require('page');
 
 function navigate(url) {
     return () => {

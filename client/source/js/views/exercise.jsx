@@ -1,11 +1,9 @@
 'use strict';
 
-var React = require('react');
-
-var ExerciseInput = require('./exercise-input.jsx');
-var Result = require('./result.jsx');
-
-var ExerciseStore = require('../stores/exercise-store');
+const React = require('react');
+const ExerciseInput = require('./exercise-input.jsx');
+const Result = require('./result.jsx');
+const ExerciseStore = require('../stores/exercise-store');
 
 module.exports = React.createClass({
     getInitialState() {
@@ -27,7 +25,7 @@ module.exports = React.createClass({
     },
 
     render() {
-        var result;
+        let result;
 
         if (this.state.answerSubmitted) {
              result = <Result />;

@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 const app = express();
 const  _ = require('lodash');
 const path = require('path');
-
 const getExerciseList = require('./api/getExercisesList');
 const getExercise = require('./api/getExercise');
 const postExercise = require('./api/postExercise');

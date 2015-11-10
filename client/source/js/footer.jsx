@@ -1,4 +1,6 @@
-var React = require('react');
+'use strict';
+
+const React = require('react');
 
 module.exports = React.createClass({
     render() {

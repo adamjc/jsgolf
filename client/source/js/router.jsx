@@ -2,7 +2,6 @@
 
 const React = require('react');
 const page = require('page');
-
 const Exercise = require('./views/exercise.jsx');
 const ExerciseList = require('./views/exercise-list.jsx');
 

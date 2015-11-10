@@ -1,6 +1,5 @@
-var alt = require('../alt');
-
-var ExerciseListActions = require('../actions/exercise-list-actions');
+const alt = require('../alt');
+const ExerciseListActions = require('../actions/exercise-list-actions');
 
 class ExerciseListStore {
     constructor() {

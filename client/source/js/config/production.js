@@ -1,5 +1,3 @@
-var config = {
+module.exports = {
     host: 'http://golfjs.co'
-}
-
-module.exports = config;
+};

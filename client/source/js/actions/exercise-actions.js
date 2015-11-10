@@ -1,6 +1,6 @@
 'use strict';
 
-var alt = require('../alt');
+const alt = require('../alt');
 
 class ExerciseActions {
     updateExercise() {
