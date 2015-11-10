@@ -1,13 +1,13 @@
 language: javascript
 before_install:
-    - openssl aes-256-cbc -K $encrypted_9f9aee1807b3_key -iv $encrypted_9f9aee1807b3_iv -in travis.enc -out ~\/.ssh/travis -d
+    - openssl aes-256-cbc -K $encrypted_9f9aee1807b3_key -iv $encrypted_9f9aee1807b3_iv -in travis.enc -out ./travis -d
 install:
     - npm install
 script:
     - gulp test
 after_success:
     - eval "$(ssh-agent -s)"
-    - chmod 600 ~/.ssh/travis
-    - ssh-add ~/.ssh/travis
+    - chmod 600 ./travis
+    - ssh-add ./travis
     - git remote add deploy root@jsgolf.co/
     - git push deploy
