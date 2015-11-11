@@ -43,6 +43,57 @@ describe('postExercise', function () {
         });
     });
 
+    it('should handle arrays as test inputs', (done) => {
+        req = httpMocks.createRequest({
+            method: 'POST',
+            url: '/api/exercises/3',
+            params: {
+                exercise: '3'
+            },
+            body: {
+                answer: 'function (array) { return array.reduce(function(a, b) { return a + b; }); }'
+            }
+        });
+
+        res = httpMocks.createResponse();
+
+        let parsedResponse;
+
+        postExercise(req, res).then(() => {
+            parsedResponse = JSON.parse(res._getData());
+            expect(parsedResponse[0].output).to.equal(3);
+            done();
+        }).catch((e) => {
+            console.log(e);
+        });
+    });
+
+    it('should handle objects as test inputs', (done) => {
+        req = httpMocks.createRequest({
+            method: 'POST',
+            url: '/api/exercises/4',
+            params: {
+                exercise: '4'
+            },
+            body: {
+                answer: 'function (map) { return Object.keys(map).map(function(elem) { return map[elem]; }) }'
+            }
+        });
+
+        res = httpMocks.createResponse();
+
+        let parsedResponse;
+
+        postExercise(req, res).then(() => {
+            parsedResponse = JSON.parse(res._getData());
+            expect(_.isEqual(parsedResponse[0].output, [1, 2, 3])).to.be.true;
+            done();
+        }).catch((e) => {
+            console.log(e);
+        });
+    });
+
+
     describe('The returned json object', function () {
         var parsedResponse;
 

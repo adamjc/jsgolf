@@ -27,7 +27,7 @@ function processData(userFunction, exerciseData) {
 
     Object.keys(tests).forEach((element, index) => {
         let promise = new Promise((resolve, reject) => {
-            let testInput = wrapWithQuotesIfString(tests[index].testInput);
+            let testInput = getCorrectFormat(tests[index].testInput);
             let parsedFunction;
             let func = '(function(){ \
                             var input = testInput; \
@@ -73,9 +73,17 @@ function processData(userFunction, exerciseData) {
  * As we are replacing strings, we have to wrap it with quotes as otherwise it
  * will just dump e.g. Hello World without quotes - it won't be valid JS.
  */
-function wrapWithQuotesIfString(input) {
+function getCorrectFormat(input) {
+    if (_.isArray(input)) {
+        return "[" + input + "]";
+    };
+
     if (typeof input === 'string') {
         return "'" + input + "'";
+    }
+
+    if (typeof input === 'object') {
+        return JSON.stringify(input);
     }
 
     return input;
