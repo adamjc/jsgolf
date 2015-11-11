@@ -1,3 +1,5 @@
-module.exports = {
-    host: 'http://golfjs.co'
+var config = {
+    host: 'http://jsgolf.co'
 };
+
+module.exports = config;
