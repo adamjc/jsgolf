@@ -64,7 +64,7 @@ describe('postExercise', function () {
             expect(parsedResponse[0].output).to.equal(3);
             done();
         }).catch((e) => {
-            console.log(e);
+            console.log('array parsing error: ', e);
         });
     });
 
@@ -89,7 +89,7 @@ describe('postExercise', function () {
             expect(_.isEqual(parsedResponse[0].output, [1, 2, 3])).to.be.true;
             done();
         }).catch((e) => {
-            console.log(e);
+            console.log('object parsing error: ', e);
         });
     });
 

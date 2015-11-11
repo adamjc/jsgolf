@@ -23,7 +23,9 @@ function postExercise(req, res) {
 function processData(userFunction, exerciseData) {
     let promises = [];
     let tests = exerciseData.tests;
-    let sandbox = new Sandbox();
+    let sandbox = new Sandbox({
+        timeout: 5000
+    });
 
     Object.keys(tests).forEach((element, index) => {
         let promise = new Promise((resolve, reject) => {
@@ -52,10 +54,11 @@ function processData(userFunction, exerciseData) {
                 result = result.join('');
 
                 try {
+                    console.log('result: ', result);
                     resultObject = JSON.parse(result);
                     resultObject.correct = _.isEqual(resultObject.output, exerciseData.tests[index].expectedOutput);
                 } catch (e) {
-                    console.log('Error:', e);
+                    console.log('Error parsing result object: ', result, e);
                     resultObject.output = 'Error';
                 }
 

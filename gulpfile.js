@@ -56,7 +56,7 @@ gulp.task('browserify', ['config', 'copy-source'], function() {
 // });
 
 gulp.task('test', function() {
-    return gulp.src('tests/**/*.js')
+    return gulp.src('test/**/*.js')
         .pipe(mocha({
             compilers: {
                 js: babel
