@@ -54,7 +54,6 @@ function processData(userFunction, exerciseData) {
                 result = result.join('');
 
                 try {
-                    console.log('result: ', result);
                     resultObject = JSON.parse(result);
                     resultObject.correct = _.isEqual(resultObject.output, exerciseData.tests[index].expectedOutput);
                 } catch (e) {
