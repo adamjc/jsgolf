@@ -43,15 +43,15 @@ describe('postExercise', function () {
         });
     });
 
-    it('should handle numbers as test inputs', (done) => {
+    it('should handle multiple parameters as test inputs', (done) => {
         req = httpMocks.createRequest({
             method: 'POST',
-            url: '/api/exercises/2',
+            url: '/api/exercises/5',
             params: {
-                exercise: '2'
+                exercise: '5'
             },
             body: {
-                answer: 'function(i) { return i + 1; }'
+                answer: 'function(a, b) { return a + b; }'
             }
         });
 
@@ -64,7 +64,7 @@ describe('postExercise', function () {
             expect(parsedResponse[0].output).to.equal(2);
             done();
         }).catch((e) => {
-            console.log('array parsing error: ', e);
+            console.log('multiple parameters parsing error: ', e);
         });
     });
 

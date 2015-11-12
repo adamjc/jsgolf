@@ -5,11 +5,11 @@ const helloWorld = {
     tests: [
         {
             'id': '1',
-            'testInput': '',
+            'testInput': [''],
             'expectedOutput': 'Hello World!'
         }, {
             'id': '2',
-            'testInput': 'test',
+            'testInput': ['test'],
             'expectedOutput': 'Hello World!'
         }
     ]

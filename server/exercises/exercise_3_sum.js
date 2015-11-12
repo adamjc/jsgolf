@@ -3,7 +3,9 @@ const sum = {
     title: "Exercise 3 - Sum",
     description: "Produce a function that takes an array returns the sum of all elements",
     tests: [{
-        'testInput': [1, 1, 1],
+        'testInput': [
+            [1, 1, 1]
+        ],
         'expectedOutput': 3
     }]
 };

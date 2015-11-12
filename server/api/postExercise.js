@@ -14,7 +14,7 @@ function postExercise(req, res) {
     }
 
     userFunction = req.body.answer;
-    console.log(userFunction);
+
     return Promise.all(processData(userFunction, exerciseData)).then((results) => {
         res.json(results);
     });
@@ -23,31 +23,46 @@ function postExercise(req, res) {
 function processData(userFunction, exerciseData) {
     let promises = [];
     let tests = exerciseData.tests;
-    let sandbox = new Sandbox({
-        timeout: 5000
-    });
+    let sandbox = new Sandbox();
 
     Object.keys(tests).forEach((element, index) => {
         let promise = new Promise((resolve, reject) => {
-            let testInput = getCorrectFormat(tests[index].testInput);
             let parsedFunction;
-            let func = '(function(){ \
-                            var input = testInput; \
-                            var output = (usersFunction)(input); \
-                            var result = { \
-                                "output" : output, \
-                                "input" : input, \
-                            }; \
-                            return "" + JSON.stringify(result); + "" \
+            let func = '(function(){\
+                            var output = (usersFunction)(testInputPlaceholder);\
+                            var result = {\
+                                "output" : output,\
+                                "input" : [inputPlaceholder]\
+                            };\
+                            return "" + JSON.stringify(result); + ""\
                         })()';
 
-            parsedFunction = func.replace('usersFunction', userFunction);
-            parsedFunction = parsedFunction.replace('testInput', testInput);
+            tests[index].testInput.forEach(input => {
+                let testInputIndex = func.indexOf('testInputPlaceholder');
+                let inputIndex = func.indexOf('inputPlaceholder') + 1;
+                let testInput = getCorrectFormat(input);
+                func = func.split('');
+                func.splice(testInputIndex, 0, testInput + ', ');
+                func.splice(inputIndex, 0, testInput + ', ');
+                func = func.join('');
+            });
 
+            let testInputIndex = func.indexOf(', testInputPlaceholder');
+            func = func.split('');
+            func.splice(testInputIndex, ', testInputPlaceholder'.length);
+            func = func.join('');
+
+            let inputIndex = func.indexOf(', inputPlaceholder');
+            func = func.split('');
+            func.splice(inputIndex, ', inputPlaceholder'.length);
+            func = func.join('');
+
+            parsedFunction = func.replace('usersFunction', userFunction);
+            console.log(parsedFunction);
             sandbox.run(parsedFunction, (output) => {
                 let result;
                 let resultObject = {};
-                console.log('output: ', output);
+
                 result = output.result.split('');
                 result.pop();
                 result.shift();
@@ -71,10 +86,6 @@ function processData(userFunction, exerciseData) {
     return promises;
 }
 
-/**
- * As we are replacing strings, we have to wrap it with quotes as otherwise it
- * will just dump e.g. Hello World without quotes - it won't be valid JS.
- */
 function getCorrectFormat(input) {
     if (_.isArray(input)) {
         return "[" + input + "]";
