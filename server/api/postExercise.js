@@ -14,7 +14,7 @@ function postExercise(req, res) {
     }
 
     userFunction = req.body.answer;
-
+    console.log(userFunction);
     return Promise.all(processData(userFunction, exerciseData)).then((results) => {
         res.json(results);
     });
@@ -33,7 +33,7 @@ function processData(userFunction, exerciseData) {
             let parsedFunction;
             let func = '(function(){ \
                             var input = testInput; \
-                            var output = usersFunction(input); \
+                            var output = (usersFunction)(input); \
                             var result = { \
                                 "output" : output, \
                                 "input" : input, \
@@ -47,7 +47,7 @@ function processData(userFunction, exerciseData) {
             sandbox.run(parsedFunction, (output) => {
                 let result;
                 let resultObject = {};
-
+                console.log('output: ', output);
                 result = output.result.split('');
                 result.pop();
                 result.shift();

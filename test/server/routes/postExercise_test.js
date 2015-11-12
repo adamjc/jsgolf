@@ -43,6 +43,31 @@ describe('postExercise', function () {
         });
     });
 
+    it('should handle numbers as test inputs', (done) => {
+        req = httpMocks.createRequest({
+            method: 'POST',
+            url: '/api/exercises/2',
+            params: {
+                exercise: '2'
+            },
+            body: {
+                answer: 'function(i) { return i + 1; }'
+            }
+        });
+
+        res = httpMocks.createResponse();
+
+        let parsedResponse;
+
+        postExercise(req, res).then(() => {
+            parsedResponse = JSON.parse(res._getData());
+            expect(parsedResponse[0].output).to.equal(2);
+            done();
+        }).catch((e) => {
+            console.log('array parsing error: ', e);
+        });
+    });
+
     it('should handle arrays as test inputs', (done) => {
         req = httpMocks.createRequest({
             method: 'POST',
