@@ -44,6 +44,8 @@ describe('postExercise', function () {
     });
 
     it('should handle multiple parameters as test inputs', (done) => {
+        this.timeout(5000);
+        
         req = httpMocks.createRequest({
             method: 'POST',
             url: '/api/exercises/5',

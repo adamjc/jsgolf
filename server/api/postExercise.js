@@ -58,7 +58,6 @@ function processData(userFunction, exerciseData) {
             func = func.join('');
 
             parsedFunction = func.replace('usersFunction', userFunction);
-            console.log(parsedFunction);
             sandbox.run(parsedFunction, (output) => {
                 let result;
                 let resultObject = {};

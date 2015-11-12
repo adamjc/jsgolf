@@ -4,10 +4,10 @@ const maps = {
     description: "Produce a function that takes two numbers and returns the sum of both",
     tests: [{
         'testInput': [
-            5,
-            5
+            1,
+            1
         ],
-        'expectedOutput': 10
+        'expectedOutput': 2
     }]
 };
 
