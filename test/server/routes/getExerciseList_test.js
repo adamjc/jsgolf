@@ -4,12 +4,12 @@ var sinon = require('sinon');
 var fs = require('fs');
 var _ = require('lodash');
 
-describe('getExercisesList', function () {
+describe('getExercisesList', () => {
     var getExercisesList = require('../../../server/api/getExercisesList.js');
     var req;
     var res;
 
-    beforeEach(function () {
+    beforeEach(() => {
         req = httpMocks.createRequest({
             method: 'GET',
             url: '/api/exercises'
@@ -18,29 +18,19 @@ describe('getExercisesList', function () {
         res = httpMocks.createResponse();
     });
 
-    it('should respond', function () {
-        res.json = sinon.spy();
-
-        getExercisesList(req, res);
-
-        expect(res.json.called).to.equal(true);
-    });
-
-    it('should return a list of all the exercises available', function () {
-        var files = fs.readdirSync('./server/exercises');
-        var parsedResponse;
+    it('should return a list of exercises', () => {
+        let parsedResponse;
 
         getExercisesList(req, res);
 
         parsedResponse = JSON.parse(res._getData());
 
         expect(_.isArray(parsedResponse)).to.equal(true);
-        expect(parsedResponse.length).to.equal(files.length);
     });
 
-    describe('The returned json objects', function () {
-        it('should contain a title', function () {
-            var parsedResponse;
+    describe('The returned list of exercises', () => {
+        it('should contain a title', () => {
+            let parsedResponse;
 
             getExercisesList(req, res);
 
@@ -50,8 +40,8 @@ describe('getExercisesList', function () {
             expect(typeof parsedResponse[0].title).to.equal('string');
         });
 
-        it('should contain the exercise url', function () {
-            var parsedResponse;
+        it('should contain the exercise url', () => {
+            let parsedResponse;
 
             getExercisesList(req, res);
 
