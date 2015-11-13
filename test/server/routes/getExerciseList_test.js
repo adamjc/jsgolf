@@ -1,13 +1,14 @@
-var httpMocks = require('node-mocks-http');
-var expect = require('chai').expect;
-var sinon = require('sinon');
-var fs = require('fs');
-var _ = require('lodash');
+const httpMocks = require('node-mocks-http');
+const expect = require('chai').expect;
+const sinon = require('sinon');
+const fs = require('fs');
+const _ = require('lodash');
 
 describe('getExercisesList', () => {
-    var getExercisesList = require('../../../server/api/getExercisesList.js');
-    var req;
-    var res;
+    const getExercisesList = require('../../../server/api/getExercisesList.js');
+
+    let req;
+    let res;
 
     beforeEach(() => {
         req = httpMocks.createRequest({

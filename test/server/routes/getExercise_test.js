@@ -1,15 +1,16 @@
-var httpMocks = require('node-mocks-http');
-var expect = require('chai').expect;
-var sinon = require('sinon');
-var fs = require('fs');
-var _ = require('lodash');
+const httpMocks = require('node-mocks-http');
+const expect = require('chai').expect;
+const sinon = require('sinon');
+const fs = require('fs');
+const _ = require('lodash');
 
-describe('getExercise', function () {
-    var getExercise = require('../../../server/api/getExercise.js');
-    var req;
-    var res;
+describe('getExercise', () => {
+    const getExercise = require('../../../server/api/getExercise.js');
 
-    beforeEach(function () {
+    let req;
+    let res;
+
+    beforeEach(() => {
         req = httpMocks.createRequest({
             method: 'GET',
             url: '/api/exercises/1',
@@ -21,7 +22,7 @@ describe('getExercise', function () {
         res = httpMocks.createResponse();
     });
 
-    it('should respond', function () {
+    it('should respond', () => {
         res.json = sinon.spy();
 
         getExercise(req, res);
@@ -29,8 +30,8 @@ describe('getExercise', function () {
         expect(res.json.called).to.equal(true);
     });
 
-    it('should return the exercise requested', function () {
-        var parsedResponse;
+    it('should return the exercise requested', () => {
+        let parsedResponse;
 
         getExercise(req, res);
 
@@ -39,10 +40,11 @@ describe('getExercise', function () {
         expect(typeof parsedResponse).to.equal('object');
     });
 
-    describe('The returned json object', function () {
-        it('should contain a title', function () {
-            var file = require('../../../server/exercises/exercise_1_hello-world');
-            var parsedResponse;
+    describe('The returned json object', () => {
+        it('should contain a title', () => {
+            const file = require('../../../server/exercises/exercise_1_hello-world');
+
+            let parsedResponse;
 
             getExercise(req, res);
 
@@ -51,10 +53,9 @@ describe('getExercise', function () {
             expect(parsedResponse.title).to.equal(file.title);
         });
 
-        it('should contain some exercise text', function () {
-            var file = require('../../../server/exercises/exercise_1_hello-world');
-
-            var parsedResponse;
+        it('should contain some exercise text', () => {
+            let file = require('../../../server/exercises/exercise_1_hello-world');
+            let parsedResponse;
 
             getExercise(req, res);
 

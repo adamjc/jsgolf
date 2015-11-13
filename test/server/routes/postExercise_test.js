@@ -1,15 +1,16 @@
-var httpMocks = require('node-mocks-http');
-var expect = require('chai').expect;
-var sinon = require('sinon');
-var fs = require('fs');
-var _ = require('lodash');
+const httpMocks = require('node-mocks-http');
+const expect = require('chai').expect;
+const sinon = require('sinon');
+const fs = require('fs');
+const _ = require('lodash');
 
-describe('postExercise', function () {
-    var postExercise = require('../../../server/api/postExercise.js');
-    var req;
-    var res;
+describe('postExercise', () => {
+    const postExercise = require('../../../server/api/postExercise.js');
 
-    beforeEach(function () {
+    let req;
+    let res;
+
+    beforeEach(() => {
         req = httpMocks.createRequest({
             method: 'POST',
             url: '/api/exercises/1',
@@ -24,7 +25,7 @@ describe('postExercise', function () {
         res = httpMocks.createResponse();
     });
 
-    it('should respond', function (done) {
+    it('should respond', done => {
         res.json = sinon.spy();
 
         postExercise(req, res).then(() => {
@@ -33,8 +34,8 @@ describe('postExercise', function () {
         });
     });
 
-    it('should return the results of the exercise', function (done) {
-        var parsedResponse;
+    it('should return the results of the exercise', done => {
+        let parsedResponse;
 
         postExercise(req, res).then(() => {
             parsedResponse = JSON.parse(res._getData());
@@ -43,9 +44,9 @@ describe('postExercise', function () {
         });
     });
 
-    it('should handle multiple parameters as test inputs', (done) => {
-        this.timeout(5000);
-        
+    it('should handle multiple parameters as test inputs', done => {
+        let parsedResponse;
+
         req = httpMocks.createRequest({
             method: 'POST',
             url: '/api/exercises/5',
@@ -59,8 +60,6 @@ describe('postExercise', function () {
 
         res = httpMocks.createResponse();
 
-        let parsedResponse;
-
         postExercise(req, res).then(() => {
             parsedResponse = JSON.parse(res._getData());
             expect(parsedResponse[0].output).to.equal(2);
@@ -70,7 +69,9 @@ describe('postExercise', function () {
         });
     });
 
-    it('should handle arrays as test inputs', (done) => {
+    it('should handle arrays as test inputs', done => {
+        let parsedResponse;
+
         req = httpMocks.createRequest({
             method: 'POST',
             url: '/api/exercises/3',
@@ -84,8 +85,6 @@ describe('postExercise', function () {
 
         res = httpMocks.createResponse();
 
-        let parsedResponse;
-
         postExercise(req, res).then(() => {
             parsedResponse = JSON.parse(res._getData());
             expect(parsedResponse[0].output).to.equal(3);
@@ -95,7 +94,9 @@ describe('postExercise', function () {
         });
     });
 
-    it('should handle objects as test inputs', (done) => {
+    it('should handle objects as test inputs', done => {
+        let parsedResponse;
+
         req = httpMocks.createRequest({
             method: 'POST',
             url: '/api/exercises/4',
@@ -109,8 +110,6 @@ describe('postExercise', function () {
 
         res = httpMocks.createResponse();
 
-        let parsedResponse;
-
         postExercise(req, res).then(() => {
             parsedResponse = JSON.parse(res._getData());
             expect(_.isEqual(parsedResponse[0].output, [1, 2, 3])).to.be.true;
@@ -121,10 +120,10 @@ describe('postExercise', function () {
     });
 
 
-    describe('The returned json object', function () {
-        var parsedResponse;
+    describe('The returned json object', () => {
+        let parsedResponse;
 
-        it('should contain a "correct" boolean', function () {
+        it('should contain a "correct" boolean', () => {
             postExercise(req, res).then(() => {
                 parsedResponse = JSON.parse(res._getData());
                 expect(typeof parsedResponse[0].correct).to.equal('boolean');
@@ -133,7 +132,7 @@ describe('postExercise', function () {
             });
         });
 
-        it('should contain the input text', function () {
+        it('should contain the input text', () => {
             postExercise(req, res).then(() => {
                 parsedResponse = JSON.parse(res._getData());
                 expect(typeof parsedResponse[0].input).to.equal('string');
@@ -142,7 +141,7 @@ describe('postExercise', function () {
             });
         });
 
-        it('should contain the output text', function () {
+        it('should contain the output text', () => {
             postExercise(req, res).then(() => {
                 parsedResponse = JSON.parse(res._getData());
                 expect(typeof parsedResponse[0].output).to.equal('string');
