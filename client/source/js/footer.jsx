@@ -6,7 +6,7 @@ module.exports = React.createClass({
     render() {
         return (
             <div className="footer">
-                Hello I am a footer.
+                Stereotypical "Made in Manchester with &lt;3" text.
             </div>
         );
     }
