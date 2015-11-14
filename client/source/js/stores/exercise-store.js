@@ -7,16 +7,11 @@ class ExerciseStore {
 
         this.bindListeners({
             handleUpdateExercise: ExerciseActions.UPDATE_EXERCISE,
-            handleUpdateExerciseList: ExerciseActions.UPDATE_EXERCISE_LIST
         });
     }
 
-    handleUpdateExercise() {
-        this.answerSubmitted = true;
-    }
-
-    handleUpdateExerciseList() {
-
+    handleUpdateExercise(exercise) {
+        this.exercise = exercise;
     }
 }
 

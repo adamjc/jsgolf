@@ -4,16 +4,16 @@ const React = require('react');
 const ExerciseInput = require('./exercise-input.jsx');
 const Result = require('./result.jsx');
 const ExerciseStore = require('../stores/exercise-store');
+const ExerciseActions = require('../actions/exercise-actions');
 
 module.exports = React.createClass({
     getInitialState() {
-        return {
-            exercise: this.props.exercise
-        };
+        return {};
     },
 
     componentDidMount() {
         ExerciseStore.listen(this.onChange);
+        ExerciseActions.getExercise(this.props.exerciseNumber);
     },
 
     componentWillUnmount() {
@@ -21,22 +21,28 @@ module.exports = React.createClass({
     },
 
     onChange(state) {
+        console.log(state);
         this.setState(state);
     },
 
     render() {
-        let result;
+        let result = <Result />;
+        
+        if (this.state.exercise) {
+            return(
+                <div>
+                    <h2>{this.state.exercise.title}</h2>
 
-        if (this.state.answerSubmitted) {
-             result = <Result />;
+                    <p>{this.state.exercise.description}</p>
+
+                    <ExerciseInput exercise={this.state.exercise.number}/>
+
+                    {result}
+                </div>
+            );
+        } else {
+            return(<div>Waiting...</div>);
         }
 
-        return(
-            <div>
-                <ExerciseInput exercise={this.state.exercise}/>
-
-                {result}
-            </div>
-        );
     }
 })

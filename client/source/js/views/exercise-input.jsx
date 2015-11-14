@@ -16,7 +16,6 @@ module.exports = React.createClass({
 
     handleClick() {
         ResultActions.fetchResults(this.props.exercise, this.state.answer);
-        ExerciseActions.exerciseInputClicked(true);
     },
 
     render() {

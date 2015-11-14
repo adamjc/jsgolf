@@ -1,22 +1,28 @@
 'use strict';
 
 const alt = require('../alt');
+const requestPromise = require('request-promise');
+const config = require('../config');
+
+let url = config.host + '/api/exercises/';
 
 class ExerciseActions {
-    updateExercise() {
+    updateExercise(data) {
+        this.dispatch(data);
+    }
+
+    getExercise(number) {
+        let requestOptions = {
+            uri: url + number,
+            method: 'GET'
+        };
+
+        // we dispatch an event here so we can have a 'loading' event.
         this.dispatch();
-    }
 
-    updateExerciseList(data) {
-        this.dispatch(data)
-    }
-
-    getExerciseList(data) {
-        this.actions.updateExerciseList(data);
-    }
-
-    exerciseInputClicked() {
-        this.actions.updateExercise();
+        requestPromise(requestOptions)
+            .then(results => this.actions.updateExercise(JSON.parse(results)))
+            .catch(errorMessage => console.error(errorMessage));
     }
 }
 

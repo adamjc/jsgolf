@@ -10,6 +10,7 @@ function getExercisesList(req, res) {
     Object.keys(exerciseMap).forEach((exercise) => {
         let fullExercise = require('../exercises/' + exerciseMap[exercise]);
         let fetchedExercise = {
+            id: fullExercise.number,
             title: fullExercise.title,
             url: '/exercises/' + fullExercise.number
         };

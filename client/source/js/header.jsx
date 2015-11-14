@@ -23,7 +23,7 @@ module.exports = React.createClass({
                         <ul className="nav navbar-nav">
                             <li><a onClick={navigate('/')}>Home</a></li>
                             <li><a onClick={navigate('/exercises')}>Exercises</a></li>
-                            <li><a onClick={navigate('/something')}>Something</a></li>
+                            <li><a onClick={navigate('/how-to')}>How To</a></li>
                         </ul>
                     </div>
                 </div>

@@ -36,7 +36,7 @@ gulp.task('css', ['clean'], () => {
         .pipe(gulp.dest(settings.destFolder + '/css'));
 });
 
-gulp.task('config', ['clean'], () => {
+gulp.task('config', ['copy-js-source', 'css', 'clean'], () => {
     console.log('building for ' + settings.environment + '...');
 
     return gulp.src(settings.jsConfigFolder + '/' + settings.environment + '.js')
@@ -77,4 +77,4 @@ gulp.task('test', () => {
         }));
 });
 
-gulp.task('default', ['css', 'browserify']);
+gulp.task('default', ['browserify']);
