@@ -31,8 +31,9 @@ function processData(userFunction, exerciseData) {
             let func = '(function(){\
                             var output = (usersFunction)(testInputPlaceholder);\
                             var result = {\
-                                "output" : output,\
-                                "input" : [inputPlaceholder]\
+                                "id": idPlaceholder,\
+                                "output": output,\
+                                "input": [inputPlaceholder]\
                             };\
                             return "" + JSON.stringify(result); + ""\
                         })()';
@@ -57,6 +58,8 @@ function processData(userFunction, exerciseData) {
             func.splice(inputIndex, ', inputPlaceholder'.length);
             func = func.join('');
 
+            func = func.replace('idPlaceholder', index);
+
             parsedFunction = func.replace('usersFunction', userFunction);
             sandbox.run(parsedFunction, (output) => {
                 let result;
@@ -71,7 +74,7 @@ function processData(userFunction, exerciseData) {
                     resultObject = JSON.parse(result);
                     resultObject.correct = _.isEqual(resultObject.output, exerciseData.tests[index].expectedOutput);
                 } catch (e) {
-                    console.log('Error parsing result object: ', result, e);
+                    console.error('Error parsing result object: ', result, e);
                     resultObject.output = 'Error';
                 }
 
