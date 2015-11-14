@@ -13,6 +13,7 @@ module.exports = React.createClass({
 
     componentWillUnmount() {
         ResultStore.unlisten(this.onChange);
+        ResultActions.updateResults(null);
     },
 
     onChange(state) {
