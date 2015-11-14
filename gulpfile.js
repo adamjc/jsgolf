@@ -1,53 +1,66 @@
-var gulp = require('gulp');
-var browserify = require('browserify');
-var source = require('vinyl-source-stream');
-var reactify = require('reactify');
-var run = require('gulp-run');
-var babelify = require('babelify');
-var mocha = require('gulp-mocha');
-var babel = require('babel/register');
-var del = require('del');
-var rename = require('gulp-rename');
+'use strict';
 
-var paths = {
+const gulp = require('gulp');
+const browserify = require('browserify');
+const source = require('vinyl-source-stream');
+const reactify = require('reactify');
+const babelify = require('babelify');
+const mocha = require('gulp-mocha');
+const babel = require('babel/register');
+const del = require('del');
+const rename = require('gulp-rename');
+const sass = require('gulp-sass');
+
+const paths = {
     scripts: ['./js/**/*.jsx', './js/**/*.js']
 };
 
-var settings = {
+const settings = {
     environment: process.env.NODE_ENV || 'production',
-    configFolder: './client/source/js/config',
-    sourceFolder: './client/source/js',
-    buildFolder: './client/pre-build/js',
-    destFolder: './public/js'
+    jsConfigFolder: './client/source/js/config',
+    sourceFolder: './client/source',
+    preBuildFolder: './client/pre-build',
+    jsBuildFolder: './client/pre-build/js',
+    destFolder: './public',
+    jsDestFolder: './public/js'
 };
 
-gulp.task('clean', function() {
-    return del(settings.buildFolder + '/**/*');
+gulp.task('clean', () => {
+    del(settings.preBuildFolder + '/**/*');
+    del(settings.destFolder + '/**/*');
 });
 
-gulp.task('config', ['clean'], function() {
+gulp.task('css', ['clean'], () => {
+    gulp.src(settings.sourceFolder + '/css/**/*.scss')
+        .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+        .pipe(gulp.dest(settings.destFolder + '/css'));
+});
+
+gulp.task('config', ['clean'], () => {
     console.log('building for ' + settings.environment + '...');
-    return gulp.src(settings.configFolder + '/' + settings.environment + '.js')
+
+    return gulp.src(settings.jsConfigFolder + '/' + settings.environment + '.js')
                .pipe(rename('config.js'))
-               .pipe(gulp.dest(settings.buildFolder));
+               .pipe(gulp.dest(settings.jsBuildFolder));
 });
 
-gulp.task('copy-source', ['clean'], function() {
+gulp.task('copy-js-source', ['clean'], () => {
     return gulp.src([
-        settings.sourceFolder + '/**/*',
-        '!' + settings.sourceFolder + '/config',
-        '!' + settings.sourceFolder + '/config/**/*'
-    ]).pipe(gulp.dest(settings.buildFolder));
+        settings.sourceFolder + '/js/**/*',
+        '!' + settings.sourceFolder + '/js/config',
+        '!' + settings.sourceFolder + '/js/config/**/*'
+    ]).pipe(gulp.dest(settings.jsBuildFolder));
 });
 
-gulp.task('browserify', ['config', 'copy-source'], function() {
-    var b = browserify();
+gulp.task('browserify', ['config', 'copy-js-source'], () => {
+    let b = browserify();
     b.transform(reactify);
     b.transform(babelify);
-    b.add(settings.buildFolder + '/app.jsx');
+    b.add(settings.preBuildFolder + '/js/app.jsx');
+
     return b.bundle()
             .pipe(source('main.js'))
-            .pipe(gulp.dest(settings.destFolder));
+            .pipe(gulp.dest(settings.jsDestFolder));
 });
 
 // TODO: Fix.
@@ -55,7 +68,7 @@ gulp.task('browserify', ['config', 'copy-source'], function() {
 //     gulp.watch(paths.scripts, ['browserify']);
 // });
 
-gulp.task('test', function() {
+gulp.task('test', () => {
     return gulp.src('test/**/*.js')
         .pipe(mocha({
             compilers: {
@@ -64,5 +77,4 @@ gulp.task('test', function() {
         }));
 });
 
-gulp.task('default', ['browserify'], function () {
-});
+gulp.task('default', ['css', 'browserify']);
