@@ -23,7 +23,6 @@ module.exports = React.createClass({
 
     onChange(state) {
         this.setState(state);
-        console.log(state);
     },
 
     handleOnClick(e) {
@@ -38,8 +37,8 @@ module.exports = React.createClass({
         if (this.state.exerciseList) {
             exercises = this.state.exerciseList.map(exercise => {
                 return (
-                    <li key={exercise.number}>
-                        <a onClick={this.handleOnClick} href={exercise.url}>{exercise.title}</a>
+                    <li key={exercise.id}>
+                        <a href={exercise.url}>{exercise.title}</a>
                     </li>
                 );
             });

@@ -21,13 +21,12 @@ module.exports = React.createClass({
     },
 
     onChange(state) {
-        console.log(state);
         this.setState(state);
     },
 
     render() {
         let result = <Result />;
-        
+
         if (this.state.exercise) {
             return(
                 <div>
