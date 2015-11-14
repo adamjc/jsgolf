@@ -2,16 +2,23 @@
 
 const React = require('react');
 const ReactAddons = require('react-addons');
+const brace = require('brace');
+const AceEditor = require('react-ace');
 const ResultActions = require('../actions/result-actions');
 const ExerciseActions = require('../actions/exercise-actions');
 
-module.exports = React.createClass({
-    mixins: [ReactAddons.LinkedStateMixin],
+require('brace/mode/javascript');
+require('brace/theme/monokai');
 
+module.exports = React.createClass({
     getInitialState() {
         return {
             answer: ''
         };
+    },
+
+    onChange(answer) {
+        this.state.answer = answer;
     },
 
     handleClick() {
@@ -20,9 +27,22 @@ module.exports = React.createClass({
 
     render() {
         return (
-            <div>
-                <textarea valueLink={this.linkState('answer')} />
-                <button onClick={this.handleClick}>Submit!</button>
+            <div className="exercise-input col-sm-6">
+                <AceEditor
+                    className="exercise-input__editor"
+                    mode="javascript"
+                    theme="monokai"
+                    name="editor"
+                    height=""
+                    width=""
+                    onChange={this.onChange}
+                />
+
+                <button
+                    className="exercise-input__button btn btn-block"
+                    onClick={this.handleClick}>
+                    Submit!
+                </button>
             </div>
         )
     }

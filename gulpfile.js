@@ -19,6 +19,7 @@ const settings = {
     environment: process.env.NODE_ENV || 'production',
     jsConfigFolder: './client/source/js/config',
     sourceFolder: './client/source',
+    cssSourceFile: './client/source/css/main.scss',
     preBuildFolder: './client/pre-build',
     jsBuildFolder: './client/pre-build/js',
     destFolder: './public',
@@ -31,7 +32,7 @@ gulp.task('clean', () => {
 });
 
 gulp.task('css', ['clean'], () => {
-    gulp.src(settings.sourceFolder + '/css/**/*.scss')
+    gulp.src(settings.cssSourceFile)
         .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
         .pipe(gulp.dest(settings.destFolder + '/css'));
 });

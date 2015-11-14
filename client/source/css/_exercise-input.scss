@@ -1,0 +1,26 @@
+.exercise-input {
+
+}
+
+.exercise-input__editor {
+    height: 200px;
+}
+
+.exercise-input__button {
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.5em;
+    line-height: 20px;
+    border-radius: 0 0 4px 4px;
+    background-color: $pink-1991;
+    border-color: $dark-pink-1991;
+    outline: none;
+
+    &:hover {
+        background-color: $dark-pink-1991;
+    }
+
+    &:active {
+        background-color: $darker-pink-1991;
+    }
+}

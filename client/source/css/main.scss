@@ -1,8 +1,5 @@
-.user-input__textarea {
-    width: 100%;
-    height: 300px;
-    resize: none;
-}
+@import "colours";
+@import "exercise-input";
 
 body {
     padding-top: 50px;
