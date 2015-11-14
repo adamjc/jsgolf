@@ -2,6 +2,13 @@
 @import "buttons";
 
 @import "exercise-input";
+@import "exercise-list";
+@import "footer";
+
+.main-container {
+    min-height: 100%;
+    margin-bottom: -50px;
+}
 
 body {
     padding-top: 50px;

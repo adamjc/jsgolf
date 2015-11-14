@@ -30,9 +30,10 @@ module.exports = React.createClass({
         if (this.state.exercise) {
             return(
                 <div>
-                    <h2>{this.state.exercise.title}</h2>
-
-                    <p>{this.state.exercise.description}</p>
+                    <div className="col-sm-12">
+                        <h2>{this.state.exercise.title}</h2>
+                        <p>{this.state.exercise.description}</p>
+                    </div>
 
                     <ExerciseInput exercise={this.state.exercise.number}/>
 

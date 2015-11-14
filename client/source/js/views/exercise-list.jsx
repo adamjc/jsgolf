@@ -25,12 +25,6 @@ module.exports = React.createClass({
         this.setState(state);
     },
 
-    handleOnClick(e) {
-        if (e.target.href) {
-            page(e.target.href);
-        }
-    },
-
     render() {
         let exercises;
 
@@ -45,8 +39,10 @@ module.exports = React.createClass({
         }
 
         return(
-            <div>
-                {exercises}
+            <div className="exercise-list col-sm-12">
+                <ul className="exercise-list__list">
+                    {exercises}
+                </ul>
             </div>
         );
     }

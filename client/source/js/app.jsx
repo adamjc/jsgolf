@@ -8,10 +8,10 @@ const Router = require('./router.jsx');
 var App = React.createClass({
     render() {
         return (
-            <div className="container">
+            <div>
                 <Header />
 
-                <div className="container">
+                <div className="main-container container">
                     <Router />
                 </div>
 
