@@ -41,7 +41,7 @@ module.exports = React.createClass({
                 <button
                     className="exercise-input__button btn btn-block"
                     onClick={this.handleClick}>
-                    Submit!
+                    GO
                 </button>
             </div>
         )
