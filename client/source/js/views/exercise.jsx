@@ -43,6 +43,5 @@ module.exports = React.createClass({
         } else {
             return(<div>Waiting...</div>);
         }
-
     }
 })

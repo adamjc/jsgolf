@@ -1,0 +1,39 @@
+.result__header {
+    margin: 0;
+}
+
+.result__list {
+    height: 0;
+    margin: 10px 0 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.result__list-item {
+    padding: 0;
+    border-radius: 4px;
+    border: 1px solid #aaa;
+    margin: 5px 0;
+
+    .result-text {
+        padding: 5px;
+    }
+
+    .glyph-wrapper {
+        border-left: 1px solid #aaa;
+        text-align: center;
+        padding: 5px 0;
+
+        .glyphicon {
+            font-size: 40px;
+        }
+
+        .result-correct {
+            color: $darker-green-1991;
+        }
+
+        .result-incorrect {
+            color: $darker-pink-1991;
+        }
+    }
+}
