@@ -6,7 +6,7 @@ module.exports = React.createClass({
     render() {
         return (
             <div className="footer">
-                Stereotypical "Made in Manchester with &lt;3" text.
+                Stereotypical "Maxwell is a proper nob'ead" text.
             </div>
         );
     }
