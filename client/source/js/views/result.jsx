@@ -28,15 +28,10 @@ module.exports = React.createClass({
 
         if (this.state.results) {
             resultsListItems = this.state.results.map(result => {
-                let icon;
                 let resultInput = stringifyObject(result.input);
                 let resultOutput = stringifyObject(result.output);
-
-                if (result.correct) {
-                    icon = <span className="glyphicon result-correct glyphicon-ok-circle" aria-hidden="true"></span>
-                } else {
-                    icon = <span className="glyphicon result-incorrect glyphicon-remove-circle" aria-hidden="true"></span>
-                }
+                let glyphClass = result.correct ? 'result-correct' : 'result-incorrect';
+                let icon = <span className="glyphicon {glyphClass} glyphicon-ok-circle" aria-hidden="true"></span>
 
                 return (
                     <li key={result.id} className="col-sm-12 result__list-item">
