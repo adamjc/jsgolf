@@ -10,6 +10,7 @@ const babel = require('babel/register');
 const del = require('del');
 const rename = require('gulp-rename');
 const sass = require('gulp-sass');
+const sourcemaps = require('gulp-sourcemaps');
 
 const paths = {
     scripts: ['./js/**/*.jsx', './js/**/*.js']
@@ -33,8 +34,10 @@ gulp.task('clean', () => {
 
 gulp.task('css', ['clean'], () => {
     gulp.src(settings.cssSourceFile)
-        .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-        .pipe(gulp.dest(settings.destFolder + '/css'));
+      .pipe(sourcemaps.init())
+      .pipe(sass({outputStyle: 'compressed'}))
+      .pipe(sourcemaps.write())
+      .pipe(gulp.dest(settings.destFolder + '/css'));
 });
 
 gulp.task('config', ['copy-js-source', 'css', 'clean'], () => {

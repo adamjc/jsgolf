@@ -34,6 +34,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-run": "^1.6.10",
     "gulp-sass": "^2.1.0",
+    "gulp-sourcemaps": "^1.6.0",
     "gulp-watch": "^4.3.5",
     "jade": "^1.11.0",
     "jasmine": "^2.3.2",
