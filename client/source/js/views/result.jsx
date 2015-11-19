@@ -30,8 +30,10 @@ module.exports = React.createClass({
             resultsListItems = this.state.results.map(result => {
                 let resultInput = stringifyObject(result.input);
                 let resultOutput = stringifyObject(result.output);
+
                 let glyphClass = result.correct ? 'result-correct' : 'result-incorrect';
-                let icon = <span className="glyphicon {glyphClass} glyphicon-ok-circle" aria-hidden="true"></span>
+                let glyphClassName = "glyphicon {class} glyphicon-ok-circle".replace('{class}', glyphClass);
+                let icon = <span className={glyphClassName} aria-hidden="true"></span>
 
                 return (
                     <li key={result.id} className="col-sm-12 result__list-item">
