@@ -3,12 +3,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const  _ = require('lodash');
+const _ = require('lodash');
 const path = require('path');
+const events = require('events');
+const socket = require('socket.io');
+
 const getExerciseList = require('./api/getExercisesList');
 const getExercise = require('./api/getExercise');
 const postExercise = require('./api/postExercise');
-const events = require('events');
+
+let server;
+let io;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -21,7 +26,7 @@ app.get('/api/exercises', getExerciseList);
 app.get('/api/exercises/:exercise', getExercise);
 
 /* Calculates answer and returns array of results. */
-app.post('/api/exercises/:exercise', postExercise);
+//app.post('/api/exercises/:exercise', postExercise);
 
 app.get('/*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../index.html'));
@@ -29,8 +34,18 @@ app.get('/*', (req, res) => {
 
 app.set('port', (process.env.PORT || 5000));
 
-let server = app.listen(app.get('port'), () => {
+server = app.listen(app.get('port'), () => {
     let port = server.address().port;
 
     console.log('jsgolf listening at http://localhost:%s', port);
 });
+
+io = socket(server);
+
+io.on('connection', socket => {
+    socket.on('postExercise', data => {
+        postExercise(socket, data);
+    });
+});
+
+module.exports = io;

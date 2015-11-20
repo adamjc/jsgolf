@@ -1,8 +1,10 @@
 'use strict';
 
+const io = require('../app.js').io;
 const Sandbox = require('sandbox');
 const _ = require('lodash');
 const exerciseMap = require('../utils/exercise-map');
+const socket = require('socket.io');
 
 let maxSandboxes = 10;
 let sandboxes = [];
@@ -11,7 +13,7 @@ let sandbox;
 for (let i = 0; i < maxSandboxes; i++) {
     let s = new Sandbox();
     sandboxes.push(s);
-}
+};
 
 function processExercise() {
     // We have added the request to the requestQueue, and then emit an event to
@@ -23,38 +25,32 @@ function sandboxFinished() {
     // And also emit that we should process any waiting requests.
 }
 
-function processExercise() {
-    let usersAnswer = getNextUserAnswer();
-}
+function postExercise(socket, data) {
+    let exerciseData;
+    let userAnswer;
 
-function getNextUserAnswer() {
-    // Chooses the next exercise off the queue.
-}
-
-process.on('processExercise', processExercise);
-
-function postExercise(req, res) {
-    let exerciseData = getExerciseData(req.params.exercise);
-    let userFunction;
-
-    if (!(exerciseData && req.body && req.body.answer)) {
+    if (!data) {
         res.status(500).send('Exercise data not found.');
         return;
     }
 
-    userFunction = req.body.answer;
+    exerciseData = getExerciseData(data.exercise);
+    userAnswer = data.answer;
 
-    if (!sandboxes.length) {
-        // got to wait until a sandbox is freed.
-    }
+    let exerciseRequest = {
+        exercise: exerciseData,
+        userAnswer: userAnswer
+    };
 
-    return Promise.all(processData(userFunction, exerciseData)).then((results) => {
+    process.emit('exercisePosted', exerciseRequest);
+
+    return Promise.all(processData(userAnswer, exerciseData)).then(results => {
         sandboxes.push(sandbox);
-        res.json(results);
+        socket.emit('postedExercise', results);
     });
 }
 
-function processData(userFunction, exerciseData) {
+function processData(userAnswer, exerciseData) {
     let promises = [];
     let tests = exerciseData.tests;
     sandbox = sandboxes.pop();
@@ -94,7 +90,7 @@ function processData(userFunction, exerciseData) {
 
             func = func.replace('idPlaceholder', index);
 
-            parsedFunction = func.replace('usersFunction', userFunction);
+            parsedFunction = func.replace('usersFunction', userAnswer);
             sandbox.run(parsedFunction, (output) => {
                 let result;
                 let resultObject = {};
