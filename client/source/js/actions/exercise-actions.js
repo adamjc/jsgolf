@@ -3,8 +3,7 @@
 const alt = require('../alt');
 const requestPromise = require('request-promise');
 const config = require('../config');
-
-let url = config.host + '/api/exercises/';
+const url = location.origin + '/api/exercises/';
 
 class ExerciseActions {
     updateExercise(data) {
