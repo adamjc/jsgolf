@@ -4,6 +4,35 @@ const Sandbox = require('sandbox');
 const _ = require('lodash');
 const exerciseMap = require('../utils/exercise-map');
 
+let maxSandboxes = 10;
+let sandboxes = [];
+let sandbox;
+
+for (let i = 0; i < maxSandboxes; i++) {
+    let s = new Sandbox();
+    sandboxes.push(s);
+}
+
+function processExercise() {
+    // We have added the request to the requestQueue, and then emit an event to
+    // process that data.
+}
+
+function sandboxFinished() {
+    // We have finished processing and so we can re-add this sandbox to the sandbox stack
+    // And also emit that we should process any waiting requests.
+}
+
+function processExercise() {
+    let usersAnswer = getNextUserAnswer();
+}
+
+function getNextUserAnswer() {
+    // Chooses the next exercise off the queue.
+}
+
+process.on('processExercise', processExercise);
+
 function postExercise(req, res) {
     let exerciseData = getExerciseData(req.params.exercise);
     let userFunction;
@@ -15,7 +44,12 @@ function postExercise(req, res) {
 
     userFunction = req.body.answer;
 
+    if (!sandboxes.length) {
+        // got to wait until a sandbox is freed.
+    }
+
     return Promise.all(processData(userFunction, exerciseData)).then((results) => {
+        sandboxes.push(sandbox);
         res.json(results);
     });
 }
@@ -23,20 +57,20 @@ function postExercise(req, res) {
 function processData(userFunction, exerciseData) {
     let promises = [];
     let tests = exerciseData.tests;
-    let sandbox = new Sandbox();
+    sandbox = sandboxes.pop();
 
     Object.keys(tests).forEach((element, index) => {
         let promise = new Promise((resolve, reject) => {
             let parsedFunction;
-            let func = '(function(){\
-                            var output = (usersFunction)(testInputPlaceholder);\
-                            var result = {\
-                                "id": idPlaceholder,\
-                                "output": output,\
-                                "input": [inputPlaceholder]\
-                            };\
-                            return "" + JSON.stringify(result); + ""\
-                        })()';
+            let func = `(function(){
+                            var output = (usersFunction)(testInputPlaceholder);
+                            var result = {
+                                "id": idPlaceholder,
+                                "output": output,
+                                "input": [inputPlaceholder]
+                            };
+                            return "" + JSON.stringify(result); + ""
+                        })()`;
 
             tests[index].testInput.forEach(input => {
                 let testInputIndex = func.indexOf('testInputPlaceholder');

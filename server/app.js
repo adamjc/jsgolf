@@ -8,6 +8,7 @@ const path = require('path');
 const getExerciseList = require('./api/getExercisesList');
 const getExercise = require('./api/getExercise');
 const postExercise = require('./api/postExercise');
+const events = require('events');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
