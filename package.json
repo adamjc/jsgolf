@@ -25,6 +25,7 @@
     "brace": "^0.5.1",
     "browserify": "^11.0.1",
     "chai": "^3.3.0",
+    "classnames": "^2.2.0",
     "del": "^2.0.2",
     "express": "^4.13.0",
     "express-mocks-http": "0.0.11",

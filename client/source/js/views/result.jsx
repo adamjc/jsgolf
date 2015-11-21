@@ -3,6 +3,7 @@ const ResultStore = require('../stores/result-store');
 const ResultActions = require('../actions/result-actions');
 const _ = require('lodash');
 const stringifyObject = require('stringify-object');
+const classNames = require('classnames');
 
 module.exports = React.createClass({
     getInitialState() {
@@ -30,10 +31,14 @@ module.exports = React.createClass({
             resultsListItems = this.state.results.map(result => {
                 let resultInput = stringifyObject(result.input);
                 let resultOutput = stringifyObject(result.output);
-
-                let glyphClass = result.correct ? 'result-correct' : 'result-incorrect';
-                let glyphClassName = "glyphicon {class} glyphicon-ok-circle".replace('{class}', glyphClass);
-                let icon = <span className={glyphClassName} aria-hidden="true"></span>
+                let iconClass = classNames({
+                    'glyphicon': true,
+                    'glyphicon-ok-circle': result.correct,
+                    'result-correct': result.correct,
+                    'glyphicon-remove-circle': !result.correct,
+                    'result-incorrect': !result.correct
+                });
+                let icon = <span className={iconClass} aria-hidden="true"></span>
 
                 return (
                     <li key={result.id} className="col-sm-12 result__list-item">
@@ -47,9 +52,7 @@ module.exports = React.createClass({
                                 {resultOutput}
                             </div>
                         </div>
-                        <div className="glyph-wrapper col-sm-6">
-                            {icon}
-                        </div>
+                        <div className="glyph-wrapper col-sm-6">{icon}</div>
                     </li>
                 );
             });
@@ -61,7 +64,7 @@ module.exports = React.createClass({
             <div className="col-sm-6">
                 <div className="result">
                     <h3 className="result__header">Results</h3>
-
+                    
                     {resultsList}
                 </div>
             </div>
