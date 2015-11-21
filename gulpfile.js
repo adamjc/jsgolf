@@ -75,6 +75,7 @@ gulp.task('browserify', ['config', 'copy-js-source'], () => {
 gulp.task('test', () => {
     return gulp.src('test/**/*.js')
         .pipe(mocha({
+            timeout: 10000,
             compilers: {
                 js: babel
             }
