@@ -4,6 +4,7 @@ const alt = require('../alt');
 const requestPromise = require('request-promise');
 const config = require('../config');
 const url = location.origin + '/api/exercises/';
+const socket = require('socket.io-client')(location.origin);
 
 class ResultActions {
     updateResults(results) {
@@ -11,24 +12,14 @@ class ResultActions {
     }
 
     fetchResults(exercise, answer) {
-        let requestOptions = {
-            uri: url + exercise,
-            json: {
-                answer: answer
-            },
-            method: 'POST'
-        };
-
-        // we dispatch an event here so we can have a 'loading' event.
         this.dispatch();
 
-        requestPromise(requestOptions)
-            .then((results) => {
-                this.actions.updateResults(results);
-            })
-            .catch((errorMessage) => {
-                console.log(errorMessage);
-            });
+        socket.emit('postExercise', {
+            exercise: exercise,
+            answer: answer
+        });
+
+        socket.once('postedExercise', results => this.actions.updateResults(results));
     }
 
     resultsFailed() {
