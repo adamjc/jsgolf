@@ -40,7 +40,6 @@ process.on('attemptToProcess', () => {
 });
 
 function postExercise(socket, data) {
-    console.log('postExercise', sandboxes.length);
     if (!data) {
         socket.emit('500: data not found.');
         return;
