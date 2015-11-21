@@ -25,9 +25,6 @@ app.get('/api/exercises', getExerciseList);
 /* Fetches data around the exercise, e.g. title, problem. */
 app.get('/api/exercises/:exercise', getExercise);
 
-/* Calculates answer and returns array of results. */
-//app.post('/api/exercises/:exercise', postExercise);
-
 app.get('/*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../index.html'));
 });
@@ -37,7 +34,7 @@ app.set('port', (process.env.PORT || 5000));
 server = app.listen(app.get('port'), () => {
     let port = server.address().port;
 
-    console.log('jsgolf listening at http://localhost:%s', port);
+    console.log('jsgolf up and running');
 });
 
 io = socket(server);
@@ -48,4 +45,4 @@ io.on('connection', socket => {
     });
 });
 
-module.exports = io;
+module.exports = server;

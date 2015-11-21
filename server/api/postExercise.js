@@ -1,6 +1,5 @@
 'use strict';
 
-const io = require('../app.js').io;
 const Sandbox = require('sandbox');
 const _ = require('lodash');
 const exerciseMap = require('../utils/exercise-map');
@@ -26,18 +25,21 @@ function sandboxFinished() {
 }
 
 function postExercise(socket, data) {
-    let exerciseData;
-    let userAnswer;
-
     if (!data) {
-        res.status(500).send('Exercise data not found.');
+        socket.emit('500: data not found.');
         return;
     }
 
-    exerciseData = getExerciseData(data.exercise);
-    userAnswer = data.answer;
+    let userAnswer = data.answer
+    let exerciseData = getExerciseData(data.exercise);
+
+    if (!userAnswer || !exerciseData) {
+        socket.emit('500: data not found.');
+        return;
+    }
 
     let exerciseRequest = {
+        socket: socket,
         exercise: exerciseData,
         userAnswer: userAnswer
     };
