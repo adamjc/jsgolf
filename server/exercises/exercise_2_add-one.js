@@ -14,9 +14,6 @@ const addOne = {
     }, {
         'testInput': [999],
         'expectedOutput': 1000
-    }, {
-        'testInput': ['Hello World!'],
-        'expectedOutput': null
     }]
 };
 
