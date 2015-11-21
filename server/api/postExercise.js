@@ -1,6 +1,6 @@
 'use strict';
 
-const Sandbox = require('sandbox');
+const Sandbox = require('adamjc-sandbox');
 const _ = require('lodash');
 const exerciseMap = require('../utils/exercise-map');
 const socket = require('socket.io');
@@ -10,12 +10,11 @@ let sandboxes = [];
 let requests = [];
 
 for (let i = 0; i < maxSandboxes; i++) {
-    let s = new Sandbox();
+    let s = new Sandbox({ timeout: 10000 });
     sandboxes.push(s);
 };
 
 process.on('sandboxFinished', () => {
-    console.log('sandboxFinished');
     process.emit('attemptToProcess');
 })
 
