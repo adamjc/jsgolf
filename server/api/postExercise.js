@@ -30,7 +30,7 @@ process.on('attemptToProcess', () => {
     let sandbox = sandboxes.pop();
     let request = requests.pop();
 
-    Promise.all(processData(sandbox, request)).then(results => {
+    Promise.all(runTests(sandbox, request)).then(results => {
         sandboxes.push(sandbox);
 
         request.socket.emit('postedExercise', results);
@@ -59,95 +59,74 @@ function postExercise(socket, data) {
     };
 
     process.emit('exercisePosted', exerciseRequest);
-
-    return;
 }
 
-function processData(sandbox, request) {
-    let promises = [];
+function runTests(sandbox, request) {
+    let testResults = [];
     let tests = request.exercise.tests;
 
-    Object.keys(tests).forEach((element, index) => {
-        let promise = new Promise((resolve, reject) => {
-            let parsedFunction;
-            let func = `(function(){
-                            var output = (usersFunction)(testInputPlaceholder);
-                            var result = {
-                                "output": output
-                            };
-                            return "" + JSON.stringify(result); + ""
-                        })()`;
+    tests.forEach((test, i) => {
+        let functionString = createFunctionString(test, request.userAnswer)
+        let testResult = runTest(sandbox, test, i, functionString);
 
-            tests[index].testInput.forEach(input => {
-                let testInputIndex = func.indexOf('testInputPlaceholder');
-                let testInput = getCorrectFormat(input);
-                func = func.split('');
-                func.splice(testInputIndex, 0, testInput + ', ');
-                func = func.join('');
-            });
-
-            let testInputIndex = func.indexOf(', testInputPlaceholder');
-            func = func.split('');
-            func.splice(testInputIndex, ', testInputPlaceholder'.length);
-            func = func.join('');
-
-            parsedFunction = func.replace('usersFunction', request.userAnswer);
-            sandbox.run(parsedFunction, (output) => {
-                let result;
-                let resultObject = {};
-
-                result = output.result.split('');
-                result.pop();
-                result.shift();
-                result = result.join('');
-
-                try {
-                    resultObject = JSON.parse(result);
-                } catch (e) {
-                    console.error('Error parsing result object: ', result, e);
-                    resultObject.output = result;
-                }
-
-                resultObject.input = tests[index].testInput
-                resultObject.id = index;
-                resultObject.correct = _.isEqual(resultObject.output, tests[index].expectedOutput);
-
-                resolve(resultObject);
-            });
-        });
-
-        promises.push(promise);
+        testResults.push(testResult);
     });
 
-    return promises;
+    return testResults;
 }
 
-function getCorrectFormat(input) {
-    if (_.isArray(input)) {
-        return "[" + input + "]";
-    };
+function createFunctionString(test, userAnswer) {
+    let func = `(() => {
+                    var output = ({userAnswer})({input});
+                    var result = { "output": output };
+                    return "" + JSON.stringify(result); + "";
+                })();`;
 
-    if (typeof input === 'string') {
-        return "'" + input + "'";
-    }
+    test.testInput.forEach(input => func = func.replace('{input}', formatInput(input) + ', {input}'));
 
-    if (typeof input === 'object') {
-        return JSON.stringify(input);
-    }
+    func = func.replace(', {input}', '');
+    func = func.replace('{userAnswer}', userAnswer);
+
+    return func;
+}
+
+function runTest(sandbox, element, i, func) {
+    return new Promise((resolve, reject) => {
+        sandbox.run(func, output => {
+            // '{"output": 3}' => {"output": 3}
+            let result = output.result.slice(1, output.result.length - 1);;
+            let resultObject = {};
+
+            try {
+                resultObject = JSON.parse(result);
+            } catch (e) {
+                console.error('Error parsing result object: ', result, e);
+                resultObject.output = result;
+            }
+
+            resultObject.input = element.testInput
+            resultObject.id = i;
+            resultObject.correct = _.isEqual(resultObject.output, element.expectedOutput);
+
+            resolve(resultObject);
+        });
+    });
+}
+
+function formatInput(input) {
+    if (_.isArray(input)) return "[" + input + "]";
+    if (typeof input === 'string') return "'" + input + "'";
+    if (typeof input === 'object') return JSON.stringify(input);
 
     return input;
 }
 
 function getExerciseData(exercise) {
     let exerciseToLoad = exerciseMap[exercise];
-    let exerciseData;
 
-    if (exerciseToLoad) {
-        exerciseData = '../exercises/' + exerciseToLoad;
-        return require(exerciseData);
-    } else {
-        return null;
-    }
+    if (exerciseToLoad) return require('../exercises/' + exerciseToLoad);
+
+    return null;
 }
 
 module.exports = postExercise;
