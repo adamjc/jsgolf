@@ -4,6 +4,7 @@ const React = require('react');
 const Header = require('./header.jsx');
 const Footer = require('./footer.jsx');
 const Router = require('./router.jsx');
+const ReactDOM = require('react-dom')
 
 var App = React.createClass({
     render() {
@@ -22,5 +23,5 @@ var App = React.createClass({
 });
 
 $(document).ready(function () {
-    React.render(<App />, document.body);
+    ReactDOM.render(<App />, document.getElementById('app'));
 });
