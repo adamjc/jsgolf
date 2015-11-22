@@ -1,8 +1,8 @@
 module.exports = [{
-    "id": 0,
     "output": 3,
     "input": [
         [1, 1, 1]
     ],
+    "id": 0,
     "correct": true
 }];

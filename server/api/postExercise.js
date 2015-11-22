@@ -73,20 +73,16 @@ function processData(sandbox, request) {
             let func = `(function(){
                             var output = (usersFunction)(testInputPlaceholder);
                             var result = {
-                                "id": idPlaceholder,
-                                "output": output,
-                                "input": [inputPlaceholder]
+                                "output": output
                             };
                             return "" + JSON.stringify(result); + ""
                         })()`;
 
             tests[index].testInput.forEach(input => {
                 let testInputIndex = func.indexOf('testInputPlaceholder');
-                let inputIndex = func.indexOf('inputPlaceholder') + 1;
                 let testInput = getCorrectFormat(input);
                 func = func.split('');
                 func.splice(testInputIndex, 0, testInput + ', ');
-                func.splice(inputIndex, 0, testInput + ', ');
                 func = func.join('');
             });
 
@@ -94,13 +90,6 @@ function processData(sandbox, request) {
             func = func.split('');
             func.splice(testInputIndex, ', testInputPlaceholder'.length);
             func = func.join('');
-
-            let inputIndex = func.indexOf(', inputPlaceholder');
-            func = func.split('');
-            func.splice(inputIndex, ', inputPlaceholder'.length);
-            func = func.join('');
-
-            func = func.replace('idPlaceholder', index);
 
             parsedFunction = func.replace('usersFunction', request.userAnswer);
             sandbox.run(parsedFunction, (output) => {
@@ -114,11 +103,14 @@ function processData(sandbox, request) {
 
                 try {
                     resultObject = JSON.parse(result);
-                    resultObject.correct = _.isEqual(resultObject.output, tests[index].expectedOutput);
                 } catch (e) {
                     console.error('Error parsing result object: ', result, e);
-                    resultObject.output = 'Error';
+                    resultObject.output = result;
                 }
+
+                resultObject.input = tests[index].testInput
+                resultObject.id = index;
+                resultObject.correct = _.isEqual(resultObject.output, tests[index].expectedOutput);
 
                 resolve(resultObject);
             });
