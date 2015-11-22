@@ -59,6 +59,11 @@ module.exports = React.createClass({
 
         return (
             <div className="exercise-input col-sm-6">
+                <h3 className="exercise-input__header">
+                    Input Length:
+                    <span class="exercise-input__header-length"> {this.state.answer.length}</span>
+                </h3>
+
                 <AceEditor
                     className="exercise-input__editor"
                     mode="javascript"
