@@ -14,9 +14,18 @@ for (let i = 0; i < maxSandboxes; i++) {
     sandboxes.push(s);
 };
 
+process.on('socketDisconnected', socket => {
+    // find the socket's request, if it has one.
+    let request = requests.map((r, i) => {
+        return r.socket.id === socket.id ? i : null;
+    }).filter(e => e !== null);
+
+    if (request) requests.splice(request, 1);    
+});
+
 process.on('sandboxFinished', () => {
     process.emit('attemptToProcess');
-})
+});
 
 process.on('exercisePosted', exerciseRequest => {
     requests.unshift(exerciseRequest);

@@ -40,6 +40,11 @@ server = app.listen(app.get('port'), () => {
 io = socket(server);
 
 io.on('connection', socket => {
+    socket.on('disconnect', () => {
+        console.log('socket ' + socket.id + ' has disconnected.');
+        process.emit('socketDisconnected', socket);
+    });
+
     socket.on('postExercise', data => {
         postExercise(socket, data);
     });
