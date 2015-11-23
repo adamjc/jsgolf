@@ -40,6 +40,8 @@ module.exports = React.createClass({
     },
 
     handleClick() {
+        if (!this.state.answer) return;
+
         ResultActions.fetchResults(this.props.exercise, this.state.answer);
 
         this.setState({

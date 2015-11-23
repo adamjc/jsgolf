@@ -67,7 +67,7 @@ function runTests(sandbox, request) {
 
     tests.forEach((test, i) => {
         let functionString = createFunctionString(test, request.userAnswer)
-        let testResult = runTest(sandbox, test, i, functionString);
+        let testResult = runTest(sandbox, test, functionString);
 
         testResults.push(testResult);
     });
@@ -90,7 +90,7 @@ function createFunctionString(test, userAnswer) {
     return func;
 }
 
-function runTest(sandbox, element, i, func) {
+function runTest(sandbox, test, func) {
     return new Promise((resolve, reject) => {
         sandbox.run(func, output => {
             // '{"output": 3}' => {"output": 3}
@@ -104,9 +104,9 @@ function runTest(sandbox, element, i, func) {
                 resultObject.output = result;
             }
 
-            resultObject.input = element.testInput
-            resultObject.id = i;
-            resultObject.correct = _.isEqual(resultObject.output, element.expectedOutput);
+            resultObject.input = test.testInput
+            resultObject.id = test.id;
+            resultObject.correct = _.isEqual(resultObject.output, test.expectedOutput);
 
             resolve(resultObject);
         });

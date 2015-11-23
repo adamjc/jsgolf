@@ -3,6 +3,7 @@ const maps = {
     title: "Exercise 3 - Maps",
     description: "Produce a function that takes a map and returns an array of values of the keys",
     tests: [{
+        'id': 0,
         'testInput': [{
             a: 1,
             b: 2,

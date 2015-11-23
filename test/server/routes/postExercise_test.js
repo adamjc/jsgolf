@@ -9,7 +9,7 @@ const cannedDataLocation = '../canned_data/post_exercise/';
 
 describe('postExercise', () => {
     const postExercise = require('../../../server/api/postExercise.js');
-    const socketUrl = 'http://localhost:5000'
+    const socketUrl = 'http://localhost:5000';
 
     let client;
 

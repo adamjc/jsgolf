@@ -3,6 +3,7 @@ const maps = {
     title: "Exercise 5 - Parameters",
     description: "Produce a function that takes two numbers and adds them together",
     tests: [{
+        'id': 0,
         'testInput': {
             a: 1,
             b: 2,
