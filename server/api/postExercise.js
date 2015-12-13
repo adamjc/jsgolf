@@ -20,7 +20,7 @@ process.on('socketDisconnected', socket => {
         return r.socket.id === socket.id ? i : null;
     }).filter(e => e !== null);
 
-    if (request) requests.splice(request, 1);    
+    if (request) requests.splice(request, 1);
 });
 
 process.on('sandboxFinished', () => {
