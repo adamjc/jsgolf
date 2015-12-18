@@ -1,0 +1,57 @@
+.register {
+
+}
+
+.register__title {
+    margin-top: 50px;
+}
+
+.register__inner {
+    width: 50%;
+}
+
+.register__inputs {
+    margin-top: 20px;
+    display: block;
+}
+
+.register__input {
+    width: 50%;
+    padding: 5px;
+    line-height: 1em;
+    font-size: 1.5em;
+    margin-top: 20px;
+}
+
+.register__input--password {
+    width: 100%;
+}
+
+.register__password-wrapper {
+    position: relative;
+    width: 50%;
+}
+
+.register__password-visibility {
+    cursor: pointer;
+    font-weight: bold;
+    position: absolute;
+    right: 10px;
+    top: 29px;
+    color: $grey;
+}
+
+.register__button {
+    font-size: 1.5em;
+    margin-top: 20px;
+    width: 50%;
+    background-color: $green-1991;
+
+    &:hover {
+        background-color: $dark-green-1991;
+    }
+
+    &:active {
+        background-color: $darker-green-1991;
+    }
+}
