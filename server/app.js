@@ -11,6 +11,7 @@ const socket = require('socket.io');
 const getExerciseList = require('./api/getExercisesList');
 const getExercise = require('./api/getExercise');
 const postExercise = require('./api/postExercise');
+const postRegister = require('./api/postRegister');
 
 let server;
 let io;
@@ -24,6 +25,8 @@ app.get('/api/exercises', getExerciseList);
 
 /* Fetches data around the exercise, e.g. title, problem. */
 app.get('/api/exercises/:exercise', getExercise);
+
+app.post('/api/register', postRegister);
 
 app.get('/*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../index.html'));
