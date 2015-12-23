@@ -2,7 +2,7 @@
 
 const alt = require('../alt');
 const requestPromise = require('request-promise');
-const url = location.origin + '/api/register/';
+const url = location.origin + '/api/register';
 
 class ExerciseActions {
     updateRegister(data) {
@@ -19,7 +19,8 @@ class ExerciseActions {
                 username: userInfo.username,
                 password: userInfo.password,
                 email: userInfo.email
-            }
+            },
+            json: true
         };
 
         // we dispatch an event here so we can have a 'loading' event.

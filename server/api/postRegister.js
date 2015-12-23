@@ -2,7 +2,8 @@
 
 /* Attempts to register a new user. */
 function postRegister(req, res) {
-    res.send(req);    
+    // TODO
+    res.status(200).send();
 };
 
-module.exports = getExercise;
+module.exports = postRegister;
