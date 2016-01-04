@@ -49,6 +49,9 @@ app.post('/login', passport.authenticate('local'), (req, res) => {
     res.redirect('/user/' + req.user.username);
 })
 
+/* Attempts to register a user */
+app.post('/register', postRegister);
+
 /* Returns the list of exercises available. */
 app.get('/api/exercises', getExerciseList);
 
