@@ -47,7 +47,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/public', express.static(path.resolve(__dirname, '../public')));
 
-app.post('/login', passport.authenticate('local'), (req, res) => {
+app.post('/sign-in', passport.authenticate('local'), (req, res) => {
     res.redirect('/user/' + req.user.username);
 })
 
