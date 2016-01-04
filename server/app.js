@@ -19,14 +19,15 @@ let server;
 let io;
 
 passport.use(new LocalStrategy((username, password, done) => {
-    User.findOne({ username: username }, (err, user => {
-        if (err) return done(err);
-        if (!user) return done(null, false, { message: 'Incorrect username.' });
-        if (!user.validPassword(password)) {
-            return done (null, false, { message: 'Incorect password.' });
-        }
-        return done(null, user);
-    }));
+    // TODO Connect to dynamodb and find user.
+    // User.findOne({ username: username }, (err, user => {
+    //     if (err) return done(err);
+    //     if (!user) return done(null, false, { message: 'Incorrect username.' });
+    //     if (!user.validPassword(password)) {
+    //         return done (null, false, { message: 'Incorect password.' });
+    //     }
+    //     return done(null, user);
+    // }));
 }))
 
 passport.serializeUser(function(user, done) {
@@ -34,9 +35,10 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
+    // TODO Connect to dynamodb and find user.
+    // User.findById(id, function(err, user) {
+    //   done(err, user);
+    // });
 });
 
 app.use(passport.initialize());
