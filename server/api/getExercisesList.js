@@ -19,6 +19,6 @@ function getExercisesList(req, res) {
     });
 
     res.json(exercises);
-};
+}
 
 module.exports = getExercisesList;

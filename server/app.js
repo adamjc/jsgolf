@@ -28,7 +28,7 @@ passport.use(new LocalStrategy((username, password, done) => {
     //     }
     //     return done(null, user);
     // }));
-}))
+}));
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);
@@ -49,7 +49,7 @@ app.use('/public', express.static(path.resolve(__dirname, '../public')));
 
 app.post('/sign-in', passport.authenticate('local'), (req, res) => {
     res.redirect('/user/' + req.user.username);
-})
+});
 
 /* Attempts to register a user */
 app.post('/register', postRegister);

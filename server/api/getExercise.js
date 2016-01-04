@@ -20,6 +20,6 @@ function getExercise(req, res) {
     } else {
         res.status(500).send('500');
     }
-};
+}
 
 module.exports = getExercise;
