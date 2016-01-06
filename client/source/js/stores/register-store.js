@@ -1,18 +1,16 @@
 const alt = require('../alt');
-const ExerciseActions = require('../actions/exercise-actions');
+const RegisterActions = require('../actions/register-actions');
 
-class ExerciseStore {
+class RegisterStore {
     constructor() {
-        this.exerciseButtonClicked = null;
-
         this.bindListeners({
-            handleUpdateExercise: ExerciseActions.UPDATE_EXERCISE,
+            handleUpdateRegister: RegisterActions.UPDATE_REGISTER,
         });
     }
 
-    handleUpdateExercise(exercise) {
-        this.exercise = exercise;
+    handleUpdateRegister(data) {
+        this.data = data;
     }
 }
 
-module.exports = alt.createStore(ExerciseStore, 'ExerciseStore');
+module.exports = alt.createStore(RegisterStore, 'RegisterStore');
