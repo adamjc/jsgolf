@@ -2,7 +2,6 @@
 
 const React = require('react');
 const Header = require('./header.jsx');
-const Footer = require('./footer.jsx');
 const Router = require('./router.jsx');
 const ReactDOM = require('react-dom')
 
@@ -15,8 +14,6 @@ var App = React.createClass({
                 <div className="main-container container">
                     <Router />
                 </div>
-
-                <Footer />
             </div>
         );
     }
