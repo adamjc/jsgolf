@@ -1,24 +1,25 @@
 'use strict';
 
 const AWS = require('aws-sdk');
-const table = 'users';
-const crypto = require('crypto');
 
 AWS.config.update({
   region: 'eu-west-1',
   endpoint: 'dynamodb.eu-west-1.amazonaws.com'
 });
 
+const table = 'users';
 const docClient = new AWS.DynamoDB.DocumentClient();
+
+const passwordUtil = require('../utils/passwordUtil');
 
 /* Attempts to register a new user. */
 function postRegister(req, res) {
     let username = req.body.username;
     let password = req.body.password;
     let email = req.body.email;
-    let salt = crypto.randomBytes(256);
+    let salt = passwordUtil.salt();
 
-    hash(password, salt).then(hash => {
+    passwordUtil.hash(password, salt).then(hash => {
         let params = {
             TableName: table,
             Item: {
@@ -47,16 +48,6 @@ function postRegister(req, res) {
         }).catch(error => {
             console.log('promise rejected: ', data);
             res.status(500).send();
-        });
-    });
-}
-
-/* Returns a promise that will resolve to a hash */
-function hash(password, salt) {
-    return new Promise((resolve, reject) => {
-        crypto.pbkdf2(password, salt, 100000, 256, 'sha256', (err, key) => {
-            if (err) console.error('Error Hashing', err);
-            resolve(key.toString('hex'));
         });
     });
 }
