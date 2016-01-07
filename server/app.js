@@ -71,7 +71,7 @@ app.set('port', (process.env.PORT || 5000));
 server = app.listen(app.get('port'), () => {
     let port = server.address().port;
 
-    console.log('jsgolf up and running');
+    console.log('[' + new Date() + ']' + ' jsgolf up and running!');
 });
 
 io = socket(server);
