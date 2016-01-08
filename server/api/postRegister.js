@@ -19,6 +19,14 @@ function postRegister(req, res) {
     let email = req.body.email;
     let salt = passwordUtil.salt();
 
+    if (!username) {
+        return res.status(422).send('No username was provided.');
+    }
+
+    if (!password) {
+        return res.status(422).send('No password was provided.')
+    }
+
     passwordUtil.hash(password, salt).then(hash => {
         let params = {
             TableName: table,
