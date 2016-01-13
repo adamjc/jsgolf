@@ -1,6 +1,5 @@
 'use strict';
 
-const fs = require('fs');
 const exerciseMap = require('../utils/exercise-map');
 
 /* Returns the list of exercises available. */

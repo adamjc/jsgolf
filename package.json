@@ -15,6 +15,12 @@
     "js",
     "golf"
   ],
+  "eslintConfig": {
+        "env": {
+            "browser": true,
+            "node": true
+        }
+    },
   "author": "Adam Cook",
   "license": "ISC",
   "dependencies": {
@@ -63,6 +69,8 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "devDependencies": {
+    "eslint": "^1.10.3",
+    "eslint-plugin-react": "^3.15.0",
     "gulp-jshint": "^2.0.0",
     "jshint": "^2.8.0"
   }

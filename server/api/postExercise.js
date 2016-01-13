@@ -3,7 +3,6 @@
 const Sandbox = require('adamjc-sandbox');
 const _ = require('lodash');
 const exerciseMap = require('../utils/exercise-map');
-const socket = require('socket.io');
 
 let maxSandboxes = 10;
 let sandboxes = [];
@@ -12,7 +11,7 @@ let requests = [];
 for (let i = 0; i < maxSandboxes; i++) {
     let s = new Sandbox({ timeout: 10000 });
     sandboxes.push(s);
-};
+}
 
 process.on('socketDisconnected', socket => {
     // find the socket's request, if it has one.
@@ -53,7 +52,7 @@ function postExercise(socket, data) {
         return;
     }
 
-    let userAnswer = data.answer
+    let userAnswer = data.answer;
     let exerciseData = getExerciseData(data.exercise);
 
     if (!userAnswer || !exerciseData) {
@@ -74,8 +73,8 @@ function runTests(sandbox, request) {
     let testResults = [];
     let tests = request.exercise.tests;
 
-    tests.forEach((test, i) => {
-        let functionString = createFunctionString(test, request.userAnswer)
+    tests.forEach((test) => {
+        let functionString = createFunctionString(test, request.userAnswer);
         let testResult = runTest(sandbox, test, functionString);
 
         testResults.push(testResult);
@@ -100,10 +99,10 @@ function createFunctionString(test, userAnswer) {
 }
 
 function runTest(sandbox, test, func) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         sandbox.run(func, output => {
             // '{"output": 3}' => {"output": 3}
-            let result = output.result.slice(1, output.result.length - 1);;
+            let result = output.result.slice(1, output.result.length - 1);
             let resultObject = {};
 
             try {
@@ -113,7 +112,7 @@ function runTest(sandbox, test, func) {
                 resultObject.output = result;
             }
 
-            resultObject.input = test.testInput
+            resultObject.input = test.testInput;
             resultObject.id = test.id;
             resultObject.correct = _.isEqual(resultObject.output, test.expectedOutput);
 

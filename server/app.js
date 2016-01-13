@@ -3,9 +3,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const _ = require('lodash');
 const path = require('path');
-const events = require('events');
 const socket = require('socket.io');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
@@ -31,7 +29,7 @@ passport.use(new LocalStrategy((username, password, done) => {
 }));
 
 passport.serializeUser(function(user, done) {
-  done(null, user.id);
+    done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
