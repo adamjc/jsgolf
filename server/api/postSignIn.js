@@ -10,7 +10,7 @@ AWS.config.update({
 const table = 'users';
 const docClient = new AWS.DynamoDB.DocumentClient();
 
-const passwordUtil = require('../utils/passwordUtil');
+const passwordUtils = require('../utils/password-utils');
 
 /* Attempts to register a new user. */
 function postSignIn(req, res) {
