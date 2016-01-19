@@ -7,6 +7,8 @@ const path = require('path');
 const socket = require('socket.io');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const ddbUtils = require('./utils/ddb-utils');
+const passwordUtils = require('./utils/password-utils');
 
 const getExerciseList = require('./api/getExercisesList');
 const getExercise = require('./api/getExercise');
@@ -17,26 +19,33 @@ let server;
 let io;
 
 passport.use(new LocalStrategy((username, password, done) => {
-    // TODO Connect to dynamodb and find user.
-    // User.findOne({ username: username }, (err, user => {
-    //     if (err) return done(err);
-    //     if (!user) return done(null, false, { message: 'Incorrect username.' });
-    //     if (!user.validPassword(password)) {
-    //         return done (null, false, { message: 'Incorect password.' });
-    //     }
-    //     return done(null, user);
-    // }));
+    console.log('trying to authenticate %s...', username);
+
+    ddbUtils.getUser(username).then(user => {
+        if (!user) {
+            console.log('no user found.')
+            return done(null, false, { message: 'Incorrect username.'});
+        }
+
+        passwordUtils.hash(password, user.salt).then(hash => {
+
+
+            if (hash !== user.password) {
+                console.log('password does not match.');
+                return done(null, false, { message: 'Incorrect password.' });
+            }
+
+            return done(null, user);
+        })
+    });
 }));
 
 passport.serializeUser(function(user, done) {
-    done(null, user.id);
+  done(null, user);
 });
 
-passport.deserializeUser(function(id, done) {
-    // TODO Connect to dynamodb and find user.
-    // User.findById(id, function(err, user) {
-    //   done(err, user);
-    // });
+passport.deserializeUser(function(user, done) {
+  done(null, user);
 });
 
 app.use(passport.initialize());
@@ -47,6 +56,14 @@ app.use('/public', express.static(path.resolve(__dirname, '../public')));
 
 app.post('/sign-in', passport.authenticate('local'), (req, res) => {
     res.redirect('/user/' + req.user.username);
+});
+
+app.get('/get-user/:username', (req, res) => {
+    ddbUtils.getUser(req.params.username).then(data => {
+        if (data) res.status(200).send();
+
+        res.status(404).send();
+    });
 });
 
 /* Attempts to register a user */
