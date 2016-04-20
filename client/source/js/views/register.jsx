@@ -41,6 +41,7 @@ module.exports = React.createClass({
 
     render() {
         let passwordVisibile = this.state.passwordVisibile ? 'text' : 'password';
+        let passwordVisibleText = this.state.passwordVisibile ? 'HIDE' : 'SHOW';
 
         return (
             <div className="col-sm-12 register">
@@ -50,7 +51,7 @@ module.exports = React.createClass({
                         <input type="text" valueLink={this.linkState('username')} className="register__input register__input--username center-block" placeholder="username"></input>
                         <div className="register__password-wrapper center-block">
                             <input type={passwordVisibile} valueLink={this.linkState('password')} className="register__input register__input--password" placeholder="password"></input>
-                            <div onClick={this.handlePasswordClick} className="register__password-visibility">SHOW</div>
+                            <div onClick={this.handlePasswordClick} className="register__password-visibility">{passwordVisibleText}</div>
                         </div>
                         <input type="text" valueLink={this.linkState('email')} className="register__input register__input--email center-block" placeholder="email (optional)"></input>
                     </div>
