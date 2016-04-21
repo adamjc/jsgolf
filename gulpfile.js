@@ -11,7 +11,6 @@ const del = require('del');
 const rename = require('gulp-rename');
 const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
-const jshint = require('gulp-jshint');
 
 const paths = {
     scripts: ['./js/**/*.jsx', './js/**/*.js']
