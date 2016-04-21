@@ -42,18 +42,18 @@ gulp.task('css', () => {
 })
 
 gulp.task('config', ['copy-js-source'], () => {
-    console.log('building for ' + settings.environment + '...')
+    console.log(`building for ${settings.environment}...`);
 
-    return gulp.src(settings.jsConfigFolder + '/' + settings.environment + '.js')
+    return gulp.src(`${settings.jsConfigFolder}/${settings.environment}.js`)
                .pipe(rename('config.js'))
                .pipe(gulp.dest(settings.jsBuildFolder))
 })
 
 gulp.task('copy-js-source', ['clean'], () => {
     return gulp.src([
-        settings.sourceFolder + '/js/**/*',
-        '!' + settings.sourceFolder + '/js/config',
-        '!' + settings.sourceFolder + '/js/config/**/*'
+        `${settings.sourceFolder}/js/**/*`,
+        `!${settings.sourceFolder}/js/config`,
+        `!${settings.sourceFolder}/js/config/**/*`
     ]).pipe(gulp.dest(settings.jsBuildFolder))
 })
 
@@ -61,7 +61,7 @@ gulp.task('browserify', ['config', 'copy-js-source'], () => {
     let b = browserify()
     b.transform(reactify)
     b.transform(babelify)
-    b.add(settings.preBuildFolder + '/js/app.jsx')
+    b.add(`${settings.preBuildFolder}/js/app.jsx`)
 
     return b.bundle()
             .pipe(source('main.js'))
