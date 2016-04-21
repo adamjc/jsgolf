@@ -73,12 +73,6 @@ gulp.task('browserify', ['config', 'copy-js-source'], () => {
 //     gulp.watch(paths.scripts, ['browserify']);
 // });
 
-gulp.task('hint', () => {
-    return gulp.src('./server/**/*.js')
-               .pipe(jshint())
-               .pipe(jshint.reporter('default'));
-});
-
 gulp.task('test', () => {
     return gulp.src('test/**/*.js')
         .pipe(mocha({

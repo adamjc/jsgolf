@@ -1,4 +1,5 @@
 node_modules
 public
 client/pre-build
+npm-debug.log
 .DS_Store

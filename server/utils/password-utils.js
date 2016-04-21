@@ -1,27 +1,23 @@
-'use strict';
-
-const crypto = require('crypto');
-const DEFAULT_HASH_SIZE = 256;
+const crypto = require('crypto')
+const DEFAULT_HASH_SIZE = 256
 
 /* Returns a promise that will resolve to a hash */
 function hash(password, salt) {
-    console.log('password utils');
-
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         crypto.pbkdf2(password, salt, 100000, DEFAULT_HASH_SIZE, 'sha256', (err, key) => {
-            if (err) console.error('Error Hashing', err);
-            resolve(key.toString('hex'));
-        });
-    });
+            if (err) console.error('Error Hashing', err)
+            resolve(key.toString('hex'))
+        })
+    })
 }
 
 function salt(byteSize) {
     this.byteSize = byteSize || DEFAULT_HASH_SIZE
 
-    return crypto.randomBytes(this.byteSize);
+    return crypto.randomBytes(this.byteSize)
 }
 
 module.exports = {
     hash,
     salt
-};
+}

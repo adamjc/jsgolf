@@ -1,5 +1,3 @@
-'use strict';
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
@@ -28,8 +26,6 @@ passport.use(new LocalStrategy((username, password, done) => {
         }
 
         passwordUtils.hash(password, user.salt).then(hash => {
-
-
             if (hash !== user.password) {
                 console.log('password does not match.');
                 return done(null, false, { message: 'Incorrect password.' });
@@ -41,26 +37,26 @@ passport.use(new LocalStrategy((username, password, done) => {
 }));
 
 passport.serializeUser(function(user, done) {
-  done(null, user);
-});
+    done(null, user)
+})
 
 passport.deserializeUser(function(user, done) {
-  done(null, user);
-});
+    done(null, user)
+})
 
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/public', express.static(path.resolve(__dirname, '../public')));
+app.use(passport.initialize())
+app.use(passport.session())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use('/public', express.static(path.resolve(__dirname, '../public')))
 
 app.post('/sign-in', passport.authenticate('local'), (req, res) => {
-    res.redirect('/user/' + req.user.username);
-});
+    res.redirect('/user/' + req.user.username)
+})
 
 app.get('/get-user/:username', (req, res) => {
     ddbUtils.getUser(req.params.username).then(data => {
-        if (data) res.status(200).send();
+        if (data) res.status(200).send(data);
 
         res.status(404).send();
     });
@@ -86,7 +82,7 @@ app.set('port', (process.env.PORT || 5000));
 server = app.listen(app.get('port'), () => {
     let port = server.address().port;
 
-    console.log('[' + new Date() + ']' + ' jsgolf up and running!');
+    console.log(`[${new Date()}] jsgolf server running on port ${server.address().port}`);
 });
 
 io = socket(server);
