@@ -1,17 +1,34 @@
-'use strict';
+'use strict'
 
-const alt = require('../alt');
-const requestPromise = require('request-promise');
-const url = location.origin + '/api/register';
+const alt = require('../alt')
+const requestPromise = require('request-promise')
+const baseUrl = `${location.origin}/api`
+const registerUrl = `${baseUrl}/register`
+const getUserUrl = `${baseUrl}/get-user`
 
 class ExerciseActions {
     updateRegister(data) {
+        this.dispatch(data)
+    }
+
+    gotUser(data) {
         this.dispatch(data);
+    }
+
+    getUser(userName) {
+        let requestOptions = {
+            uri: `${getUserUrl}/${userName}`,
+            method: 'GET'
+        }
+
+        requestPromise(requestOptions)
+            .then(results => this.actions.updateRegister('register success'))
+            .catch(errorMessage => console.error(errorMessage))
     }
 
     register(userInfo) {
         let requestOptions = {
-            uri: url,
+            uri: registerUrl,
             method: 'POST',
             body: {
                 username: userInfo.username,
@@ -19,7 +36,7 @@ class ExerciseActions {
                 email: userInfo.email
             },
             json: true
-        };
+        }
 
         // we dispatch an event here so we can have a 'loading' event.
         this.dispatch();
