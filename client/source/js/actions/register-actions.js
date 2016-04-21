@@ -10,8 +10,6 @@ class ExerciseActions {
     }
 
     register(userInfo) {
-        console.log(userInfo);
-
         let requestOptions = {
             uri: url,
             method: 'POST',

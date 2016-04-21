@@ -7,25 +7,31 @@ const LinkedStateMixin = require('react-addons-linked-state-mixin');
 module.exports = React.createClass({
     mixins: [LinkedStateMixin],
 
-    getInitialState() {
+    getInitialState () {
         return {
             passwordVisibile: false
         };
     },
 
-    componentDidMount() {
+    componentDidMount () {
 
     },
 
-    componentWillUnmount() {
+    componentWillUnmount () {
 
     },
 
-    onChange(state) {
+    onChange (state) {
         this.setState(state);
     },
 
-    handleRegisterClick() {
+    handleUserNameChange (event) {
+        this.setState({username: event.target.value});
+
+        // TODO: Make request to /get-user
+    },
+
+    handleRegisterClick () {
         RegisterActions.register({
             username: this.state.username,
             password: this.state.password,
@@ -33,13 +39,13 @@ module.exports = React.createClass({
         });
     },
 
-    handlePasswordClick() {
+    handlePasswordClick () {
         this.setState({
             passwordVisibile: !this.state.passwordVisibile
         });
     },
 
-    render() {
+    render () {
         let passwordVisibile = this.state.passwordVisibile ? 'text' : 'password';
         let passwordVisibleText = this.state.passwordVisibile ? 'HIDE' : 'SHOW';
 
@@ -48,7 +54,7 @@ module.exports = React.createClass({
                 <div className="center-block register__inner">
                     <h2 className="text-center register__title">Enter Your Details</h2>
                     <div className="register__inputs center-block">
-                        <input type="text" valueLink={this.linkState('username')} className="register__input register__input--username center-block" placeholder="username"></input>
+                        <input type="text" value={this.state.value} onChange={this.handleUserNameChange} className="register__input register__input--username center-block" placeholder="username"></input>
                         <div className="register__password-wrapper center-block">
                             <input type={passwordVisibile} valueLink={this.linkState('password')} className="register__input register__input--password" placeholder="password"></input>
                             <div onClick={this.handlePasswordClick} className="register__password-visibility">{passwordVisibleText}</div>
