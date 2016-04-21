@@ -10,7 +10,7 @@ class RegisterStore {
     }
 
     handleGotUser(data) {
-        // TODO: Actually do this bit.
+        console.log(data);
         this.userExists = false;
     }
 

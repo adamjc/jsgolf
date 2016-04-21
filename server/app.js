@@ -56,13 +56,13 @@ app.post('/sign-in', passport.authenticate('local'), (req, res) => {
     res.redirect('/user/' + req.user.username)
 })
 
-app.get('/get-user/:username', (req, res) => {
+app.get('/api/get-user/:username', (req, res) => {
     ddbUtils.getUser(req.params.username).then(data => {
         if (data) res.status(200).send(data);
 
         res.status(404).send();
     });
-});
+})
 
 /* Attempts to register a user */
 app.post('/register', postRegister);

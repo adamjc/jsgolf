@@ -2,6 +2,7 @@
 
 const React = require('react');
 const RegisterActions = require('../actions/register-actions')
+const RegisterStore = require('../stores/register-store')
 const LinkedStateMixin = require('react-addons-linked-state-mixin');
 
 module.exports = React.createClass({
@@ -14,21 +15,20 @@ module.exports = React.createClass({
     },
 
     componentDidMount () {
-
+        RegisterStore.listen(this.onChange);
     },
 
     componentWillUnmount () {
 
     },
 
-    onChange (state) {
-        this.setState(state);
+    onChange (data) {
+        console.log(data);
     },
 
     handleUserNameChange (event) {
         this.setState({username: event.target.value});
-
-        // TODO: Make request to /get-user
+        RegisterActions.getUser(this.state.username);
     },
 
     handleRegisterClick () {

@@ -22,7 +22,7 @@ class ExerciseActions {
         }
 
         requestPromise(requestOptions)
-            .then(results => this.actions.updateRegister('register success'))
+            .then(user => this.actions.gotUser(user))
             .catch(errorMessage => console.error(errorMessage))
     }
 
