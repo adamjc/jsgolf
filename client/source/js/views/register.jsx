@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 
-const React = require('react');
+const React = require('react')
 const RegisterActions = require('../actions/register-actions')
 const RegisterStore = require('../stores/register-store')
-const LinkedStateMixin = require('react-addons-linked-state-mixin');
+const LinkedStateMixin = require('react-addons-linked-state-mixin')
 
 module.exports = React.createClass({
     mixins: [LinkedStateMixin],
@@ -15,7 +15,7 @@ module.exports = React.createClass({
     },
 
     componentDidMount () {
-        RegisterStore.listen(this.onChange);
+        RegisterStore.listen(this.onChange)
     },
 
     componentWillUnmount () {
@@ -23,14 +23,12 @@ module.exports = React.createClass({
     },
 
     onChange (data) {
-        this.setState(data);
-        console.log('onChange Event');
-        console.log(data);
+        this.setState(data)
     },
 
     handleUserNameChange (event) {
-        this.setState({username: event.target.value});
-        RegisterActions.getUser(this.state.username);
+        this.setState({username: event.target.value})
+        RegisterActions.getUser(event.target.value)
     },
 
     handleRegisterClick () {
@@ -38,18 +36,18 @@ module.exports = React.createClass({
             username: this.state.username,
             password: this.state.password,
             email: this.state.email
-        });
+        })
     },
 
     handlePasswordClick () {
         this.setState({
             passwordVisibile: !this.state.passwordVisibile
-        });
+        })
     },
 
     render () {
-        let passwordVisibile = this.state.passwordVisibile ? 'text' : 'password';
-        let passwordVisibleText = this.state.passwordVisibile ? 'HIDE' : 'SHOW';
+        let passwordVisibile = this.state.passwordVisibile ? 'text' : 'password'
+        let passwordVisibleText = this.state.passwordVisibile ? 'HIDE' : 'SHOW'
 
         return (
             <div className="col-sm-12 register">
@@ -70,6 +68,6 @@ module.exports = React.createClass({
                     </button>
                 </div>
             </div>
-        );
+        )
     }
 })
