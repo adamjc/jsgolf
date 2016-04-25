@@ -4,15 +4,15 @@ const alt = require('../alt')
 const requestPromise = require('request-promise')
 const baseUrl = `${location.origin}/api`
 const registerUrl = `${baseUrl}/register`
-const getUserUrl = `${baseUrl}/get-user`
+const getUserUrl = `${baseUrl}/is-username-available`
 
 class ExerciseActions {
     updateRegister(data) {
         this.dispatch(data)
     }
 
-    gotUser(data) {
-        this.dispatch(data);
+    userAvailable(isUsernameAvailable) {
+        this.dispatch(isUsernameAvailable);
     }
 
     getUser(userName) {
@@ -22,7 +22,7 @@ class ExerciseActions {
         }
 
         requestPromise(requestOptions)
-            .then(user => this.actions.gotUser(user))
+            .then(isUsernameAvailable => this.actions.userAvailable(isUsernameAvailable))
             .catch(errorMessage => console.error(errorMessage))
     }
 

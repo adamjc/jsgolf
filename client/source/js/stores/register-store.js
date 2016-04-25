@@ -5,13 +5,12 @@ class RegisterStore {
     constructor() {
         this.bindListeners({
             handleUpdateRegister: RegisterActions.UPDATE_REGISTER,
-            handleGotUser: RegisterActions.GOT_USER
+            handleUserAvailable: RegisterActions.USER_AVAILABLE
         })
     }
 
-    handleGotUser(data) {
-        console.log(data);
-        this.userExists = false;
+    handleUserAvailable(isUsernameAvailable) {
+        this.isUsernameAvailable = isUsernameAvailable;
     }
 
     handleUpdateRegister(data) {

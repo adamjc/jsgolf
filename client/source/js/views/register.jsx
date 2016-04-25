@@ -23,6 +23,8 @@ module.exports = React.createClass({
     },
 
     onChange (data) {
+        this.setState(data);
+        console.log('onChange Event');
         console.log(data);
     },
 
