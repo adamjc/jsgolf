@@ -56,11 +56,11 @@ app.post('/sign-in', passport.authenticate('local'), (req, res) => {
     res.redirect('/user/' + req.user.username)
 })
 
-app.get('/api/get-user/:username', (req, res) => {
+app.get('/api/is-username-available/:username', (req, res) => {
     ddbUtils.getUser(req.params.username).then(data => {
-        if (data) res.status(200).send(data);
+        if (!data) res.send(true);
 
-        res.status(404).send();
+        res.send(false);
     });
 })
 
