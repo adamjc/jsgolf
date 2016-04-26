@@ -10,7 +10,8 @@ module.exports = React.createClass({
 
     getInitialState () {
         return {
-            passwordVisibile: false
+            passwordVisibile: false,
+            isUsernameAvailable: true
         };
     },
 
@@ -27,7 +28,17 @@ module.exports = React.createClass({
     },
 
     handleUserNameChange (event) {
-        this.setState({username: event.target.value})
+        let username = event.target.value;
+
+        if (username) {
+            this.setState({username: event.target.value})
+        } else {
+            this.setState({
+                username: event.target.value,
+                isUsernameAvailable: true,
+            })
+        }
+
         RegisterActions.getUser(event.target.value)
     },
 
@@ -48,6 +59,12 @@ module.exports = React.createClass({
     render () {
         let passwordVisibile = this.state.passwordVisibile ? 'text' : 'password'
         let passwordVisibleText = this.state.passwordVisibile ? 'HIDE' : 'SHOW'
+        let userNotAvailableAlert
+
+
+        if (!this.state.isUsernameAvailable) {
+            userNotAvailableAlert = <div className="register__input--alert">Username is already taken.</div>
+        } else userNotAvailableAlert = null
 
         return (
             <div className="col-sm-12 register">
@@ -55,6 +72,7 @@ module.exports = React.createClass({
                     <h2 className="text-center register__title">Enter Your Details</h2>
                     <div className="register__inputs center-block">
                         <input type="text" value={this.state.value} onChange={this.handleUserNameChange} className="register__input register__input--username center-block" placeholder="username"></input>
+                        {userNotAvailableAlert}
                         <div className="register__password-wrapper center-block">
                             <input type={passwordVisibile} valueLink={this.linkState('password')} className="register__input register__input--password" placeholder="password"></input>
                             <div onClick={this.handlePasswordClick} className="register__password-visibility">{passwordVisibleText}</div>

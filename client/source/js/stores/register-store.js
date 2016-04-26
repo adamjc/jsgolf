@@ -10,7 +10,7 @@ class RegisterStore {
     }
 
     handleUserAvailable(isUsernameAvailable) {
-        this.isUsernameAvailable = isUsernameAvailable;
+        this.isUsernameAvailable = JSON.parse(isUsernameAvailable);
     }
 
     handleUpdateRegister(data) {
