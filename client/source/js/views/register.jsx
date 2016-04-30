@@ -61,6 +61,11 @@ module.exports = React.createClass({
         let passwordVisibleText = this.state.passwordVisibile ? 'HIDE' : 'SHOW'
         let userNotAvailableAlert
 
+        let registerButtonClass = 'register__button btn btn-block center-block'
+
+        if (!this.state.isUsernameAvailable) {
+            registerButtonClass += ' register__button--inactive'
+        }
 
         if (!this.state.isUsernameAvailable) {
             userNotAvailableAlert = <div className="register__input--alert">Username is already taken.</div>
@@ -80,8 +85,9 @@ module.exports = React.createClass({
                         <input type="text" valueLink={this.linkState('email')} className="register__input register__input--email center-block" placeholder="email (optional)"></input>
                     </div>
                     <button
-                        className="register__button btn btn-block center-block"
-                        onClick={this.handleRegisterClick}>
+                        className={registerButtonClass}
+                        onClick={this.handleRegisterClick}
+                        disabled={!this.state.isUsernameAvailable}>
                         Register
                     </button>
                 </div>

@@ -55,3 +55,15 @@
         background-color: $darker-green-1991;
     }
 }
+
+.register__button--inactive {
+    background-color: $grey;
+
+    &:hover {
+        background-color: $grey;
+    }
+
+    &:active {
+        background-color: $grey;
+    }
+}
