@@ -16,11 +16,11 @@
     "golf"
   ],
   "eslintConfig": {
-        "env": {
-            "browser": true,
-            "node": true
-        }
-    },
+    "env": {
+      "browser": true,
+      "node": true
+    }
+  },
   "author": "Adam Cook",
   "license": "ISC",
   "dependencies": {
@@ -45,21 +45,18 @@
     "gulp-sass": "^2.1.0",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-watch": "^4.3.5",
-    "jade": "^1.11.0",
     "jasmine": "^2.3.2",
-    "jquery": "^2.1.4",
     "lodash": "^3.10.1",
     "mocha": "^2.3.3",
     "node-mocks-http": "^1.4.4",
     "page": "^1.6.4",
     "passport": "^0.3.2",
+    "passport-jwt": "^2.0.0",
     "passport-local": "^1.0.0",
-    "react": "^0.14.3",
-    "react-ace": "^2.8.0",
-    "react-addons": "^0.9.1-deprecated",
-    "react-addons-css-transition-group": "^0.14.3",
-    "react-addons-linked-state-mixin": "^0.14.3",
-    "react-dom": "^0.14.3",
+    "react": "^15.0.0",
+    "react-ace": "^3.0.0",
+    "react-addons-css-transition-group": "^15.0.0",
+    "react-dom": "^15.0.0",
     "reactify": "^1.1.1",
     "request-promise": "^0.4.3",
     "sinon": "^1.16.1",
