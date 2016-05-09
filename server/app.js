@@ -28,9 +28,6 @@ let server
 let io
 
 passport.use(new JwtStrategy(jwtOptions, (jwtPayload, done) => {
-    console.log(`trying to authenticate ${data}...`)
-
-    debugger;
     ddbUtils.getUser(jwtPayload.id).then(user => {
         if (!user) {
             console.log('no user found.')
@@ -58,24 +55,20 @@ app.post('/sign-in', (req, res) => {
     ddbUtils.getUser(req.body.username).then(user => {
         if (!user) {
             console.log('no user found.')
-            // return done(null, false, { message: 'Incorrect username.'})
             res.status(401).send('Incorrect username')
         }
 
         passwordUtils.hash(req.body.password, user.salt).then(hash => {
             if (hash !== user.password) {
                 console.log('password does not match.')
-                // return done(null, false, { message: 'Incorrect password.' })
                 res.status(401).send('Incorrect password')
             }
 
-            debugger
-
-            const token = jwt.sign(user, jwtOptions.secretOrKey, {
-              expiresIn: 10080 // in seconds
+            let token = jwt.sign(user, jwtOptions.secretOrKey, {
+              expiresIn: 10080
             });
 
-            res.status(200).send({ success: true, token: `JWT ${token}` });
+            res.status(200).send({ success: true, token: token });
         })
     })
 })
