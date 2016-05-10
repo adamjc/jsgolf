@@ -50,7 +50,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use('/public', express.static(path.resolve(__dirname, '../public')))
 
-app.post('/sign-in', (req, res) => {
+app.post('/api/sign-in', (req, res) => {
     console.log(`attempting to log in user ${req}`)
     ddbUtils.getUser(req.body.username).then(user => {
         if (!user) {
@@ -81,15 +81,13 @@ app.get('/api/is-username-available/:username', (req, res) => {
     })
 })
 
-/* Attempts to register a user */
-app.post('/register', postRegister)
-
 /* Returns the list of exercises available. */
 app.get('/api/exercises', getExerciseList)
 
 /* Fetches data around the exercise, e.g. title, problem. */
 app.get('/api/exercises/:exercise', getExercise)
 
+/* Attempts to register a user */
 app.post('/api/register', postRegister)
 
 app.get('/*', (req, res) => {

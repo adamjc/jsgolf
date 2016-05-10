@@ -3,7 +3,7 @@
 const alt = require('../alt')
 const requestPromise = require('request-promise')
 const baseUrl = `${location.origin}`
-const signInUrl = `${baseUrl}/sign-in`
+const signInUrl = `${baseUrl}/api/sign-in`
 
 class UserActions {
     updateUser(data) {
