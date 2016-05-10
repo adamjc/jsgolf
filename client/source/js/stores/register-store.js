@@ -1,5 +1,5 @@
-const alt = require('../alt');
-const RegisterActions = require('../actions/register-actions');
+const alt = require('../alt')
+const RegisterActions = require('../actions/register-actions')
 
 class RegisterStore {
     constructor() {
@@ -10,12 +10,12 @@ class RegisterStore {
     }
 
     handleUserAvailable(isUsernameAvailable) {
-        this.isUsernameAvailable = JSON.parse(isUsernameAvailable);
+        this.isUsernameAvailable = JSON.parse(isUsernameAvailable)
     }
 
     handleUpdateRegister(data) {
-        this.data = data;
+        this.data = data
     }
 }
 
-module.exports = alt.createStore(RegisterStore, 'RegisterStore');
+module.exports = alt.createStore(RegisterStore, 'RegisterStore')

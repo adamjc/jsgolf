@@ -1,57 +1,58 @@
-'use strict';
+'use strict'
 
-const React = require('react');
-const page = require('page');
-const Exercise = require('./views/exercise.jsx');
-const ExerciseList = require('./views/exercise-list.jsx');
-const Register = require('./views/register.jsx');
+const React = require('react')
+const page = require('page')
+const Exercise = require('./views/exercise.jsx')
+const ExerciseList = require('./views/exercise-list.jsx')
+const Register = require('./views/register.jsx')
+const SignIn = require('./views/sign-in.jsx')
 
 module.exports = React.createClass({
     getInitialState() {
-        return { component: <div /> };
+        return { component: <div /> }
     },
 
     render() {
-        return this.state.component;
+        return this.state.component
     },
 
     componentDidMount() {
         page('/', (ctx) => {
             this.setState({
                 component: <div>Home</div>
-            });
-        });
+            })
+        })
 
         page('/exercises', (ctx) => {
             this.setState({
                 component: <ExerciseList></ExerciseList>
-            });
-        });
+            })
+        })
 
         page('/exercises/:exercise', (ctx) => {
             this.setState({
                 component: <Exercise exerciseNumber={ctx.params.exercise} />
-            });
-        });
+            })
+        })
 
         page('/sign-in', (ctx) => {
             this.setState({
-                component: <div>Sign In Placeholder</div>
-            });
-        });
+                component: <SignIn></SignIn>
+            })
+        })
 
         page('/register', (ctx) => {
             this.setState({
                 component: <Register></Register>
-            });
-        });
+            })
+        })
 
         page('*', (ctx) => {
             this.setState({
                 component: <div>404</div>
-            });
-        });
+            })
+        })
 
-        page.start();
+        page.start()
     }
-});
+})

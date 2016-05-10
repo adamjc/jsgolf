@@ -2,17 +2,12 @@
 
 const alt = require('../alt')
 const requestPromise = require('request-promise')
-const baseUrl = `${location.origin}/api`
-const registerUrl = `${baseUrl}/register`
-const getUserUrl = `${baseUrl}/is-username-available`
+const baseUrl = `${location.origin}`
+const signInUrl = `${baseUrl}/sign-in`
 
-class RegisterActions {
-    updateRegister(data) {
+class UserActions {
+    updateUser(data) {
         this.dispatch(data)
-    }
-
-    userAvailable(isUsernameAvailable) {
-        this.dispatch(isUsernameAvailable)
     }
 
     getUser(userName) {
@@ -26,7 +21,8 @@ class RegisterActions {
             .catch(errorMessage => console.error(errorMessage))
     }
 
-    register(userInfo) {
+    // TODO: Pass through JWT.
+    signIn(userInfo) {
         let requestOptions = {
             uri: registerUrl,
             method: 'POST',
@@ -42,9 +38,9 @@ class RegisterActions {
         this.dispatch()
 
         requestPromise(requestOptions)
-            .then(results => this.actions.updateRegister('register success'))
+            .then(results => this.actions.updateUser('sign in success'))
             .catch(errorMessage => console.error(errorMessage))
     }
 }
 
-module.exports = alt.createActions(RegisterActions)
+module.exports = alt.createActions(UserActions)

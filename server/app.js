@@ -66,9 +66,9 @@ app.post('/sign-in', (req, res) => {
 
             let token = jwt.sign(user, jwtOptions.secretOrKey, {
               expiresIn: 10080
-            });
+            })
 
-            res.status(200).send({ success: true, token: token });
+            res.status(200).send({ success: true, token: token })
         })
     })
 })
