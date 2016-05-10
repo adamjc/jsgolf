@@ -19,7 +19,6 @@ function getUser(username) {
 
     return new Promise((resolve, reject) => {
         docClient.query(query, (err, data) => {
-            debugger
             if (err) {
                 console.error('getUser error: %s', err)
                 reject(err)

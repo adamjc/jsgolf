@@ -47,6 +47,11 @@ module.exports = React.createClass({
             })
         })
 
+        page('/sign-out', (ctx) => {
+            localStorage.removeItem('jwt');
+            page('/')
+        })
+
         page('*', (ctx) => {
             this.setState({
                 component: <div>404</div>
