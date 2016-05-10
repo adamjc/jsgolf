@@ -1,8 +1,8 @@
-'use strict';
+'use strict'
 
-const React = require('react');
-const Header = require('./header.jsx');
-const Router = require('./router.jsx');
+const React = require('react')
+const Header = require('./header.jsx')
+const Router = require('./router.jsx')
 const ReactDOM = require('react-dom')
 
 var App = React.createClass({
@@ -15,10 +15,10 @@ var App = React.createClass({
                     <Router />
                 </div>
             </div>
-        );
+        )
     }
-});
+})
 
 $(document).ready(function () {
-    ReactDOM.render(<App />, document.getElementById('app'));
-});
+    ReactDOM.render(<App />, document.getElementById('app'))
+})

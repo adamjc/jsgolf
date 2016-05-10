@@ -1,12 +1,12 @@
-'use strict';
+'use strict'
 
-const React = require('react');
-const page = require('page');
+const React = require('react')
+const page = require('page')
 
 function navigate (url) {
     return () => {
-        page(url);
-    };
+        page(url)
+    }
 }
 
 module.exports = React.createClass({
@@ -28,6 +28,6 @@ module.exports = React.createClass({
                     </div>
                 </div>
             </nav>
-        );
+        )
     }
-});
+})

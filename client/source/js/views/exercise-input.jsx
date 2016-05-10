@@ -1,55 +1,55 @@
-'use strict';
+'use strict'
 
-const React = require('react');
-const brace = require('brace');
-const AceEditor = require('react-ace');
-const ResultActions = require('../actions/result-actions');
-const ResultStore = require('../stores/result-store');
-const ExerciseActions = require('../actions/exercise-actions');
-const ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+const React = require('react')
+const brace = require('brace')
+const AceEditor = require('react-ace')
+const ResultActions = require('../actions/result-actions')
+const ResultStore = require('../stores/result-store')
+const ExerciseActions = require('../actions/exercise-actions')
+const ReactCSSTransitionGroup = require('react-addons-css-transition-group')
 
-require('brace/mode/javascript');
-require('brace/theme/monokai');
+require('brace/mode/javascript')
+require('brace/theme/monokai')
 
 module.exports = React.createClass({
     getInitialState() {
         return {
             answer: ''
-        };
+        }
     },
 
     componentDidMount() {
-        ResultStore.listen(this.onResult);
+        ResultStore.listen(this.onResult)
     },
 
     componentWillUnmount() {
-        ResultStore.unlisten(this.onResult);
+        ResultStore.unlisten(this.onResult)
     },
 
     onChange(answer) {
         this.setState({
             answer: answer
-        });
+        })
     },
 
     onResult() {
         this.setState({
             awaitingResults: false
-        });
+        })
     },
 
     handleClick() {
-        if (!this.state.answer) return;
+        if (!this.state.answer) return
 
-        ResultActions.fetchResults(this.props.exercise, this.state.answer);
+        ResultActions.fetchResults(this.props.exercise, this.state.answer)
 
         this.setState({
             awaitingResults: true
-        });
+        })
     },
 
     render() {
-        let awaitingResults;
+        let awaitingResults
 
         if (this.state.awaitingResults) {
             awaitingResults =
@@ -96,4 +96,4 @@ module.exports = React.createClass({
             </div>
         )
     }
-});
+})

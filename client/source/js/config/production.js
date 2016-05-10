@@ -1,3 +1,3 @@
-var config = {};
+var config = {}
 
-module.exports = config;
+module.exports = config

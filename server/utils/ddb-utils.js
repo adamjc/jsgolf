@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 const AWS = require('aws-sdk')
 
@@ -10,7 +10,7 @@ AWS.config.update({
 const docClient = new AWS.DynamoDB.DocumentClient()
 
 function getUser(username) {
-    console.log('getting user', username);
+    console.log('getting user', username)
     let query = {
         TableName : 'users',
         KeyConditionExpression: 'username = :username',
@@ -19,7 +19,7 @@ function getUser(username) {
 
     return new Promise((resolve, reject) => {
         docClient.query(query, (err, data) => {
-            debugger;
+            debugger
             if (err) {
                 console.error('getUser error: %s', err)
                 reject(err)

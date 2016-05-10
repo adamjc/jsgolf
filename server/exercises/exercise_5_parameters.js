@@ -11,6 +11,6 @@ const maps = {
         },
         'expectedOutput': [1, 2, 3]
     }]
-};
+}
 
-module.exports = maps;
+module.exports = maps

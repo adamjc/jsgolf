@@ -1,32 +1,32 @@
-'use strict';
+'use strict'
 
-const React = require('react');
-const ExerciseListStore = require('../stores/exercise-list-store');
-const ExerciseListActions = require('../actions/exercise-list-actions');
-const page = require('page');
+const React = require('react')
+const ExerciseListStore = require('../stores/exercise-list-store')
+const ExerciseListActions = require('../actions/exercise-list-actions')
+const page = require('page')
 
 module.exports = React.createClass({
     getInitialState() {
         return {
             exerciseList: ''
-        };
+        }
     },
 
     componentDidMount() {
-        ExerciseListStore.listen(this.onChange);
-        ExerciseListActions.getExerciseList();
+        ExerciseListStore.listen(this.onChange)
+        ExerciseListActions.getExerciseList()
     },
 
     componentWillUnmount() {
-        ExerciseListStore.unlisten(this.onChange);
+        ExerciseListStore.unlisten(this.onChange)
     },
 
     onChange(state) {
-        this.setState(state);
+        this.setState(state)
     },
 
     render() {
-        let exercises;
+        let exercises
 
         if (this.state.exerciseList) {
             exercises = this.state.exerciseList.map(exercise => {
@@ -34,8 +34,8 @@ module.exports = React.createClass({
                     <li key={exercise.id}>
                         <a href={exercise.url}>{exercise.title}</a>
                     </li>
-                );
-            });
+                )
+            })
         }
 
         return(
@@ -44,6 +44,6 @@ module.exports = React.createClass({
                     {exercises}
                 </ul>
             </div>
-        );
+        )
     }
 })

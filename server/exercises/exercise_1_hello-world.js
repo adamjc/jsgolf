@@ -11,6 +11,6 @@ const helloWorld = {
         'testInput': ['test'],
         'expectedOutput': 'Hello World!'
     }]
-};
+}
 
-module.exports = helloWorld;
+module.exports = helloWorld
