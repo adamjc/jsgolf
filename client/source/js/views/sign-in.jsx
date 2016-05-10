@@ -1,6 +1,7 @@
 'use strict'
 
 const React = require('react')
+const UserActions = require('../actions/user-actions')
 
 module.exports = React.createClass({
     getInitialState () {
@@ -30,7 +31,10 @@ module.exports = React.createClass({
     },
 
     handleSignInClick () {
-
+        UserActions.signIn({
+            username: this.state.username,
+            password: this.state.password
+        })
     },
 
     render () {
@@ -51,7 +55,7 @@ module.exports = React.createClass({
                             <div onClick={this.handlePasswordClick} className="register__password-visibility">{passwordVisibleText}</div>
                         </div>
                     </div>
-                    
+
                     <button className="register__button btn btn-block center-block"
                             onClick={this.handleSignInClick}>
                         Sign In

@@ -3,7 +3,7 @@
 const React = require('react');
 const page = require('page');
 
-function navigate(url) {
+function navigate (url) {
     return () => {
         page(url);
     };

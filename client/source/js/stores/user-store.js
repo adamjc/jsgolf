@@ -2,14 +2,16 @@ const alt = require('../alt')
 const UserActions = require('../actions/user-actions')
 
 class RegisterStore {
-    constructor() {
+    constructor () {
         this.bindListeners({
             handleUpdateUser: RegisterActions.UPDATE_USER,
         })
     }
 
-    handleUpdateUser(data) {
-        this.data = data
+    handleUpdateUser (data) {
+        if (data.success) {
+            localStorage.setItem("jwt", data.token)
+        }
     }
 }
 

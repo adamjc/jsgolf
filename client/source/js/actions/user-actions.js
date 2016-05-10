@@ -6,11 +6,11 @@ const baseUrl = `${location.origin}`
 const signInUrl = `${baseUrl}/api/sign-in`
 
 class UserActions {
-    updateUser(data) {
+    updateUser (data) {
         this.dispatch(data)
     }
 
-    getUser(userName) {
+    getUser (userName) {
         let requestOptions = {
             uri: `${getUserUrl}/${userName}`,
             method: 'GET'
@@ -21,15 +21,13 @@ class UserActions {
             .catch(errorMessage => console.error(errorMessage))
     }
 
-    // TODO: Pass through JWT.
-    signIn(userInfo) {
+    signIn (userInfo) {
         let requestOptions = {
-            uri: registerUrl,
+            uri: signInUrl,
             method: 'POST',
             body: {
                 username: userInfo.username,
-                password: userInfo.password,
-                email: userInfo.email
+                password: userInfo.password
             },
             json: true
         }
@@ -38,7 +36,7 @@ class UserActions {
         this.dispatch()
 
         requestPromise(requestOptions)
-            .then(results => this.actions.updateUser('sign in success'))
+            .then(result => this.actions.updateUser(result))
             .catch(errorMessage => console.error(errorMessage))
     }
 }

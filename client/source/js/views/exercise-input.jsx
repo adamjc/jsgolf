@@ -1,7 +1,6 @@
 'use strict';
 
 const React = require('react');
-const ReactAddons = require('react-addons');
 const brace = require('brace');
 const AceEditor = require('react-ace');
 const ResultActions = require('../actions/result-actions');
@@ -75,7 +74,7 @@ module.exports = React.createClass({
                     width=""
                     onChange={this.onChange}
                     value={this.state.answer}
-                    />
+                />
 
                 <div className="exercise-input__button-wrapper">
                     <button
@@ -95,6 +94,6 @@ module.exports = React.createClass({
                     </ReactCSSTransitionGroup>
                 </div>
             </div>
-        );
+        )
     }
 });

@@ -9,7 +9,7 @@ const passport = require('passport')
 const JwtStrategy = require('passport-jwt').Strategy
 const ExtractJwt = require('passport-jwt').ExtractJwt
 const jwtOptions = {
-    jwtFromRequest: ExtractJwt.fromAuthHeader,
+    jwtFromRequest: ExtractJwt.fromAuthHeader(),
     secretOrKey: 'secret'
 }
 
@@ -28,20 +28,13 @@ let server
 let io
 
 passport.use(new JwtStrategy(jwtOptions, (jwtPayload, done) => {
-    ddbUtils.getUser(jwtPayload.id).then(user => {
+    ddbUtils.getUser(jwtPayload.username).then(user => {
         if (!user) {
             console.log('no user found.')
             return done(null, false, { message: 'Incorrect username.'})
         }
 
-        passwordUtils.hash(data.password, user.salt).then(hash => {
-            if (hash !== user.password) {
-                console.log('password does not match.')
-                return done(null, false, { message: 'Incorrect password.' })
-            }
-
-            return done(null, user)
-        })
+        return done(null, user)
     })
 }))
 
@@ -68,7 +61,7 @@ app.post('/api/sign-in', (req, res) => {
               expiresIn: 10080
             })
 
-            res.status(200).send({ success: true, token: token })
+            res.status(200).send({ success: true, token: `JWT ${token}` })
         })
     })
 })
@@ -89,6 +82,10 @@ app.get('/api/exercises/:exercise', getExercise)
 
 /* Attempts to register a user */
 app.post('/api/register', postRegister)
+
+app.get('/api/test-auth', requireAuth, (req, res) => {
+    res.status(200).send('authentication success!')
+})
 
 app.get('/*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../index.html'))
