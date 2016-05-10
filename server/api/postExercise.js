@@ -8,7 +8,7 @@ let maxSandboxes = 10
 let sandboxes = []
 let requests = []
 
-for (let i = 0 i < maxSandboxes i++) {
+for (let i = 0; i < maxSandboxes; i++) {
     let s = new Sandbox({ timeout: 10000 })
     sandboxes.push(s)
 }
