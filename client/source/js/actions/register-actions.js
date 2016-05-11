@@ -42,7 +42,7 @@ class RegisterActions {
         this.dispatch()
 
         requestPromise(requestOptions)
-            .then(results => this.actions.updateRegister('register success'))
+            .then(results => this.actions.updateRegister(results))
             .catch(errorMessage => console.error(errorMessage))
     }
 }

@@ -10,17 +10,6 @@ class UserActions {
         this.dispatch(data)
     }
 
-    getUser (userName) {
-        let requestOptions = {
-            uri: `${getUserUrl}/${userName}`,
-            method: 'GET'
-        }
-
-        requestPromise(requestOptions)
-            .then(isUsernameAvailable => this.actions.userAvailable(isUsernameAvailable))
-            .catch(errorMessage => console.error(errorMessage))
-    }
-
     signIn (userInfo) {
         let requestOptions = {
             uri: signInUrl,

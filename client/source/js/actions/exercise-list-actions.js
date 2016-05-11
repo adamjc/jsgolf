@@ -2,7 +2,6 @@
 
 const alt = require('../alt')
 const requestPromise = require('request-promise')
-const config = require('../config')
 const url = location.origin + '/api/exercises/'
 
 class ExerciseListActions {

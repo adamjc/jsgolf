@@ -19,7 +19,7 @@ class UserStore {
     }
 
     handleSignOut () {
-        this.jwt = null;
+        this.jwt = null
         localStorage.removeItem('jwt')
     }
 }

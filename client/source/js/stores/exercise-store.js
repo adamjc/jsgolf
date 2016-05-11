@@ -6,7 +6,7 @@ class ExerciseStore {
         this.exerciseButtonClicked = null
 
         this.bindListeners({
-            handleUpdateExercise: ExerciseActions.UPDATE_EXERCISE,
+            handleUpdateExercise: ExerciseActions.UPDATE_EXERCISE
         })
     }
 

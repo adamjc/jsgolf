@@ -21,10 +21,6 @@ class ResultsStore {
     handleFetchResults() {
         this.results = []
     }
-
-    handleResultsFailed(errorMessage) {
-        this.errorMessage = errorMessage
-    }
 }
 
 module.exports = alt.createStore(ResultsStore, 'ResultStore')

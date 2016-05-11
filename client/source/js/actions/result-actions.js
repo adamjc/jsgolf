@@ -1,9 +1,6 @@
 'use strict'
 
 const alt = require('../alt')
-const requestPromise = require('request-promise')
-const config = require('../config')
-const url = location.origin + '/api/exercises/'
 const socket = require('socket.io-client')(location.origin)
 
 class ResultActions {
@@ -20,10 +17,6 @@ class ResultActions {
         })
 
         socket.once('postedExercise', results => this.actions.updateResults(results))
-    }
-
-    resultsFailed() {
-        this.dispatch(errorMessage)
     }
 }
 
