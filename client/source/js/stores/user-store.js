@@ -7,14 +7,13 @@ class UserStore {
 
         this.bindListeners({
             handleUpdateUser: UserActions.UPDATE_USER,
-            handleSignOut: UserActions.SIGN_OUT,
+            handleSignOut: UserActions.SIGN_OUT
         })
     }
 
     handleUpdateUser (data) {
         if (data.success) {
             this.jwt = data.token
-
             localStorage.setItem('jwt', data.token)
         }
     }
