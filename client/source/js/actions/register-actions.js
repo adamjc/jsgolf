@@ -1,19 +1,34 @@
-'use strict';
+'use strict'
 
-const alt = require('../alt');
-const requestPromise = require('request-promise');
-const url = location.origin + '/api/register';
+const alt = require('../alt')
+const requestPromise = require('request-promise')
+const baseUrl = `${location.origin}/api`
+const registerUrl = `${baseUrl}/register`
+const getUserUrl = `${baseUrl}/is-username-available`
 
-class ExerciseActions {
+class RegisterActions {
     updateRegister(data) {
-        this.dispatch(data);
+        this.dispatch(data)
+    }
+
+    userAvailable(isUsernameAvailable) {
+        this.dispatch(isUsernameAvailable)
+    }
+
+    getUser(userName) {
+        let requestOptions = {
+            uri: `${getUserUrl}/${userName}`,
+            method: 'GET'
+        }
+
+        requestPromise(requestOptions)
+            .then(isUsernameAvailable => this.actions.userAvailable(isUsernameAvailable))
+            .catch(errorMessage => console.error(errorMessage))
     }
 
     register(userInfo) {
-        console.log(userInfo);
-
         let requestOptions = {
-            uri: url,
+            uri: registerUrl,
             method: 'POST',
             body: {
                 username: userInfo.username,
@@ -21,15 +36,15 @@ class ExerciseActions {
                 email: userInfo.email
             },
             json: true
-        };
+        }
 
         // we dispatch an event here so we can have a 'loading' event.
-        this.dispatch();
+        this.dispatch()
 
         requestPromise(requestOptions)
-            .then(results => this.actions.updateRegister('register success'))
-            .catch(errorMessage => console.error(errorMessage));
+            .then(results => this.actions.updateRegister(results))
+            .catch(errorMessage => console.error(errorMessage))
     }
 }
 
-module.exports = alt.createActions(ExerciseActions);
+module.exports = alt.createActions(RegisterActions)

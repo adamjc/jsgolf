@@ -19,6 +19,6 @@ const addOne = {
         'testInput': [999],
         'expectedOutput': 1000
     }]
-};
+}
 
-module.exports = addOne;
+module.exports = addOne

@@ -1,9 +1,8 @@
-'use strict';
+'use strict'
 
-const alt = require('../alt');
-const requestPromise = require('request-promise');
-const config = require('../config');
-const url = location.origin + '/api/exercises/';
+const alt = require('../alt')
+const requestPromise = require('request-promise')
+const url = location.origin + '/api/exercises/'
 
 class ExerciseListActions {
     updateExerciseList(data) {
@@ -14,21 +13,21 @@ class ExerciseListActions {
         let requestOptions = {
             uri: url,
             method: 'GET'
-        };
+        }
 
         // we dispatch an event here so we can have a 'loading' event.
-        this.dispatch();
+        this.dispatch()
 
         requestPromise(requestOptions)
             .then((results) => {
-                this.actions.updateExerciseList(JSON.parse(results));
+                this.actions.updateExerciseList(JSON.parse(results))
             })
             .catch((errorMessage) => {
-                console.log(errorMessage);
-            });
+                console.log(errorMessage)
+            })
 
-        this.actions.updateExerciseList(data);
+        this.actions.updateExerciseList(data)
     }
 }
 
-module.exports = alt.createActions(ExerciseListActions);
+module.exports = alt.createActions(ExerciseListActions)

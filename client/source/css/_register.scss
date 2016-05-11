@@ -7,7 +7,7 @@
 }
 
 .register__inner {
-    width: 50%;
+    max-width: 300px;
 }
 
 .register__inputs {
@@ -16,20 +16,21 @@
 }
 
 .register__input {
-    width: 50%;
     padding: 5px;
     line-height: 1em;
     font-size: 1.5em;
     margin-top: 20px;
+    width: 100%;
 }
 
-.register__input--password {
-    width: 100%;
+.register__input--alert {
+    color: $pink-1991;
+    text-align: center;
+    margin: 5px auto 0 auto;
 }
 
 .register__password-wrapper {
     position: relative;
-    width: 50%;
 }
 
 .register__password-visibility {
@@ -44,7 +45,6 @@
 .register__button {
     font-size: 1.5em;
     margin-top: 20px;
-    width: 50%;
     background-color: $green-1991;
 
     &:hover {
@@ -53,5 +53,17 @@
 
     &:active {
         background-color: $darker-green-1991;
+    }
+}
+
+.register__button--inactive {
+    background-color: $grey;
+
+    &:hover {
+        background-color: $grey;
+    }
+
+    &:active {
+        background-color: $grey;
     }
 }

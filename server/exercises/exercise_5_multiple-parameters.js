@@ -10,6 +10,6 @@ const maps = {
         ],
         'expectedOutput': 2
     }]
-};
+}
 
-module.exports = maps;
+module.exports = maps

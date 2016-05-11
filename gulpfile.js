@@ -1,21 +1,21 @@
-'use strict';
+'use strict'
 
-const gulp = require('gulp');
-const browserify = require('browserify');
-const source = require('vinyl-source-stream');
-const reactify = require('reactify');
-const babelify = require('babelify');
-const mocha = require('gulp-mocha');
-const babel = require('babel/register');
-const del = require('del');
-const rename = require('gulp-rename');
-const sass = require('gulp-sass');
-const sourcemaps = require('gulp-sourcemaps');
-const jshint = require('gulp-jshint');
+const gulp = require('gulp')
+const browserify = require('browserify')
+const source = require('vinyl-source-stream')
+const reactify = require('reactify')
+const babelify = require('babelify')
+const mocha = require('gulp-mocha')
+const babel = require('babel/register')
+const del = require('del')
+const rename = require('gulp-rename')
+const sass = require('gulp-sass')
+const sourcemaps = require('gulp-sourcemaps')
 
 const paths = {
-    scripts: ['./js/**/*.jsx', './js/**/*.js']
-};
+    scripts: ['./client/**/*.jsx', './client/**/*.js'],
+    css: ['./client/**/*.scss']
+}
 
 const settings = {
     environment: process.env.NODE_ENV || 'production',
@@ -26,58 +26,52 @@ const settings = {
     jsBuildFolder: './client/pre-build/js',
     destFolder: './public',
     jsDestFolder: './public/js'
-};
+}
 
 gulp.task('clean', () => {
-    del(settings.preBuildFolder + '/**/*');
-    del(settings.destFolder + '/**/*');
-});
+    del(settings.preBuildFolder + '/**/*')
+    del(settings.destFolder + '/**/*')
+})
 
-gulp.task('css', ['clean'], () => {
+gulp.task('css', () => {
     gulp.src(settings.cssSourceFile)
       .pipe(sourcemaps.init())
       .pipe(sass({outputStyle: 'compressed'}))
       .pipe(sourcemaps.write())
-      .pipe(gulp.dest(settings.destFolder + '/css'));
-});
+      .pipe(gulp.dest(settings.destFolder + '/css'))
+})
 
-gulp.task('config', ['copy-js-source', 'css', 'clean'], () => {
-    console.log('building for ' + settings.environment + '...');
+gulp.task('config', ['copy-js-source'], () => {
+    console.log(`building for ${settings.environment}...`);
 
-    return gulp.src(settings.jsConfigFolder + '/' + settings.environment + '.js')
+    return gulp.src(`${settings.jsConfigFolder}/${settings.environment}.js`)
                .pipe(rename('config.js'))
-               .pipe(gulp.dest(settings.jsBuildFolder));
-});
+               .pipe(gulp.dest(settings.jsBuildFolder))
+})
 
 gulp.task('copy-js-source', ['clean'], () => {
     return gulp.src([
-        settings.sourceFolder + '/js/**/*',
-        '!' + settings.sourceFolder + '/js/config',
-        '!' + settings.sourceFolder + '/js/config/**/*'
-    ]).pipe(gulp.dest(settings.jsBuildFolder));
-});
+        `${settings.sourceFolder}/js/**/*`,
+        `!${settings.sourceFolder}/js/config`,
+        `!${settings.sourceFolder}/js/config/**/*`
+    ]).pipe(gulp.dest(settings.jsBuildFolder))
+})
 
 gulp.task('browserify', ['config', 'copy-js-source'], () => {
-    let b = browserify();
-    b.transform(reactify);
-    b.transform(babelify);
-    b.add(settings.preBuildFolder + '/js/app.jsx');
+    let b = browserify()
+    b.transform(reactify)
+    b.transform(babelify)
+    b.add(`${settings.preBuildFolder}/js/app.jsx`)
 
     return b.bundle()
             .pipe(source('main.js'))
-            .pipe(gulp.dest(settings.jsDestFolder));
-});
+            .pipe(gulp.dest(settings.jsDestFolder))
+})
 
-// TODO: Fix.
-// gulp.task('watch', function() {
-//     gulp.watch(paths.scripts, ['browserify']);
-// });
-
-gulp.task('hint', () => {
-    return gulp.src('./server/**/*.js')
-               .pipe(jshint())
-               .pipe(jshint.reporter('default'));
-});
+gulp.task('watch', function() {
+    gulp.watch(paths.scripts, ['browserify'])
+    gulp.watch(paths.css, ['css'])
+})
 
 gulp.task('test', () => {
     return gulp.src('test/**/*.js')
@@ -86,7 +80,7 @@ gulp.task('test', () => {
             compilers: {
                 js: babel
             }
-        }));
-});
+        }))
+})
 
-gulp.task('default', ['browserify']);
+gulp.task('default', ['browserify', 'css'])

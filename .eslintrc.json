@@ -14,7 +14,12 @@
         ],
         "semi": [
             2,
-            "always"
+            "never"
+        ],
+        "no-console": [
+            "error", {
+                "allow": ["log", "warn", "error"]
+            }
         ]
     },
     "env": {

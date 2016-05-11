@@ -9,6 +9,6 @@ const sum = {
         ],
         'expectedOutput': 3
     }]
-};
+}
 
-module.exports = sum;
+module.exports = sum

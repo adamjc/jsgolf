@@ -1,31 +1,31 @@
-'use strict';
+'use strict'
 
-const React = require('react');
-const ExerciseInput = require('./exercise-input.jsx');
-const Result = require('./result.jsx');
-const ExerciseStore = require('../stores/exercise-store');
-const ExerciseActions = require('../actions/exercise-actions');
+const React = require('react')
+const ExerciseInput = require('./exercise-input.jsx')
+const Result = require('./result.jsx')
+const ExerciseStore = require('../stores/exercise-store')
+const ExerciseActions = require('../actions/exercise-actions')
 
 module.exports = React.createClass({
     getInitialState() {
-        return {};
+        return {}
     },
 
     componentDidMount() {
-        ExerciseStore.listen(this.onChange);
-        ExerciseActions.getExercise(this.props.exerciseNumber);
+        ExerciseStore.listen(this.onChange)
+        ExerciseActions.getExercise(this.props.exerciseNumber)
     },
 
     componentWillUnmount() {
-        ExerciseStore.unlisten(this.onChange);
+        ExerciseStore.unlisten(this.onChange)
     },
 
     onChange(state) {
-        this.setState(state);
+        this.setState(state)
     },
 
     render() {
-        let result = <Result />;
+        let result = <Result />
 
         if (this.state.exercise) {
             return(
@@ -39,9 +39,9 @@ module.exports = React.createClass({
 
                     {result}
                 </div>
-            );
+            )
         } else {
-            return(<div>Waiting...</div>);
+            return(<div>Waiting...</div>)
         }
     }
 })
