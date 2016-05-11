@@ -1,21 +1,25 @@
 'use strict'
 
 const React = require('react')
+const UserStore = require('../stores/user-store')
 const UserActions = require('../actions/user-actions')
+const page = require('page')
 
 module.exports = React.createClass({
     getInitialState () {
         return {}
     },
 
-    componentDidMount () {
+    componentDidMount() {
+        UserStore.listen(this.onChange)
     },
 
     componentWillUnmount () {
+        UserStore.unlisten(this.onChange)
     },
 
     onChange (data) {
-        this.setState(data)
+        page('/')
     },
 
     handleUsernameChange (event) {

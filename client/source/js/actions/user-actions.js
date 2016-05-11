@@ -39,6 +39,10 @@ class UserActions {
             .then(result => this.actions.updateUser(result))
             .catch(errorMessage => console.error(errorMessage))
     }
+
+    signOut () {
+        this.dispatch()
+    }
 }
 
 module.exports = alt.createActions(UserActions)

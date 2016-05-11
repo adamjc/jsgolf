@@ -2,6 +2,7 @@
 
 const React = require('react')
 const page = require('page')
+const UserStore = require('./stores/user-store');
 
 function navigate (url) {
     return () => {
@@ -10,7 +11,41 @@ function navigate (url) {
 }
 
 module.exports = React.createClass({
+    getInitialState() {
+        return UserStore.getState()
+    },
+
+    componentDidMount() {
+        UserStore.listen(this.onChange)
+    },
+
+    componentWillUnmount() {
+        ResultStore.unlisten(this.onChange)
+    },
+
+    onChange(data) {
+        this.setState(data)
+    },
+
     render() {
+        let userSignedIn = localStorage.getItem('jwt')
+        let accountControls
+
+        if (userSignedIn === null) {
+            accountControls =
+                <ul className="nav navbar-nav">
+                    <li><a onClick={navigate('/exercises')}>Exercises</a></li>
+                    <li><a onClick={navigate('/sign-in')}>Sign In</a></li>
+                    <li><a onClick={navigate('/register')}>Register</a></li>
+                </ul>
+        } else {
+            accountControls =
+                <ul className="nav navbar-nav">
+                    <li><a onClick={navigate('/exercises')}>Exercises</a></li>
+                    <li><a onClick={navigate('/sign-out')}>Sign Out</a></li>
+                </ul>
+        }
+
         return (
             <nav className="navbar navbar-inverse navbar-fixed-top">
                 <div className="container">
@@ -20,11 +55,7 @@ module.exports = React.createClass({
                         </li>
                     </div>
                     <div id="navbar" className="collapse navbar-collapse">
-                        <ul className="nav navbar-nav">
-                            <li><a onClick={navigate('/exercises')}>Exercises</a></li>
-                            <li><a onClick={navigate('/sign-in')}>Sign In</a></li>
-                            <li><a onClick={navigate('/register')}>Register</a></li>
-                        </ul>
+                        {accountControls}
                     </div>
                 </div>
             </nav>

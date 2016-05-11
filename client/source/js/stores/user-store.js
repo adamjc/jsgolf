@@ -1,17 +1,27 @@
 const alt = require('../alt')
 const UserActions = require('../actions/user-actions')
 
-class RegisterStore {
+class UserStore {
     constructor () {
+        this.jwt = null
+
         this.bindListeners({
-            handleUpdateUser: RegisterActions.UPDATE_USER,
+            handleUpdateUser: UserActions.UPDATE_USER,
+            handleSignOut: UserActions.SIGN_OUT,
         })
     }
 
     handleUpdateUser (data) {
         if (data.success) {
-            localStorage.setItem("jwt", data.token)
+            this.jwt = data.token
+
+            localStorage.setItem('jwt', data.token)
         }
+    }
+
+    handleSignOut () {
+        this.jwt = null;
+        localStorage.removeItem('jwt')
     }
 }
 

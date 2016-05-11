@@ -7,6 +7,8 @@ const ExerciseList = require('./views/exercise-list.jsx')
 const Register = require('./views/register.jsx')
 const SignIn = require('./views/sign-in.jsx')
 
+const UserActions = require('./actions/user-actions')
+
 module.exports = React.createClass({
     getInitialState() {
         return { component: <div /> }
@@ -45,6 +47,11 @@ module.exports = React.createClass({
             this.setState({
                 component: <Register></Register>
             })
+        })
+
+        page('/sign-out', (ctx) => {
+            UserActions.signOut()
+            page('/')
         })
 
         page('*', (ctx) => {
