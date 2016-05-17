@@ -13,6 +13,10 @@ class ResultsStore {
         })
     }
 
+    handleResultsFailed() {
+        console.log('handleResultsFailed');
+    }
+
     handleUpdateResults(results) {
         this.results = results
         this.errorMessage = null

@@ -3,6 +3,7 @@
 const Sandbox = require('adamjc-sandbox')
 const _ = require('lodash')
 const exerciseMap = require('../utils/exercise-map')
+const jwt = require('jsonwebtoken')
 
 let maxSandboxes = 10
 let sandboxes = []
@@ -13,14 +14,24 @@ for (let i = 0; i < maxSandboxes; i++) {
     sandboxes.push(s)
 }
 
-process.on('socketDisconnected', socket => {
-    // find the socket's request, if it has one.
-    let request = requests.map((r, i) => {
-        return r.socket.id === socket.id ? i : null
-    }).filter(e => e !== null)
+function postExercise(req, res) {
+    if (!req.body.answer || !req.body.exercise) {
+        res.status(500).send('Nah mate, no results innit.')
+        return
+    }
 
-    if (request) requests.splice(request, 1)
-})
+    let userAnswer = req.body.answer
+    let exerciseData = getExerciseData(req.body.exercise)
+
+    let exerciseRequest = {
+        req: req,
+        res: res,
+        exercise: exerciseData,
+        userAnswer: userAnswer
+    }
+
+    process.emit('exercisePosted', exerciseRequest)
+}
 
 process.on('sandboxFinished', () => {
     process.emit('attemptToProcess')
@@ -41,33 +52,22 @@ process.on('attemptToProcess', () => {
     Promise.all(runTests(sandbox, request)).then(results => {
         sandboxes.push(sandbox)
 
-        request.socket.emit('postedExercise', results)
+        request.res.send(results)
+
+        let correctAnswers = results.filter(result => result.correct)
+
+        if (correctAnswers.length === results.length) {
+            let authentication = jwt.verify(request.req.headers.authorization, 'secret');
+
+            if (authentication) {
+                // TODO: Update user exercise
+                // ddbUtils.getUser(authentication.username)
+            }
+        }
+
         process.emit('sandboxFinished')
     })
 })
-
-function postExercise(socket, data) {
-    if (!data) {
-        socket.emit('500: data not found.')
-        return
-    }
-
-    let userAnswer = data.answer
-    let exerciseData = getExerciseData(data.exercise)
-
-    if (!userAnswer || !exerciseData) {
-        socket.emit('500: data not found.')
-        return
-    }
-
-    let exerciseRequest = {
-        socket: socket,
-        exercise: exerciseData,
-        userAnswer: userAnswer
-    }
-
-    process.emit('exercisePosted', exerciseRequest)
-}
 
 function runTests(sandbox, request) {
     let testResults = []
