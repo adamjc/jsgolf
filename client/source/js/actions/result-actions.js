@@ -1,7 +1,6 @@
 'use strict'
 
 const alt = require('../alt')
-const socket = require('socket.io-client')(location.origin)
 
 class ResultActions {
     updateResults(results) {

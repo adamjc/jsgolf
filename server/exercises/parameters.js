@@ -1,6 +1,5 @@
 const maps = {
-    number: 5,
-    title: "Exercise 5 - Parameters",
+    title: "Parameters",
     description: "Produce a function that takes two numbers and adds them together",
     tests: [{
         'id': 0,

@@ -2,7 +2,7 @@
 
 const Sandbox = require('adamjc-sandbox')
 const _ = require('lodash')
-const exerciseMap = require('../utils/exercise-map')
+const publicExercises = require('../utils/public-exercises')
 
 let maxSandboxes = 10
 let sandboxes = []
@@ -53,7 +53,7 @@ function postExercise(socket, data) {
     }
 
     let userAnswer = data.answer
-    let exerciseData = getExerciseData(data.exercise)
+    let exerciseData = require(`../exercises/${data.exercise}`)
 
     if (!userAnswer || !exerciseData) {
         socket.emit('500: data not found.')
@@ -127,14 +127,6 @@ function formatInput(input) {
     if (typeof input === 'object') return JSON.stringify(input)
 
     return input
-}
-
-function getExerciseData(exercise) {
-    let exerciseToLoad = exerciseMap[exercise]
-
-    if (exerciseToLoad) return require('../exercises/' + exerciseToLoad)
-
-    return null
 }
 
 module.exports = postExercise

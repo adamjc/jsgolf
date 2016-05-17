@@ -34,35 +34,14 @@ function postRegister(req, res) {
         }
 
         passwordUtils.hash(password, salt).then(hash => {
-            let params = {
-                TableName: table,
-                Item: {
-                    'username': username,
-                    'password': hash,
-                    'salt': salt,
-                    'email': email
-                }
-            }
-
-            let promise = new Promise((resolve, reject) => {
-                docClient.put(params, (err, data) => {
-                    if (err) {
-                        console.error('Unable to add item: ', JSON.stringify(err, null, 2))
-                        reject(err)
-                    } else {
-                        console.log('Added item: ', JSON.stringify(data, null, 2))
-                        resolve(data)
-                    }
+            ddbUtils.addUser(username, hash, salt, email)
+                .then(data => {
+                    console.log('promise resolved: ', data)
+                    res.status(200).send()
+                }).catch(error => {
+                    console.log('promise rejected: ', data)
+                    res.status(500).send()
                 })
-            })
-
-            promise.then(data => {
-                console.log('promise resolved: ', data)
-                res.status(200).send()
-            }).catch(error => {
-                console.log('promise rejected: ', data)
-                res.status(500).send()
-            })
         })
     })
 }

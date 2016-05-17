@@ -1,6 +1,5 @@
 const maps = {
-    number: 4,
-    title: "Exercise 3 - Maps",
+    title: "Map",
     description: "Produce a function that takes a map and returns an array of values of the keys",
     tests: [{
         'id': 0,

@@ -13,7 +13,7 @@ module.exports = React.createClass({
 
     componentDidMount() {
         ExerciseStore.listen(this.onChange)
-        ExerciseActions.getExercise(this.props.exerciseNumber)
+        ExerciseActions.getExercise(this.props.exercise)
     },
 
     componentWillUnmount() {
@@ -35,7 +35,7 @@ module.exports = React.createClass({
                         <p>{this.state.exercise.description}</p>
                     </div>
 
-                    <ExerciseInput exercise={this.state.exercise.number}/>
+                    <ExerciseInput exercise={this.state.exercise}/>
 
                     {result}
                 </div>

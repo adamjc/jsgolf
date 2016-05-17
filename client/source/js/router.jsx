@@ -33,7 +33,7 @@ module.exports = React.createClass({
 
         page('/exercises/:exercise', (ctx) => {
             this.setState({
-                component: <Exercise exerciseNumber={ctx.params.exercise} />
+                component: <Exercise exercise={ctx.params.exercise} />
             })
         })
 

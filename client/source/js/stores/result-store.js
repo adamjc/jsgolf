@@ -1,3 +1,5 @@
+'use strict'
+
 const alt = require('../alt')
 const ResultActions = require('../actions/result-actions')
 
@@ -9,7 +11,6 @@ class ResultsStore {
         this.bindListeners({
             handleUpdateResults: ResultActions.UPDATE_RESULTS,
             handleFetchResults: ResultActions.FETCH_RESULTS,
-            handleResultsFailed: ResultActions.RESULTS_FAILED
         })
     }
 

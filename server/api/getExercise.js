@@ -1,16 +1,16 @@
 'use strict'
 
-const exerciseMap = require('../utils/exercise-map')
+const publicExercises = require('../utils/public-exercises')
 
 /* Returns the list of exercises available. */
 function getExercise(req, res) {
-    let exerciseNumber = req.params.exercise
+    let exerciseTitle = req.params.exercise
     let fullExercise
 
-    Object.keys(exerciseMap).forEach((exercise) => {
-        if (exercise === exerciseNumber) {
-            fullExercise = require('../exercises/' + exerciseMap[exercise])
-            fullExercise.url = '/exercises/' + fullExercise.number
+    publicExercises.forEach((exercise) => {
+        if (exercise === exerciseTitle) {
+            fullExercise = require('../exercises/' + exercise)
+            fullExercise.url = `/exercises/${exercise}`
         }
     })
 

@@ -9,9 +9,9 @@ class ExerciseActions {
         this.dispatch(data)
     }
 
-    getExercise(number) {
+    getExercise(title) {
         let requestOptions = {
-            uri: url + number,
+            uri: url + title,
             method: 'GET'
         }
 

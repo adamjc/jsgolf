@@ -1,6 +1,5 @@
 const sum = {
-    number: 3,
-    title: "Exercise 3 - Sum",
+    title: "Sum",
     description: "Produce a function that takes an array returns the sum of all elements",
     tests: [{
         'id': 0,
