@@ -1,17 +1,17 @@
 'use strict'
 
-const publicExercises = [
-    'hello-world',
-    'add-one',
-    'sum',
-    'map',
-    'parameters',
-    'multiple-parameters'
-]
+const publicExercises = {
+    'Hello World': 'hello-world',
+    'Add One': 'add-one',
+    'Sum': 'sum',
+    'Map': 'map',
+    'Multiple Parameters': 'multiple-parameters'
+}
 
 function getExerciseData(exercise) {
-    if (publicExercises[exercise]) {
-        return require(`../exercises/${exercise}`)
+    let exerciseFilename = publicExercises[exercise]
+    if (exerciseFilename) {
+        return require(`../exercises/${exerciseFilename}`)
     }
 
     console.error(`Error attempting to getExerciseData: ${exercise}`)

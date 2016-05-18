@@ -21,7 +21,7 @@ function postExercise(req, res) {
     }
 
     let userAnswer = req.body.answer
-    let exerciseData = exerciseUtils.getExerciseData(req.body.exercise)
+    let exerciseData = exerciseUtils.getExerciseData(req.body.exercise.title)
 
     let exerciseRequest = {
         req: req,

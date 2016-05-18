@@ -17,8 +17,9 @@ class ResultActions {
     fetchResults(exercise, answer) {
         this.dispatch()
 
+        let webTitle = exercise.title.toLowerCase().split(' ').join('-')
         let requestOptions = {
-            uri: `${exerciseUrl}/${exercise}`,
+            uri: `${exerciseUrl}/${webTitle}`,
             method: 'POST',
             body: {
                 exercise: exercise,
