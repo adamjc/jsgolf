@@ -13,9 +13,9 @@ describe('getExercise', () => {
     beforeEach(() => {
         req = httpMocks.createRequest({
             method: 'GET',
-            url: '/api/exercises/1',
+            url: '/api/exercises/hello-world',
             params: {
-                exercise: '1'
+                exercise: 'hello-world'
             }
         });
 
@@ -42,7 +42,7 @@ describe('getExercise', () => {
 
     describe('The returned json object', () => {
         it('should contain a title', () => {
-            const file = require('../../../server/exercises/exercise_1_hello-world');
+            const file = require('../../../server/exercises/hello-world');
 
             let parsedResponse;
 
@@ -54,7 +54,7 @@ describe('getExercise', () => {
         });
 
         it('should contain some exercise text', () => {
-            let file = require('../../../server/exercises/exercise_1_hello-world');
+            let file = require('../../../server/exercises/hello-world');
             let parsedResponse;
 
             getExercise(req, res);
