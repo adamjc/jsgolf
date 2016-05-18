@@ -1,12 +1,12 @@
 'use strict'
 
-const publicExercises = require('../utils/public-exercises')
+const exerciseUtils = require('../utils/exercise-utils')
 
 /* Returns the list of exercises available. */
 function getExercisesList(req, res) {
     let exercises = []
 
-    publicExercises.forEach((exercise) => {
+    exerciseUtils.publicExercises.forEach((exercise) => {
         let fullExercise = require('../exercises/' + exercise)
         let webTitle = fullExercise.title.toLowerCase().split(' ').join('-')
 

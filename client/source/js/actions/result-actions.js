@@ -1,21 +1,41 @@
 'use strict'
 
 const alt = require('../alt')
+const request = require('request-promise')
+const baseUrl = `${location.origin}/api`
+const exerciseUrl = `${baseUrl}/exercises`
 
 class ResultActions {
     updateResults(results) {
         this.dispatch(results)
     }
 
+    resultsFailed() {
+        console.log('resultsFailed')
+    }
+
     fetchResults(exercise, answer) {
         this.dispatch()
 
-        socket.emit('postExercise', {
-            exercise: exercise,
-            answer: answer
-        })
+        let requestOptions = {
+            uri: `${exerciseUrl}/${exercise}`,
+            method: 'POST',
+            body: {
+                exercise: exercise,
+                answer: answer
+            },
+            headers: {
+                'Authorization': localStorage.getItem('jwt')
+            },
+            json: true
+        }
 
-        socket.once('postedExercise', results => this.actions.updateResults(results))
+        // we dispatch an event here so we can have a 'loading' event.
+        this.dispatch()
+
+        request(requestOptions)
+            .then(results => this.actions.updateResults(results))
+            .catch(errorMessage => console.error(errorMessage))
     }
 }
 

@@ -1,13 +1,13 @@
 'use strict'
 
-const publicExercises = require('../utils/public-exercises')
+const exerciseUtils = require('../utils/exercise-utils')
 
 /* Returns the list of exercises available. */
 function getExercise(req, res) {
     let exerciseTitle = req.params.exercise
     let fullExercise
 
-    publicExercises.forEach((exercise) => {
+    exerciseUtils.publicExercises.forEach((exercise) => {
         if (exercise === exerciseTitle) {
             fullExercise = require('../exercises/' + exercise)
             fullExercise.url = `/exercises/${exercise}`

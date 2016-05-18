@@ -4,7 +4,6 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 const path = require('path')
-const socket = require('socket.io')
 const passport = require('passport')
 const JwtStrategy = require('passport-jwt').Strategy
 const ExtractJwt = require('passport-jwt').ExtractJwt
@@ -61,7 +60,7 @@ app.post('/api/sign-in', (req, res) => {
               expiresIn: 10080
             })
 
-            res.status(200).send({ success: true, token: `JWT ${token}` })
+            res.status(200).send({ success: true, token: `${token}` })
         })
     })
 })
@@ -80,6 +79,8 @@ app.get('/api/exercises', getExerciseList)
 /* Fetches data around the exercise, e.g. title, problem. */
 app.get('/api/exercises/:exercise', getExercise)
 
+app.post('/api/exercises/:exercise', postExercise)
+
 /* Attempts to register a user */
 app.post('/api/register', postRegister)
 
@@ -95,19 +96,6 @@ app.set('port', (process.env.PORT || 5000))
 
 server = app.listen(app.get('port'), () => {
     console.log(`[${new Date()}] jsgolf server running on port ${server.address().port}`)
-})
-
-io = socket(server)
-
-io.on('connection', socket => {
-    socket.on('disconnect', () => {
-        console.log('socket ' + socket.id + ' has disconnected.')
-        process.emit('socketDisconnected', socket)
-    })
-
-    socket.on('postExercise', data => {
-        postExercise(socket, data)
-    })
 })
 
 module.exports = server
