@@ -1,6 +1,7 @@
 'use strict'
 
 const AWS = require('aws-sdk')
+const exerciseUtils = require('./exercise-utils')
 
 AWS.config.update({
     region: 'eu-west-1',
@@ -16,7 +17,8 @@ function addUser(username, hash, salt, email) {
             'username': username,
             'password': hash,
             'salt': salt,
-            'email': email
+            'email': email,
+            'exercises': {}
         }
     }
 
@@ -34,7 +36,7 @@ function addUser(username, hash, salt, email) {
 }
 
 function updateExercise(username, exercise, characters) {
-    let ddbExercise = exercise.split('-').join('_')
+    let ddbExercise = exerciseUtils.getExerciseFilename(exercise).split('-').join('_')
     let expression = `set exercises.${ddbExercise} = :c`
     let query = {
         TableName : 'users',

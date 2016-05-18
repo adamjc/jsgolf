@@ -8,8 +8,12 @@ const publicExercises = {
     'Multiple Parameters': 'multiple-parameters'
 }
 
+function getExerciseFilename(exerciseTitle) {
+    return publicExercises[exerciseTitle]
+}
+
 function getExerciseData(exercise) {
-    let exerciseFilename = publicExercises[exercise]
+    let exerciseFilename = getExerciseFilename(exercise)
     if (exerciseFilename) {
         return require(`../exercises/${exerciseFilename}`)
     }
@@ -19,5 +23,6 @@ function getExerciseData(exercise) {
 
 module.exports = {
     publicExercises,
-    getExerciseData
+    getExerciseData,
+    getExerciseFilename
 }

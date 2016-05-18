@@ -4,6 +4,7 @@ const Sandbox = require('adamjc-sandbox')
 const _ = require('lodash')
 const exerciseUtils = require('../utils/exercise-utils')
 const jwt = require('jsonwebtoken')
+const ddbUtils = require('../utils/ddb-utils')
 
 let maxSandboxes = 10
 let sandboxes = []
@@ -57,11 +58,11 @@ process.on('attemptToProcess', () => {
         let correctAnswers = results.filter(result => result.correct)
 
         if (correctAnswers.length === results.length) {
-            let authentication = jwt.verify(request.req.headers.authorization, 'secret');
+            let authenticationDetails = jwt.verify(request.req.headers.authorization, 'secret')
 
-            if (authentication) {
-                // TODO: Update user exercise
-                // ddbUtils.getUser(authentication.username)
+            if (authenticationDetails !== undefined) {
+                let user = authenticationDetails.username
+                ddbUtils.updateExercise(user, request.exercise.title, request.userAnswer.length)
             }
         }
 
