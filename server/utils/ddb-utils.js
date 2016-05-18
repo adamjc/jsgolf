@@ -35,6 +35,34 @@ function addUser(username, hash, salt, email) {
     })
 }
 
+function updateExercises(exercise, characters, increment) {
+    let ddbExercise = exerciseUtils.getExerciseFilename(exercise).split('-').join('_')
+    let query = {
+        TableName : 'exercises',
+        Key: {
+            'exercise': ddbExercise
+        },
+        UpdateExpression: 'add chars.#characters :val',
+        ExpressionAttributeNames: {
+            '#characters': characters.toString()
+        },
+        ExpressionAttributeValues: {
+            ':val': increment
+        }
+    }
+
+    return new Promise((resolve, reject) => {
+        docClient.update(query, (err, data) => {
+            if (err) {
+                console.error('getExercises error: %s', err)
+                reject(err)
+            } else {
+                console.log("UpdateItem succeeded:", JSON.stringify(data, null, 2))
+            }
+        })
+    })
+}
+
 function updateExercise(username, exercise, characters) {
     let ddbExercise = exerciseUtils.getExerciseFilename(exercise).split('-').join('_')
     let expression = `set exercises.${ddbExercise} = :c`
@@ -84,5 +112,6 @@ function getUser(username) {
 module.exports = {
     getUser,
     addUser,
-    updateExercise
+    updateExercise,
+    updateExercises
 }

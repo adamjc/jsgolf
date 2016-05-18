@@ -63,6 +63,7 @@ process.on('attemptToProcess', () => {
             if (authenticationDetails !== undefined) {
                 let user = authenticationDetails.username
                 ddbUtils.updateExercise(user, request.exercise.title, request.userAnswer.length)
+                ddbUtils.updateExercises(request.exercise.title, request.userAnswer.length, 1)
             }
         }
 
