@@ -61,11 +61,21 @@ process.on('attemptToProcess', () => {
             let authentication = jwt.verify(request.req.headers.authorization, 'secret');
 
             if (authentication) {
-                let exercise = request.req.body.exercise
-                let username = authentication.username
-                let characters = request.req.body.answer.length
+                ddbUtils.getUser(authentication.username).then(user => {
+                    let exercise = request.req.body.exercise
+                    let exerciseFilename = exercise.title.toLowerCase().split(' ').join('_')
+                    let characters = request.req.body.answer.length
 
-                ddbUtils.updateExercise(username, exercise.title, characters)
+                    console.log(exerciseFilename, user.exercises[exerciseFilename])
+                    if (user.exercises[exerciseFilename]
+                        && user.exercises[exerciseFilename] !== characters) {
+                        let username = authentication.username
+
+                        ddbUtils.updateExercise(username, exercise.title, characters)
+                        ddbUtils.updateExercises(exercise.title, user.exercises[exerciseFilename], -1)
+                        ddbUtils.updateExercises(exercise.title, characters, 1)
+                    }
+                }).catch(reason => console.log(reason))
             }
         }
 
