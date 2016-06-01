@@ -35,7 +35,7 @@ function addUser(username, hash, salt, email) {
     })
 }
 
-function updateExercises(exercise, characters, increment) {
+function updateExercises(exercise, characters, value) {
     let ddbExercise = exerciseUtils.getExerciseFilename(exercise).split('-').join('_')
     let query = {
         TableName : 'exercises',
@@ -47,7 +47,7 @@ function updateExercises(exercise, characters, increment) {
             '#characters': characters.toString()
         },
         ExpressionAttributeValues: {
-            ':val': increment
+            ':val': value
         }
     }
 

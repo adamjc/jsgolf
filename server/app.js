@@ -24,7 +24,6 @@ const requireAuth = passport.authenticate('jwt', { session: false })
 const jwt = require('jsonwebtoken')
 
 let server
-let io
 
 passport.use(new JwtStrategy(jwtOptions, (jwtPayload, done) => {
     ddbUtils.getUser(jwtPayload.username).then(user => {
