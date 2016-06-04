@@ -90,13 +90,11 @@ function updateExercise(username, exercise, characters) {
 }
 
 function getExercise(exercise) {
-    console.log('getting exercise:', dDBifyExercise(exercise))
     let query = {
         TableName : 'exercises',
         KeyConditionExpression: 'exercise = :exercise',
         ExpressionAttributeValues: { ':exercise': dDBifyExercise(exercise) }
     }
-
     return new Promise((resolve, reject) => {
         docClient.query(query, (err, data) => {
             if (err) {

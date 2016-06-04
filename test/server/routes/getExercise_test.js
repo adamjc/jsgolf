@@ -1,14 +1,20 @@
-const httpMocks = require('node-mocks-http');
-const expect = require('chai').expect;
-const sinon = require('sinon');
-const fs = require('fs');
-const _ = require('lodash');
+const httpMocks = require('node-mocks-http')
+const expect = require('chai').expect
+const sinon = require('sinon')
+const fs = require('fs')
+const _ = require('lodash')
+const AWS = require('aws-sdk-mock')
 
 describe('getExercise', () => {
-    const getExercise = require('../../../server/api/getExercise.js');
+    AWS.mock('DynamoDB.DocumentClient', 'query', function (params, callback) {
+        callback(null, { Items: ['anything'] })
+    })
 
-    let req;
-    let res;
+    const getExercise = require('../../../server/api/getExercise.js')
+
+    let req
+    let res
+    let getExercisePromise
 
     beforeEach(() => {
         req = httpMocks.createRequest({
@@ -17,51 +23,55 @@ describe('getExercise', () => {
             params: {
                 exercise: 'hello-world'
             }
-        });
+        })
 
-        res = httpMocks.createResponse();
-    });
+        res = httpMocks.createResponse()
+
+        getExercisePromise = new Promise(function (resolve, reject) {
+            resolve(getExercise(req, res))
+        })
+    })
 
     it('should respond', () => {
-        res.json = sinon.spy();
+        res.json = sinon.spy()
 
-        getExercise(req, res);
-
-        expect(res.json.called).to.equal(true);
-    });
+        getExercisePromise.then(() => {
+            expect(res.json.called).to.equal(true)
+        })
+    })
 
     it('should return the exercise requested', () => {
-        let parsedResponse;
+        let parsedResponse
 
-        getExercise(req, res);
+        getExercisePromise.then(() => {
+            parsedResponse = JSON.parse(res._getData())
 
-        parsedResponse = JSON.parse(res._getData());
-
-        expect(typeof parsedResponse).to.equal('object');
-    });
+            expect(typeof parsedResponse).to.equal('object')
+        })
+    })
 
     describe('The returned json object', () => {
         it('should contain a title', () => {
-            const file = require('../../../server/exercises/hello-world');
+            const file = require('../../../server/exercises/hello-world')
 
-            let parsedResponse;
+            let parsedResponse
 
-            getExercise(req, res);
+            getExercise(req, res)
 
-            parsedResponse = JSON.parse(res._getData());
+            parsedResponse = JSON.parse(res._getData())
 
-            expect(parsedResponse.title).to.equal(file.title);
-        });
+            expect(parsedResponse.title).to.equal(file.title)
+        })
 
         it('should contain some exercise text', () => {
-            let file = require('../../../server/exercises/hello-world');
-            let parsedResponse;
+            let file = require('../../../server/exercises/hello-world')
+            let parsedResponse
 
-            getExercise(req, res);
+            getExercise(req, res)
 
-            parsedResponse = JSON.parse(res._getData());
+            parsedResponse = JSON.parse(res._getData())
 
-            expect(parsedResponse.description).to.equal(file.description);
-        });
+            expect(parsedResponse.description).to.equal(file.description)
+        })
     })
-});
+})

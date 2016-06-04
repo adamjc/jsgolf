@@ -18,10 +18,11 @@ function getExercise(req, res) {
     })
 
     if (fullExercise) {
+        // TODO: This is causing tests to fail. Need a mock db.
         ddbUtils.getExercise(exerciseTitle).then(data => {
             fullExercise.chartData = data
             res.json(fullExercise)
-        }).catch(reason => console.log(reason))
+        }).catch(reason => console.log('getExercise Endpoint Error: ', reason))
     } else {
         res.status(500).send('500')
     }

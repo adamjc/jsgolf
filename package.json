@@ -70,6 +70,7 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "devDependencies": {
+    "aws-sdk-mock": "^1.2.0",
     "eslint": "^1.10.3",
     "eslint-plugin-react": "^3.15.0"
   }
