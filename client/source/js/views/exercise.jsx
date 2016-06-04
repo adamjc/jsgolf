@@ -2,6 +2,7 @@
 
 const React = require('react')
 const ExerciseInput = require('./exercise-input.jsx')
+const ExerciseChart = require('./exercise-chart.jsx')
 const Result = require('./result.jsx')
 const ExerciseStore = require('../stores/exercise-store')
 const ExerciseActions = require('../actions/exercise-actions')
@@ -38,6 +39,10 @@ module.exports = React.createClass({
                     <ExerciseInput exercise={this.state.exercise}/>
 
                     {result}
+
+                    <div className="col-sm-12">
+                        <ExerciseChart exercise={this.state.exercise}/>
+                    </div>
                 </div>
             )
         } else {

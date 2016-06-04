@@ -1,6 +1,7 @@
 'use strict'
 
 const publicExercises = require('../utils/exercise-utils').publicExercises
+const ddbUtils = require('../utils/ddb-utils')
 
 /* Returns the list of exercises available. */
 function getExercise(req, res) {
@@ -17,7 +18,10 @@ function getExercise(req, res) {
     })
 
     if (fullExercise) {
-        res.json(fullExercise)
+        ddbUtils.getExercise(exerciseTitle).then(data => {
+            fullExercise.chartData = data
+            res.json(fullExercise)
+        }).catch(reason => console.log(reason))
     } else {
         res.status(500).send('500')
     }

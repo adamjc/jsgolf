@@ -89,6 +89,27 @@ function updateExercise(username, exercise, characters) {
     })
 }
 
+function getExercise(exercise) {
+    console.log('getting exercise:', dDBifyExercise(exercise))
+    let query = {
+        TableName : 'exercises',
+        KeyConditionExpression: 'exercise = :exercise',
+        ExpressionAttributeValues: { ':exercise': dDBifyExercise(exercise) }
+    }
+
+    return new Promise((resolve, reject) => {
+        docClient.query(query, (err, data) => {
+            if (err) {
+                console.error('getExercise error: %s', err)
+                reject(err)
+            }
+            else {
+                resolve(data.Items.pop())
+            }
+        })
+    })
+}
+
 function getUser(username) {
     let query = {
         TableName : 'users',
@@ -109,9 +130,14 @@ function getUser(username) {
     })
 }
 
+function dDBifyExercise(string) {
+    return string.toLowerCase().split(/-| /).join('_')
+}
+
 module.exports = {
     getUser,
     addUser,
     updateExercise,
-    updateExercises
+    updateExercises,
+    getExercise
 }
