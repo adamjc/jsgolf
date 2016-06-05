@@ -51,6 +51,7 @@ process.on('attemptToProcess', () => {
     let request = requests.pop()
 
     Promise.all(runTests(sandbox, request)).then(results => {
+
         sandboxes.push(sandbox)
 
         request.res.send(results)
@@ -58,15 +59,17 @@ process.on('attemptToProcess', () => {
         let correctAnswers = results.filter(result => result.correct)
 
         if (correctAnswers.length === results.length) {
-            let authentication = jwt.verify(request.req.headers.authorization, 'secret');
+            let authHeader = request.req.headers.authorization
+            let authentication
 
-            if (authentication) {
+            if (authHeader) authentication = jwt.verify(authHeader, 'secret')
+
+            if (authHeader && authentication) {
                 ddbUtils.getUser(authentication.username).then(user => {
                     let exercise = request.req.body.exercise
                     let exerciseFilename = exercise.title.toLowerCase().split(' ').join('_')
                     let characters = request.req.body.answer.length
 
-                    console.log(exerciseFilename, user.exercises[exerciseFilename])
                     if (user.exercises[exerciseFilename]
                         && user.exercises[exerciseFilename] !== characters) {
                         let username = authentication.username

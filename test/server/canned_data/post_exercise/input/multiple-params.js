@@ -1,4 +1,4 @@
 module.exports = {
-    exercise: '5',
+    exercise: 'multiple-parameters',
     answer: 'function(a, b) { return a + b; }'
 };

@@ -27,6 +27,8 @@ describe('getExercise', () => {
 
         res = httpMocks.createResponse()
 
+        // We have to wrap getExercise in a promise as otherwise the tests
+        // will fail due to async woes.
         getExercisePromise = new Promise(function (resolve, reject) {
             resolve(getExercise(req, res))
         })
