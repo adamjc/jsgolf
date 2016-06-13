@@ -60,4 +60,21 @@ describe('postExercise', () => {
             done()
         }).catch(reason => console.log(reason))
     })
+
+    it('can handle multiple parameters', (done) => {
+      let input = require('../canned_data/post_exercise/input/multiple-params')
+      let output = require('../canned_data/post_exercise/expected_output/multiple-params')
+
+      let requestOptions = {
+          uri: 'http://localhost:5000/api/exercises/multiple-parameters',
+          method: 'POST',
+          body: input,
+          json: true
+      }
+
+      request(requestOptions).then(data => {
+          expect(R.equals(data, output)).to.equal(true)
+          done()
+      }).catch(reason => console.log(reason))
+    })
 })
