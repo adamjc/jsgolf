@@ -4,7 +4,7 @@
   "description": "JS Golf Website",
   "main": "index.js",
   "scripts": {
-    "test": "echo 'Everything is fine.'",
+    "test": "gulp test",
     "start": "gulp && nodemon --harmony ./server/app.js"
   },
   "repository": {
