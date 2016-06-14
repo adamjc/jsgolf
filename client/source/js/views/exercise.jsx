@@ -27,8 +27,17 @@ module.exports = React.createClass({
 
     render() {
         let result = <Result />
+        let chart;
 
         if (this.state.exercise) {
+            if (this.state.exercise.chartData) {
+                chart = <div className="col-sm-12">
+                                <ExerciseChart chartData={this.state.exercise.chartData}/>
+                            </div>
+            } else {
+                chart = <div></div>
+            }
+
             return(
                 <div>
                     <div className="col-sm-12">
@@ -40,9 +49,7 @@ module.exports = React.createClass({
 
                     {result}
 
-                    <div className="col-sm-12">
-                        <ExerciseChart exercise={this.state.exercise}/>
-                    </div>
+                    {chart}
                 </div>
             )
         } else {

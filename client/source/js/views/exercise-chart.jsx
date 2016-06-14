@@ -11,7 +11,7 @@ module.exports = React.createClass({
     },
 
     render() {
-        let chartData = this.props.exercise.chartData.chars
+        let chartData = this.props.chartData.chars
 
         let data = {
             labels: Object.keys(chartData),
