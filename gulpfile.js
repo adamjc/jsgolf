@@ -8,7 +8,6 @@ const babelify = require('babelify')
 const mocha = require('gulp-mocha')
 const babel = require('babel/register')
 const del = require('del')
-const rename = require('gulp-rename')
 const sass = require('gulp-sass')
 const sourcemaps = require('gulp-sourcemaps')
 
@@ -18,54 +17,32 @@ const paths = {
 }
 
 const settings = {
-    environment: process.env.NODE_ENV || 'production',
-    jsConfigFolder: './client/source/js/config',
     sourceFolder: './client/source',
     cssSourceFile: './client/source/css/main.scss',
-    preBuildFolder: './client/pre-build',
-    jsBuildFolder: './client/pre-build/js',
-    destFolder: './public',
-    jsDestFolder: './public/js'
+    destFolder: './public'
 }
 
 gulp.task('clean', () => {
-    del(settings.preBuildFolder + '/**/*')
-    del(settings.destFolder + '/**/*')
+    del(`${settings.destFolder}/**/*`)
 })
 
 gulp.task('css', () => {
     gulp.src(settings.cssSourceFile)
-      .pipe(sourcemaps.init())
-      .pipe(sass({outputStyle: 'compressed'}))
-      .pipe(sourcemaps.write())
-      .pipe(gulp.dest(settings.destFolder + '/css'))
+        .pipe(sourcemaps.init())
+        .pipe(sass({outputStyle: 'compressed'}))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(`${settings.destFolder}/css`))
 })
 
-gulp.task('config', ['copy-js-source'], () => {
-    console.log(`building for ${settings.environment}...`);
-
-    return gulp.src(`${settings.jsConfigFolder}/${settings.environment}.js`)
-               .pipe(rename('config.js'))
-               .pipe(gulp.dest(settings.jsBuildFolder))
-})
-
-gulp.task('copy-js-source', ['clean'], () => {
-    return gulp.src([
-        `${settings.sourceFolder}/js/**/*`,
-        `!${settings.sourceFolder}/js/config`,
-        `!${settings.sourceFolder}/js/config/**/*`
-    ]).pipe(gulp.dest(settings.jsBuildFolder))
-})
-
-gulp.task('browserify', ['config', 'copy-js-source'], () => {
+gulp.task('browserify', ['clean'], () => {
     let b = browserify()
     b.transform(reactify)
     b.transform(babelify)
-    b.add(`${settings.preBuildFolder}/js/app.jsx`)
+    b.add(`${settings.sourceFolder}/js/app.jsx`)
 
     return b.bundle()
             .pipe(source('main.js'))
-            .pipe(gulp.dest(settings.jsDestFolder))
+            .pipe(gulp.dest(`${settings.destFolder}/js`))
 })
 
 gulp.task('watch', function() {
