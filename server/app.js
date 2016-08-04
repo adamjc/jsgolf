@@ -10,7 +10,7 @@ const ExtractJwt = require('passport-jwt').ExtractJwt
 const fs = require('fs')
 const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeader(),
-    secretOrKey: process.env.NODE_ENV === 'travis' ? '' : fs.readFileSync('./secret', 'utf-8')
+    secretOrKey: process.env.NODE_ENV === 'travis' ? 'secret' : fs.readFileSync('./secret', 'utf-8')
 }
 
 const ddbUtils = require('./utils/ddb-utils')
