@@ -7,9 +7,10 @@ const path = require('path')
 const passport = require('passport')
 const JwtStrategy = require('passport-jwt').Strategy
 const ExtractJwt = require('passport-jwt').ExtractJwt
+const fs = require('fs')
 const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeader(),
-    secretOrKey: 'secret'
+    secretOrKey: fs.readFileSync('./secret', 'utf-8')
 }
 
 const ddbUtils = require('./utils/ddb-utils')
@@ -22,8 +23,6 @@ const postRegister = require('./api/postRegister')
 
 const requireAuth = passport.authenticate('jwt', { session: false })
 const jwt = require('jsonwebtoken')
-
-let server
 
 passport.use(new JwtStrategy(jwtOptions, (jwtPayload, done) => {
     ddbUtils.getUser(jwtPayload.username).then(user => {
@@ -93,7 +92,7 @@ app.get('/*', (req, res) => {
 
 app.set('port', (process.env.PORT || 5000))
 
-server = app.listen(app.get('port'), () => {
+let server = app.listen(app.get('port'), () => {
     console.log(`[${new Date()}] jsgolf server running on port ${server.address().port}`)
 })
 
