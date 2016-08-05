@@ -34,7 +34,7 @@ gulp.task('css', () => {
         .pipe(gulp.dest(`${settings.destFolder}/css`))
 })
 
-gulp.task('browserify', ['clean'], () => {
+gulp.task('browserify', () => {
     let b = browserify()
     b.transform(reactify)
     b.transform(babelify)

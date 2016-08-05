@@ -48,7 +48,7 @@ module.exports = React.createClass({
         return (
             <div className="col-sm-12 register">
                 <div className="center-block register__inner">
-                    <h2 className="text-center register__title">Enter Your Details</h2>
+                    <h2 className="text-center register__title">Sign In</h2>
 
                     <div className="register__inputs center-block">
                         <input type="text" value={this.state.value} onChange={this.handleUsernameChange} className="register__input register__input--username center-block" placeholder="username"></input>

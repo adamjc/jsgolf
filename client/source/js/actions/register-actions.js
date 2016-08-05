@@ -5,6 +5,8 @@ const requestPromise = require('request-promise')
 const baseUrl = `${location.origin}/api`
 const registerUrl = `${baseUrl}/register`
 const getUserUrl = `${baseUrl}/is-username-available`
+const page = require('page')
+const UserActions = require('./user-actions')
 
 class RegisterActions {
     updateRegister(data) {
@@ -42,8 +44,10 @@ class RegisterActions {
         this.dispatch()
 
         requestPromise(requestOptions)
-            .then(results => this.actions.updateRegister(results))
-            .catch(errorMessage => console.error(errorMessage))
+          .then(results => {
+            page('/sign-in')
+          })
+          .catch(errorMessage => console.error(errorMessage))
     }
 }
 
