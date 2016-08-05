@@ -10,7 +10,7 @@ describe('getExercise', () => {
         callback(null, { Items: ['anything'] })
     })
 
-    const getExercise = require('../../../server/api/getExercise.js')
+    const getExercise = require('../../../server/api/get-exercise.js')
 
     let req
     let res

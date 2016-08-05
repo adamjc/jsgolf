@@ -16,10 +16,12 @@ const jwtOptions = {
 const ddbUtils = require('./utils/ddb-utils')
 const passwordUtils = require('./utils/password-utils')
 
-const getExerciseList = require('./api/getExercisesList')
-const getExercise = require('./api/getExercise')
-const postExercise = require('./api/postExercise')
-const postRegister = require('./api/postRegister')
+const getExerciseList = require('./api/get-exercises-list')
+const getExercise = require('./api/get-exercise')
+const postExercise = require('./api/submit-exercise')
+const postRegister = require('./api/register')
+const signIn = require('./api/sign-in')
+const isUsernameAvailable = require('./api/is-username-available')
 
 const requireAuth = passport.authenticate('jwt', { session: false })
 const jwt = require('jsonwebtoken')
@@ -40,51 +42,12 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use('/public', express.static(path.resolve(__dirname, '../public')))
 
-app.post('/api/sign-in', (req, res) => {
-    console.log(`attempting to log in user ${req}`)
-    ddbUtils.getUser(req.body.username).then(user => {
-        if (!user) {
-            console.log('no user found.')
-            res.status(401).send('Incorrect username')
-        }
-
-        passwordUtils.hash(req.body.password, user.salt).then(hash => {
-            if (hash !== user.password) {
-                console.log('password does not match.')
-                res.status(401).send('Incorrect password')
-            }
-
-            let token = jwt.sign(user, jwtOptions.secretOrKey, {
-              expiresIn: 10080
-            })
-
-            res.status(200).send({ success: true, token: `${token}` })
-        })
-    })
-})
-
-app.get('/api/is-username-available/:username', (req, res) => {
-    ddbUtils.getUser(req.params.username).then(data => {
-        if (!data) res.send(true)
-
-        res.send(false)
-    })
-})
-
-/* Returns the list of exercises available. */
-app.get('/api/exercises', getExerciseList)
-
-/* Fetches data around the exercise, e.g. title, problem. */
-app.get('/api/exercises/:exercise', getExercise)
-
-app.post('/api/exercises/:exercise', postExercise)
-
-/* Attempts to register a user */
-app.post('/api/register', postRegister)
-
-app.get('/api/test-auth', requireAuth, (req, res) => {
-    res.status(200).send('authentication success!')
-})
+app.get('/api/is-username-available/:username', isUsernameAvailable)
+app.get('/api/exercises', getExerciseList) /* Returns the list of exercises. */
+app.get('/api/exercises/:exercise', getExercise) /* Fetches exercise data */
+app.post('/api/exercises/:exercise', postExercise) /* Tests user code  */
+app.post('/api/register', postRegister) /* Attempts to register a user */
+app.post('/api/sign-in', signIn) /* Attempts to sign a user in */
 
 app.get('/*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../index.html'))

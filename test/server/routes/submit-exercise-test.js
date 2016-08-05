@@ -17,7 +17,7 @@ describe('postExercise', () => {
   let res
   let getExercisePromise
 
-  const postExercise = require('../../../server/api/postExercise')
+  const postExercise = require('../../../server/api/submit-exercise')
 
   beforeEach(() => {
     req = httpMocks.createRequest({
