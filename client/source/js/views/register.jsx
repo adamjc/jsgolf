@@ -3,6 +3,7 @@
 const React = require('react')
 const RegisterActions = require('../actions/register-actions')
 const RegisterStore = require('../stores/register-store')
+const ReactCSSTransitionGroup = require('react-addons-css-transition-group')
 
 module.exports = React.createClass({
     getInitialState () {
@@ -53,6 +54,10 @@ module.exports = React.createClass({
             password: this.state.password,
             email: this.state.email
         })
+
+        this.setState({
+            awaitingResults: true
+        })
     },
 
     handlePasswordClick () {
@@ -65,11 +70,18 @@ module.exports = React.createClass({
         let passwordVisibile = this.state.passwordVisibile ? 'text' : 'password'
         let passwordVisibleText = this.state.passwordVisibile ? 'HIDE' : 'SHOW'
         let userNotAvailableAlert
-
+        let awaitingResults
         let registerButtonClass = 'register__button btn btn-block center-block'
 
         if (!this.state.isUsernameAvailable) {
             registerButtonClass += ' register__button--inactive'
+        }
+
+        if (this.state.awaitingResults) {
+            awaitingResults =
+                    <div className="button--sent">
+                        <span className="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                    </div>
         }
 
         if (!this.state.isUsernameAvailable) {
@@ -80,7 +92,7 @@ module.exports = React.createClass({
             <div className="col-sm-12 register">
                 <div className="center-block register__inner">
                     <h2 className="text-center register__title">Enter Your Details</h2>
-                    
+
                     <div className="register__inputs center-block">
                         <input type="text"
                                value={this.state.value}
@@ -107,11 +119,24 @@ module.exports = React.createClass({
                                placeholder="email (optional)">
                         </input>
                     </div>
-                    <button className={registerButtonClass}
-                            onClick={this.handleRegisterClick}
-                            disabled={!this.state.isUsernameAvailable}>
-                        Register
-                    </button>
+
+                    <div style={{position: "relative"}}>
+                        <button className={registerButtonClass}
+                                onClick={this.handleRegisterClick}
+                                disabled={!this.state.isUsernameAvailable}>
+                            Register
+                        </button>
+
+                        <ReactCSSTransitionGroup
+                            transitionName="button-transition"
+                            transitionAppear={true}
+                            transitionAppearTimeout={500}
+                            transitionEnterTimeout={500}
+                            transitionLeaveTimeout={300}
+                        >
+                            {awaitingResults}
+                        </ReactCSSTransitionGroup>
+                    </div>
                 </div>
             </div>
         )

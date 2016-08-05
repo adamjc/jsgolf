@@ -4,6 +4,7 @@ const React = require('react')
 const UserStore = require('../stores/user-store')
 const UserActions = require('../actions/user-actions')
 const page = require('page')
+const ReactCSSTransitionGroup = require('react-addons-css-transition-group')
 
 module.exports = React.createClass({
     getInitialState () {
@@ -19,7 +20,7 @@ module.exports = React.createClass({
     },
 
     onChange (data) {
-        page('/')
+        page('/exercises')
     },
 
     handleUsernameChange (event) {
@@ -35,6 +36,8 @@ module.exports = React.createClass({
     },
 
     handleSignInClick () {
+        this.setState({awaitingResults: true})
+
         UserActions.signIn({
             username: this.state.username,
             password: this.state.password
@@ -44,6 +47,14 @@ module.exports = React.createClass({
     render () {
         let passwordVisibile = this.state.passwordVisibile ? 'text' : 'password'
         let passwordVisibleText = this.state.passwordVisibile ? 'HIDE' : 'SHOW'
+        let awaitingResults
+
+        if (this.state.awaitingResults) {
+            awaitingResults =
+                    <div className="button--sent">
+                        <span className="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                    </div>
+        }
 
         return (
             <div className="col-sm-12 register">
@@ -60,10 +71,23 @@ module.exports = React.createClass({
                         </div>
                     </div>
 
-                    <button className="register__button btn btn-block center-block"
-                            onClick={this.handleSignInClick}>
-                        Sign In
-                    </button>
+                    <div style={{position: "relative"}}>
+                        <button className="register__button btn btn-block center-block"
+                                onClick={this.handleSignInClick}
+                                disabled={this.state.awaitingResults}>
+                            Sign In
+                        </button>
+
+                        <ReactCSSTransitionGroup
+                            transitionName="button-transition"
+                            transitionAppear={true}
+                            transitionAppearTimeout={500}
+                            transitionEnterTimeout={500}
+                            transitionLeaveTimeout={300}
+                        >
+                            {awaitingResults}
+                        </ReactCSSTransitionGroup>
+                    </div>
                 </div>
             </div>
         )
