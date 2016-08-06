@@ -7,14 +7,14 @@ const path = require('path')
 const passport = require('passport')
 const JwtStrategy = require('passport-jwt').Strategy
 const ExtractJwt = require('passport-jwt').ExtractJwt
-const fs = require('fs')
-const jwtOptions = {
-    jwtFromRequest: ExtractJwt.fromAuthHeader(),
-    secretOrKey: process.env.NODE_ENV === 'travis' ? 'secret' : fs.readFileSync('./secret', 'utf-8')
-}
 
 const ddbUtils = require('./utils/ddb-utils')
 const passwordUtils = require('./utils/password-utils')
+
+const jwtOptions = {
+    jwtFromRequest: ExtractJwt.fromAuthHeader(),
+    secretOrKey: passwordUtils.getSecret()
+}
 
 const getExerciseList = require('./api/get-exercises-list')
 const getExercise = require('./api/get-exercise')

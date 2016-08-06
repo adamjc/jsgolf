@@ -4,6 +4,7 @@ const alt = require('../alt')
 const requestPromise = require('request-promise')
 const baseUrl = `${location.origin}`
 const signInUrl = `${baseUrl}/api/sign-in`
+const page = require('page')
 
 class UserActions {
     updateUser (data) {
@@ -25,7 +26,7 @@ class UserActions {
         this.dispatch()
 
         requestPromise(requestOptions)
-            .then(result => this.actions.updateUser(result))
+            .then(result => page('/exercises'))
             .catch(errorMessage => console.error(errorMessage))
     }
 
