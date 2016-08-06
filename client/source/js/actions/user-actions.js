@@ -22,11 +22,11 @@ class UserActions {
             json: true
         }
 
-        // we dispatch an event here so we can have a 'loading' event.
-        this.dispatch()
-
         requestPromise(requestOptions)
-            .then(result => page('/exercises'))
+            .then(result => {
+              this.actions.updateUser(result)
+              page('/exercises')
+            })
             .catch(errorMessage => console.error(errorMessage))
     }
 

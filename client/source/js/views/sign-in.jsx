@@ -11,18 +11,6 @@ module.exports = React.createClass({
         return {}
     },
 
-    componentDidMount() {
-        UserStore.listen(this.onChange)
-    },
-
-    componentWillUnmount () {
-        UserStore.unlisten(this.onChange)
-    },
-
-    onChange (data) {
-        page('/exercises')
-    },
-
     handleUsernameChange (event) {
         this.setState({username: event.target.value})
     },
