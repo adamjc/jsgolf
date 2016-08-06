@@ -13,7 +13,7 @@ function getExercise(req, res) {
         let exerciseFilename = publicExercises[exercise]
 
         if (exerciseFilename === exerciseTitle) {
-            fullExercise = require(`/exercises/${exerciseFilename}`)
+            fullExercise = require(`../exercises/${exerciseFilename}`)
             fullExercise.url = `/exercises/${exerciseFilename}`
         }
     })
