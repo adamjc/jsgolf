@@ -67,7 +67,8 @@
     "request-promise": "^0.4.3",
     "sinon": "^1.16.1",
     "stringify-object": "^2.3.1",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "winston": "^2.2.0"
   },
   "devDependencies": {
     "aws-sdk-mock": "^1.2.0",
