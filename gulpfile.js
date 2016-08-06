@@ -10,6 +10,8 @@ const babel = require('babel/register')
 const del = require('del')
 const sass = require('gulp-sass')
 const sourcemaps = require('gulp-sourcemaps')
+const uglify = require('gulp-uglify')
+const buffer = require('vinyl-buffer')
 
 const paths = {
     scripts: ['./client/**/*.jsx', './client/**/*.js'],
@@ -42,6 +44,8 @@ gulp.task('browserify', () => {
 
     return b.bundle()
             .pipe(source('main.js'))
+            .pipe(buffer())
+            .pipe(uglify())
             .pipe(gulp.dest(`${settings.destFolder}/js`))
 })
 
