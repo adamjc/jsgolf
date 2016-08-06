@@ -2,6 +2,7 @@
 
 const AWS = require('aws-sdk')
 const exerciseUtils = require('./exercise-utils')
+const logger = require('./logger')
 
 AWS.config.update({
     region: 'eu-west-1',
@@ -25,10 +26,10 @@ function addUser(username, hash, salt, email) {
     return new Promise((resolve, reject) => {
         docClient.put(params, (err, data) => {
             if (err) {
-                console.error('Unable to add item: ', JSON.stringify(err, null, 2))
+                logger.log('error', `Unable to add item: ${JSON.stringify(err, null, 2)}`)
                 reject(err)
             } else {
-                console.log('Added item: ', JSON.stringify(data, null, 2))
+                logger.log('info', `Added item: ${JSON.stringify(data, null, 2)}`)
                 resolve(data)
             }
         })
@@ -54,10 +55,10 @@ function updateExercises(exercise, characters, value) {
     return new Promise((resolve, reject) => {
         docClient.update(query, (err, data) => {
             if (err) {
-                console.error('getExercises error: %s', err)
+                logger.log('error', `getExercises error: ${err}`)
                 reject(err)
             } else {
-                console.log("UpdateItem succeeded:", JSON.stringify(data, null, 2))
+                logger.log('info', `UpdateItem succeeded: ${JSON.stringify(data, null, 2)}`)
             }
         })
     })
@@ -80,10 +81,10 @@ function updateExercise(username, exercise, characters) {
     return new Promise((resolve, reject) => {
         docClient.update(query, (err, data) => {
             if (err) {
-                console.error('getUser error: %s', err)
+                logger.log('error', `getUser error: ${err}`)
                 reject(err)
             } else {
-                console.log("UpdateItem succeeded:", JSON.stringify(data, null, 2))
+                logger.log('info', `UpdateItem succeeded: ${JSON.stringify(data, null, 2)}`)
             }
         })
     })
@@ -98,7 +99,7 @@ function getExercise(exercise) {
     return new Promise((resolve, reject) => {
         docClient.query(query, (err, data) => {
             if (err) {
-                console.error('getExercise error: %s', err)
+                logger.log('error', `getExercise error: ${err}`)
                 reject(err)
             }
             else {
@@ -118,7 +119,7 @@ function getUser(username) {
     return new Promise((resolve, reject) => {
         docClient.query(query, (err, data) => {
             if (err) {
-                console.error('getUser error: %s', err)
+                logger.log('error', `getUser error: ${err}`)
                 reject(err)
             }
             else {

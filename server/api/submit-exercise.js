@@ -5,6 +5,7 @@ const _ = require('lodash')
 const exerciseUtils = require('../utils/exercise-utils')
 const ddbUtils = require('../utils/ddb-utils')
 const jwt = require('jsonwebtoken')
+const logger = require('../utils/logger')
 
 let maxSandboxes = 10
 let sandboxes = []
@@ -78,12 +79,12 @@ process.on('attemptToProcess', () => {
                         ddbUtils.updateExercises(exercise.title, user.exercises[exerciseFilename], -1)
                         ddbUtils.updateExercises(exercise.title, characters, 1)
                     }
-                }).catch(reason => console.log(reason))
+                }).catch(reason => logger.log('error', `submit exercise error: ${reason}`))
             }
         }
 
         process.emit('sandboxFinished')
-    }).catch(reason => console.log(reason))
+    }).catch(reason => logger.log('error', `submit exercise error: ${reason}`))
 })
 
 function runTests(sandbox, request) {
@@ -125,7 +126,7 @@ function runTest(sandbox, test, func) {
             try {
                 resultObject = JSON.parse(result)
             } catch (e) {
-                console.error('Error parsing result object: ', result, e)
+                logger.log('error', `Error parsing result object: ${result} : ${e}`)
                 resultObject.output = result
             }
 

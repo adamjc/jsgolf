@@ -10,6 +10,7 @@ const ExtractJwt = require('passport-jwt').ExtractJwt
 
 const ddbUtils = require('./utils/ddb-utils')
 const passwordUtils = require('./utils/password-utils')
+const logger = require('./utils/logger')
 
 const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeader(),
@@ -29,7 +30,7 @@ const jwt = require('jsonwebtoken')
 passport.use(new JwtStrategy(jwtOptions, (jwtPayload, done) => {
     ddbUtils.getUser(jwtPayload.username).then(user => {
         if (!user) {
-            console.log('no user found.')
+            logger.log('info', `user: ${user}, no user found.`)
             return done(null, false, { message: 'Incorrect username.'})
         }
 
@@ -56,7 +57,7 @@ app.get('/*', (req, res) => {
 app.set('port', (process.env.PORT || 5000))
 
 let server = app.listen(app.get('port'), () => {
-    console.log(`[${new Date()}] jsgolf server running on port ${server.address().port}`)
+    logger.log('info', `[${new Date()}] jsgolf server running on port ${server.address().port}`)
 })
 
 module.exports = server

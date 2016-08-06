@@ -3,6 +3,7 @@
 const AWS = require('aws-sdk')
 const ddbUtils = require('../utils/ddb-utils')
 const passwordUtils = require('../utils/password-utils')
+const logger = require('../utils/logger')
 
 AWS.config.update({
   region: 'eu-west-1',
@@ -29,17 +30,16 @@ function postRegister(req, res) {
 
     ddbUtils.getUser(username).then(data => {
         if (data && data.username) {
-            console.log('user %s already exists', data.username)
+            logger.log('info', `user ${data.username} already exists`)
             return res.status(422).send('Username already exists.')
         }
 
         passwordUtils.hash(password, salt).then(hash => {
             ddbUtils.addUser(username, hash, salt, email)
                 .then(data => {
-                    console.log('promise resolved: ', data)
                     res.status(200).send()
                 }).catch(error => {
-                    console.log('promise rejected: ', data)
+                    logger.log('info', `promise rejected: ${data}`)
                     res.status(500).send()
                 })
         })

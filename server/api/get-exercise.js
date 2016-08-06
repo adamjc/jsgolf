@@ -2,6 +2,7 @@
 
 const publicExercises = require('../utils/exercise-utils').publicExercises
 const ddbUtils = require('../utils/ddb-utils')
+const logger = require('../utils/logger')
 
 /* Returns the list of exercises available. */
 function getExercise(req, res) {
@@ -12,17 +13,16 @@ function getExercise(req, res) {
         let exerciseFilename = publicExercises[exercise]
 
         if (exerciseFilename === exerciseTitle) {
-            fullExercise = require('../exercises/' + exerciseFilename)
+            fullExercise = require(`/exercises/${exerciseFilename}`)
             fullExercise.url = `/exercises/${exerciseFilename}`
         }
     })
 
     if (fullExercise) {
-        // TODO: This is causing tests to fail. Need a mock db.
         ddbUtils.getExercise(exerciseTitle).then(data => {
             fullExercise.chartData = data
             res.json(fullExercise)
-        }).catch(reason => console.log('getExercise Endpoint Error: ', reason))
+        }).catch(reason => logger.log('error', `getExercise Endpoint Error: ${reason}`))
     } else {
         res.status(500).send('500')
     }

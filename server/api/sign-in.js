@@ -1,19 +1,20 @@
 const ddbUtils = require('../utils/ddb-utils')
 const passwordUtils = require('../utils/password-utils')
 const jwt = require('jsonwebtoken')
+const logger = require('../utils/logger')
 
 function signIn (req, res) {
-  console.log(`attempting to log in user ${req.body.username}`)
+  logger.log(`attempting to log in user ${req.body.username}`)
 
   ddbUtils.getUser(req.body.username).then(user => {
     if (!user) {
-      console.log('no user found.')
+      logger.log('info', `user: ${user}, no user found.`)
       res.status(401).send('Incorrect username')
     }
 
     passwordUtils.hash(req.body.password, user.salt).then(hash => {
       if (hash !== user.password) {
-        console.log('password does not match.')
+        logger.log('info', `user: ${user}, password does not match.`)
         res.status(401).send('Incorrect password')
       }
 
@@ -23,7 +24,7 @@ function signIn (req, res) {
 
       res.status(200).send({ success: true, token: `${token}` })
     })
-  }).catch(err => console.err(err))
+  }).catch(err => logger.log('error', err))
 
 }
 
