@@ -2,7 +2,7 @@
 
 const alt = require('../alt')
 const requestPromise = require('request-promise')
-const url = location.origin + '/api/exercises/'
+const url = `${location.origin}/api/exercises`
 
 class ExerciseListActions {
     updateExerciseList(data) {
