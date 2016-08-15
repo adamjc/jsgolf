@@ -1,5 +1,5 @@
 language: node_js
-node_js: "4.2.2"
+node_js: "6.2.2"
 before_install:
     - openssl aes-256-cbc -K $encrypted_9f9aee1807b3_key -iv $encrypted_9f9aee1807b3_iv -in travis.enc -out ./travis -d
     - export NODE_ENV='debug'
