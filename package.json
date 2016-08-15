@@ -4,7 +4,7 @@
   "description": "JS Golf Website",
   "main": "index.js",
   "scripts": {
-    "test": "gulp test",
+    "test": "mocha test/**/*",
     "start": "gulp && nodemon --harmony ./server/app.js"
   },
   "repository": {
@@ -73,6 +73,7 @@
     "winston": "^2.2.0"
   },
   "devDependencies": {
+    "mocha": "^3.0.2",
     "aws-sdk-mock": "^1.2.0",
     "eslint": "^1.10.3",
     "eslint-plugin-react": "^3.15.0"
