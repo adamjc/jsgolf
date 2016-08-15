@@ -6,7 +6,7 @@ before_install:
 install:
     - npm install
 script:
-    - gulp test
+    - npm test
 after_success:
     - eval "$(ssh-agent -s)"
     - chmod 600 ./travis
