@@ -4,28 +4,28 @@ const alt = require('../alt')
 const ResultActions = require('../actions/result-actions')
 
 class ResultsStore {
-    constructor() {
-        this.results = null
-        this.errorMessage = null
+  constructor() {
+    this.results = null
+    this.errorMessage = null
 
-        this.bindListeners({
-            handleUpdateResults: ResultActions.UPDATE_RESULTS,
-            handleFetchResults: ResultActions.FETCH_RESULTS,
-        })
-    }
+    this.bindListeners({
+      handleUpdateResults: ResultActions.UPDATE_RESULTS,
+      handleFetchResults: ResultActions.FETCH_RESULTS
+    })
+  }
 
-    handleResultsFailed() {
-        console.log('handleResultsFailed');
-    }
+  handleResultsFailed() {
+    console.log('handleResultsFailed')
+  }
 
-    handleUpdateResults(results) {
-        this.results = results
-        this.errorMessage = null
-    }
+  handleUpdateResults(results) {
+    this.results = results
+    this.errorMessage = null
+  }
 
-    handleFetchResults() {
-        this.results = []
-    }
+  handleFetchResults() {
+    this.results = []
+  }
 }
 
 module.exports = alt.createStore(ResultsStore, 'ResultStore')

@@ -5,29 +5,29 @@ const requestPromise = require('request-promise')
 const url = `${location.origin}/api/exercises`
 
 class ExerciseListActions {
-    updateExerciseList(data) {
-        this.dispatch(data)
+  updateExerciseList(data) {
+    this.dispatch(data)
+  }
+
+  getExerciseList(data) {
+    let requestOptions = {
+      uri: url,
+      method: 'GET'
     }
 
-    getExerciseList(data) {
-        let requestOptions = {
-            uri: url,
-            method: 'GET'
-        }
+    // we dispatch an event here so we can have a 'loading' event.
+    this.dispatch()
 
-        // we dispatch an event here so we can have a 'loading' event.
-        this.dispatch()
+    requestPromise(requestOptions)
+      .then((results) => {
+        this.actions.updateExerciseList(JSON.parse(results))
+      })
+      .catch((errorMessage) => {
+        console.log(errorMessage)
+      })
 
-        requestPromise(requestOptions)
-            .then((results) => {
-                this.actions.updateExerciseList(JSON.parse(results))
-            })
-            .catch((errorMessage) => {
-                console.log(errorMessage)
-            })
-
-        this.actions.updateExerciseList(data)
-    }
+    this.actions.updateExerciseList(data)
+  }
 }
 
 module.exports = alt.createActions(ExerciseListActions)
