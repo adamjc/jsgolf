@@ -14,7 +14,7 @@ require('brace/theme/monokai')
 module.exports = React.createClass({
     getInitialState() {
         return {
-            answer: ''
+            answer: 'function () {\n\t return "Hello...";\n}'
         }
     },
 

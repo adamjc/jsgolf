@@ -22,6 +22,16 @@
     }
 }
 
+.btn--green {
+  background-color: $green-1991;
+  border-color: $dark-green-1991;
+
+  &:hover {
+    background-color: $dark-green-1991;
+    border-color: $dark-green-1991;
+  }
+}
+
 .button--sent {
     position: absolute;
     top: 0;

@@ -6,6 +6,7 @@ const Exercise = require('./views/exercise.jsx')
 const ExerciseList = require('./views/exercise-list.jsx')
 const Register = require('./views/register.jsx')
 const SignIn = require('./views/sign-in.jsx')
+const Home = require('./views/home.jsx')
 
 const UserActions = require('./actions/user-actions')
 
@@ -21,7 +22,7 @@ module.exports = React.createClass({
     componentDidMount() {
         page('/', (ctx) => {
             this.setState({
-                component: <div>Home</div>
+                component: <Home />
             })
         })
 
