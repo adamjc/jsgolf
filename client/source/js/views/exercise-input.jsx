@@ -1,5 +1,3 @@
-
-
 const React = require('react')
 const brace = require('brace')
 const AceEditor = require('react-ace')

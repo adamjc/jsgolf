@@ -1,5 +1,3 @@
-
-
 const Sandbox = require('adamjc-sandbox')
 const _ = require('lodash')
 const exerciseUtils = require('../utils/exercise-utils')

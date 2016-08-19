@@ -1,5 +1,3 @@
-
-
 const React = require('react')
 const ResultStore = require('../stores/result-store')
 const ResultActions = require('../actions/result-actions')

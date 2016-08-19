@@ -1,5 +1,3 @@
-
-
 const React = require('react')
 const ExerciseListStore = require('../stores/exercise-list-store')
 const ExerciseListActions = require('../actions/exercise-list-actions')

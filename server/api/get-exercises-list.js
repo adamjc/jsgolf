@@ -1,5 +1,3 @@
-
-
 const publicExercises = require('../utils/exercise-utils').publicExercises
 
 /* Returns the list of exercises available. */

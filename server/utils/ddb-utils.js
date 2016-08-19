@@ -1,5 +1,3 @@
-
-
 const AWS = require('aws-sdk')
 const exerciseUtils = require('./exercise-utils')
 const logger = require('./logger')

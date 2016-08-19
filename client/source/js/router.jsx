@@ -1,5 +1,3 @@
-
-
 const React = require('react')
 const page = require('page')
 const Exercise = require('./views/exercise.jsx')

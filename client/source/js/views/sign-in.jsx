@@ -1,5 +1,3 @@
-
-
 const React = require('react')
 const UserStore = require('../stores/user-store')
 const UserActions = require('../actions/user-actions')

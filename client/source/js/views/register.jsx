@@ -1,5 +1,3 @@
-
-
 const React = require('react')
 const RegisterActions = require('../actions/register-actions')
 const RegisterStore = require('../stores/register-store')

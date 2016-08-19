@@ -1,5 +1,3 @@
-
-
 const React = require('react')
 const ExerciseInput = require('./exercise-input.jsx')
 const ExerciseChart = require('./exercise-chart.jsx')

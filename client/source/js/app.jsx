@@ -1,5 +1,3 @@
-
-
 const React = require('react')
 const Header = require('./header.jsx')
 const Router = require('./router.jsx')

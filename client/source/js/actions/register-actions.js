@@ -1,5 +1,3 @@
-
-
 const alt = require('../alt')
 const requestPromise = require('request-promise')
 const baseUrl = `${location.origin}/api`

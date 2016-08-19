@@ -1,5 +1,3 @@
-
-
 const alt = require('../alt')
 const ResultActions = require('../actions/result-actions')
 

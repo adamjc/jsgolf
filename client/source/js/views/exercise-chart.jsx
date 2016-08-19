@@ -1,5 +1,3 @@
-
-
 const React = require('react')
 const Chart = require('react-chartjs')
 const BarChart = Chart.Bar

@@ -1,5 +1,3 @@
-
-
 const AWS = require('aws-sdk')
 const ddbUtils = require('../utils/ddb-utils')
 const passwordUtils = require('../utils/password-utils')
