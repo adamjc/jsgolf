@@ -1,4 +1,4 @@
-'use strict'
+
 
 const React = require('react')
 const ResultStore = require('../stores/result-store')

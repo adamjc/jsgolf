@@ -1,4 +1,4 @@
-'use strict'
+
 
 const alt = require('../alt')
 const request = require('request-promise')

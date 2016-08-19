@@ -1,4 +1,4 @@
-'use strict'
+
 
 const AWS = require('aws-sdk')
 const exerciseUtils = require('./exercise-utils')

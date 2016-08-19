@@ -1,4 +1,4 @@
-'use strict'
+
 
 const React = require('react')
 const RegisterActions = require('../actions/register-actions')

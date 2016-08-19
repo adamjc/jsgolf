@@ -1,4 +1,4 @@
-'use strict'
+
 
 const Sandbox = require('adamjc-sandbox')
 const _ = require('lodash')

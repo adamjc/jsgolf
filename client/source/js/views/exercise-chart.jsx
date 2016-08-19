@@ -1,4 +1,4 @@
-'use strict'
+
 
 const React = require('react')
 const Chart = require('react-chartjs')
@@ -16,7 +16,7 @@ module.exports = React.createClass({
         let data = {
             labels: Object.keys(chartData),
             datasets: [{
-                label: "Poopy Pie",
+                label: "Exercise Data",
                 fillColor: "rgba(123, 203, 255, 0.8)",
                 strokeColor: "rgba(123, 203, 255,1)",
                 data: R.values(chartData)

@@ -1,4 +1,4 @@
-'use strict'
+
 
 const React = require('react')
 const ExerciseListStore = require('../stores/exercise-list-store')

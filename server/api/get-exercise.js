@@ -1,4 +1,4 @@
-'use strict'
+
 
 const publicExercises = require('../utils/exercise-utils').publicExercises
 const ddbUtils = require('../utils/ddb-utils')

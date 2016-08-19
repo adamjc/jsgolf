@@ -1,5 +1,3 @@
-'use strict'
-
 const gulp = require('gulp')
 const browserify = require('browserify')
 const source = require('vinyl-source-stream')
