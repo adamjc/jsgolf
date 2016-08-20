@@ -1,3 +1,5 @@
+$screen-sm-min: 768px;
+
 @import "colours";
 @import "buttons";
 
@@ -9,6 +11,8 @@
 @import "result";
 
 @import "footer";
+
+
 
 a {
     cursor: pointer;
