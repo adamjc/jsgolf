@@ -25,6 +25,7 @@ module.exports = React.createClass({
 
     return(
       <div>
+        <h3 className="text-center">Scores</h3>
         <BarChart className="exercise-chart" options={options} data={data} height="450px"/>
       </div>
     )
