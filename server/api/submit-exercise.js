@@ -65,6 +65,7 @@ process.on('attemptToProcess', () => {
 
             if (authHeader && authentication) {
                 ddbUtils.getUser(authentication.username).then(user => {
+
                     let exercise = request.req.body.exercise
                     let exerciseFilename = exercise.title.toLowerCase().split(' ').join('_')
                     let characters = request.req.body.answer.length
@@ -72,7 +73,7 @@ process.on('attemptToProcess', () => {
                     if (user.exercises[exerciseFilename]
                         && user.exercises[exerciseFilename] !== characters) {
                         let username = authentication.username
-
+                        logger.log('info', `submitting score of ${characters} in ${exercise.title} for user: ${username}`)
                         ddbUtils.updateExercise(username, exercise.title, characters)
                         ddbUtils.updateExercises(exercise.title, user.exercises[exerciseFilename], -1)
                         ddbUtils.updateExercises(exercise.title, characters, 1)
