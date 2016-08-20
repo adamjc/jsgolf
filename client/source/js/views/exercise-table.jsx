@@ -21,8 +21,8 @@ module.exports = React.createClass({
         <table className="exercise-table table table-striped">
           <thead>
             <tr>
-              <td>Username</td>
-              <td>Score</td>
+              <td><strong>Username</strong></td>
+              <td><strong>Score</strong></td>
             </tr>
           </thead>
           <tbody>{scores}</tbody>
