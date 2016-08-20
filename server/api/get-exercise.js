@@ -20,11 +20,25 @@ function getExercise(req, res) {
   if (fullExercise) {
     ddbUtils.getExercise(exerciseTitle).then(data => {
       fullExercise.tableData = data
+
+      if (fullExercise.tableData) {
+        fullExercise.tableData.scores = parseScores(fullExercise.tableData.scores)
+      }
+
       res.json(fullExercise)
     }).catch(reason => logger.log('error', `getExercise Endpoint Error: ${reason}`))
   } else {
     res.status(500).send('500')
   }
+}
+
+function parseScores (scores) {
+  let sortedUsers = R.take(10, R.keys(scores).sort((a, b) => scores[a] - scores[b]))
+  let parsedScores = {}
+
+  sortedUsers.forEach(a => parsedScores[a] = scores[a])
+
+  return parsedScores
 }
 
 module.exports = getExercise

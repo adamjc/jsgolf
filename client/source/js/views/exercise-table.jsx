@@ -7,14 +7,26 @@ module.exports = React.createClass({
 
   render() {
     let scores = Object.keys(this.props.scores).map(a => {
-      return <div>{a} : {this.props.scores[a]}</div>
+      return (
+        <tr>
+          <td>{a}</td>
+          <td>{this.props.scores[a]}</td>
+        </tr>
+      )
     })
 
     return(
       <div className="col-sm-12">
-        Woo this is a high scores table
-
-        {scores}
+        <h3 className="exercise-table__header text-center">High Scores</h3>
+        <table className="exercise-table table table-striped">
+          <thead>
+            <tr>
+              <td>Username</td>
+              <td>Score</td>
+            </tr>
+          </thead>
+          <tbody>{scores}</tbody>
+        </table>
       </div>
     )
   }
