@@ -4,6 +4,7 @@ const exerciseUtils = require('../utils/exercise-utils')
 const ddbUtils = require('../utils/ddb-utils')
 const jwt = require('jsonwebtoken')
 const logger = require('../utils/logger')
+const passwordUtils = require('../utils/password-utils')
 
 let maxSandboxes = 10
 let sandboxes = []
@@ -50,7 +51,6 @@ process.on('attemptToProcess', () => {
     let request = requests.pop()
 
     Promise.all(runTests(sandbox, request)).then(results => {
-
         sandboxes.push(sandbox)
 
         request.res.send(results)
@@ -61,7 +61,7 @@ process.on('attemptToProcess', () => {
             let authHeader = request.req.headers.authorization
             let authentication
 
-            if (authHeader) authentication = jwt.verify(authHeader, 'secret')
+            if (authHeader) authentication = jwt.verify(authHeader, passwordUtils.getSecret())
 
             if (authHeader && authentication) {
                 ddbUtils.getUser(authentication.username).then(user => {
