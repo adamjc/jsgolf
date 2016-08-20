@@ -3,139 +3,136 @@ const exerciseUtils = require('./exercise-utils')
 const logger = require('./logger')
 
 AWS.config.update({
-    region: 'eu-west-1',
-    endpoint: 'dynamodb.eu-west-1.amazonaws.com'
+  region: 'eu-west-1',
+  endpoint: 'dynamodb.eu-west-1.amazonaws.com'
 })
 
 const docClient = new AWS.DynamoDB.DocumentClient()
 
 function addUser(username, hash, salt, email) {
-    let params = {
-        TableName: 'users',
-        Item: {
-            'username': username,
-            'password': hash,
-            'salt': salt,
-            'email': email,
-            'exercises': {}
-        }
+  let params = {
+    TableName: 'users',
+    Item: {
+      'username': username,
+      'password': hash,
+      'salt': salt,
+      'email': email,
+      'exercises': {}
     }
+  }
 
-    return new Promise((resolve, reject) => {
-        docClient.put(params, (err, data) => {
-            if (err) {
-                logger.log('error', `Unable to add item: ${JSON.stringify(err, null, 2)}`)
-                reject(err)
-            } else {
-                logger.log('info', `Added item: ${JSON.stringify(data, null, 2)}`)
-                resolve(data)
-            }
-        })
+  return new Promise((resolve, reject) => {
+    docClient.put(params, (err, data) => {
+      if (err) {
+        logger.log('error', `Unable to add item: ${JSON.stringify(err, null, 2)}`)
+        reject(err)
+      } else {
+        logger.log('info', `Added item: ${JSON.stringify(data, null, 2)}`)
+        resolve(data)
+      }
     })
+  })
 }
 
-function updateExercises(exercise, characters, value) {
-    let ddbExercise = exerciseUtils.getExerciseFilename(exercise).split('-').join('_')
-    let query = {
-        TableName : 'exercises',
-        Key: {
-            'exercise': ddbExercise
-        },
-        UpdateExpression: 'add chars.#characters :val',
-        ExpressionAttributeNames: {
-            '#characters': characters.toString()
-        },
-        ExpressionAttributeValues: {
-            ':val': value
-        }
-    }
+function updateHighscore(exercise, username, score) {
+  exercise = exerciseUtils.getExerciseFilename(exercise).split('-').join('_')
 
-    return new Promise((resolve, reject) => {
-        docClient.update(query, (err, data) => {
-            console.log(query)
-            if (err) {
-                logger.log('error', `getExercises error: ${err}`)
-                reject(err)
-            } else {
-                logger.log('info', `UpdateItem succeeded: ${JSON.stringify(data, null, 2)}`)
-            }
-        })
+  let query = {
+    TableName : 'exercises',
+    Key: {
+      'exercise': exercise
+    },
+    UpdateExpression: 'add users.#username :score',
+    ExpressionAttributeNames: {
+      '#username': username
+    },
+    ExpressionAttributeValues: {
+      ':score': score
+    }
+  }
+
+  return new Promise((resolve, reject) => {
+    docClient.update(query, (err, data) => {
+      if (err) {
+        logger.log('error', `updateHighscore error: ${err}`)
+        reject(err)
+      }
     })
+  })
 }
 
 function updateExercise(username, exercise, characters) {
-    let ddbExercise = exerciseUtils.getExerciseFilename(exercise).split('-').join('_')
-    let expression = `set exercises.${ddbExercise} = :c`
-    let query = {
-        TableName : 'users',
-        Key: {
-            'username': username
-        },
-        UpdateExpression: expression,
-        ExpressionAttributeValues: {
-            ':c': characters
-        },
-    }
+  let ddbExercise = exerciseUtils.getExerciseFilename(exercise).split('-').join('_')
+  let expression = `set exercises.${ddbExercise} = :c`
+  let query = {
+    TableName : 'users',
+    Key: {
+      'username': username
+    },
+    UpdateExpression: expression,
+    ExpressionAttributeValues: {
+      ':c': characters
+    },
+  }
 
-    return new Promise((resolve, reject) => {
-        docClient.update(query, (err, data) => {
-            if (err) {
-                logger.log('error', `getUser error: ${err}`)
-                reject(err)
-            } else {
-                logger.log('info', `UpdateItem succeeded: ${JSON.stringify(data, null, 2)}`)
-            }
-        })
+  return new Promise((resolve, reject) => {
+    docClient.update(query, (err, data) => {
+      if (err) {
+        logger.log('error', `getUser error: ${err}`)
+        reject(err)
+      } else {
+        logger.log('info', `UpdateItem succeeded: ${JSON.stringify(data, null, 2)}`)
+      }
     })
+  })
 }
 
 function getExercise(exercise) {
-    let query = {
-        TableName : 'exercises',
-        KeyConditionExpression: 'exercise = :exercise',
-        ExpressionAttributeValues: { ':exercise': dDBifyExercise(exercise) }
-    }
-    return new Promise((resolve, reject) => {
-        docClient.query(query, (err, data) => {
-            if (err) {
-                logger.log('error', `getExercise error: ${err}`)
-                reject(err)
-            }
-            else {
-                resolve(data.Items.pop())
-            }
-        })
+  let query = {
+    TableName : 'exercises',
+    KeyConditionExpression: 'exercise = :exercise',
+    ExpressionAttributeValues: { ':exercise': dDBifyExercise(exercise) }
+  }
+
+  return new Promise((resolve, reject) => {
+    docClient.query(query, (err, data) => {
+      if (err) {
+        logger.log('error', `getExercise error: ${err}`)
+        reject(err)
+      } else {
+        resolve(data.Items.pop())
+      }
     })
+  })
 }
 
 function getUser(username) {
-    let query = {
-        TableName : 'users',
-        KeyConditionExpression: 'username = :username',
-        ExpressionAttributeValues: { ':username': username }
-    }
+  let query = {
+    TableName : 'users',
+    KeyConditionExpression: 'username = :username',
+    ExpressionAttributeValues: { ':username': username }
+  }
 
-    return new Promise((resolve, reject) => {
-        docClient.query(query, (err, data) => {
-            if (err) {
-                logger.log('error', `getUser error: ${err}`)
-                reject(err)
-            }
-            else {
-                resolve(data.Items.pop())
-            }
-        })
+  return new Promise((resolve, reject) => {
+    docClient.query(query, (err, data) => {
+      if (err) {
+        logger.log('error', `getUser error: ${err}`)
+        reject(err)
+      } else {
+        resolve(data.Items.pop())
+      }
     })
+  })
 }
 
 function dDBifyExercise(string) {
-    return string.toLowerCase().split(/-| /).join('_')
+  return string.toLowerCase().split(/-| /).join('_')
 }
 
 module.exports = {
-    getUser,
-    addUser,
-    updateExercise,
-    updateExercises,
-    getExercise
+  getUser,
+  addUser,
+  updateExercise,
+  updateHighscore,
+  getExercise
 }

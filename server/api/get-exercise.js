@@ -19,15 +19,7 @@ function getExercise(req, res) {
 
   if (fullExercise) {
     ddbUtils.getExercise(exerciseTitle).then(data => {
-      if (data && data.chars) {
-        let keys = R.keys(data.chars)
-
-        keys.forEach(key => {
-          if (data.chars[key] <= 0) delete data.chars[key]
-        })
-      }
-
-      fullExercise.chartData = data
+      fullExercise.tableData = data
       res.json(fullExercise)
     }).catch(reason => logger.log('error', `getExercise Endpoint Error: ${reason}`))
   } else {

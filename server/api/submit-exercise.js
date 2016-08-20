@@ -70,22 +70,16 @@ process.on('attemptToProcess', () => {
                     let exercise = request.req.body.exercise
                     let exerciseFilename = exercise.title.toLowerCase().split(' ').join('_')
                     let currentScore = request.req.body.answer.length
-                    console.log(user.exercises)
 
                     let usersPreviousScore = user.exercises[exerciseFilename]
                     if (usersPreviousScore && usersPreviousScore === currentScore) {
                         return
                     }
 
-                    if (usersPreviousScore) {
-                      ddbUtils.updateExercises(exercise.title, usersPreviousScore, -1)
-                    }
-
                     let username = authentication.username
                     logger.log('info', `submitting score of ${currentScore} in ${exercise.title} for user: ${username}`)
                     ddbUtils.updateExercise(username, exercise.title, currentScore)
-                    ddbUtils.updateExercises(exercise.title, currentScore, 1)
-
+                    ddbUtils.updateHighscore(exercise.title, username, currentScore)
                 }).catch(reason => logger.log('error', `submit exercise error: ${reason}`))
             }
         }
