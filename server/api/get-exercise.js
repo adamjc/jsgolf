@@ -19,11 +19,13 @@ function getExercise(req, res) {
 
   if (fullExercise) {
     ddbUtils.getExercise(exerciseTitle).then(data => {
-      let keys = R.keys(data.chars)
+      if (data && data.chars) {
+        let keys = R.keys(data.chars)
 
-      keys.forEach(key => {
-        if (data.chars[key] <= 0) delete data.chars[key]
-      })
+        keys.forEach(key => {
+          if (data.chars[key] <= 0) delete data.chars[key]
+        })
+      }
 
       fullExercise.chartData = data
       res.json(fullExercise)
