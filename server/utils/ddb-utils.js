@@ -52,6 +52,7 @@ function updateExercises(exercise, characters, value) {
 
     return new Promise((resolve, reject) => {
         docClient.update(query, (err, data) => {
+            console.log(query)
             if (err) {
                 logger.log('error', `getExercises error: ${err}`)
                 reject(err)

@@ -61,23 +61,31 @@ process.on('attemptToProcess', () => {
             let authHeader = request.req.headers.authorization
             let authentication
 
+            logger.log('info', `${authHeader}, ${passwordUtils.getSecret()}`)
+
             if (authHeader) authentication = jwt.verify(authHeader, passwordUtils.getSecret())
 
             if (authHeader && authentication) {
                 ddbUtils.getUser(authentication.username).then(user => {
-
                     let exercise = request.req.body.exercise
                     let exerciseFilename = exercise.title.toLowerCase().split(' ').join('_')
-                    let characters = request.req.body.answer.length
+                    let currentScore = request.req.body.answer.length
+                    console.log(user.exercises)
 
-                    if (user.exercises[exerciseFilename]
-                        && user.exercises[exerciseFilename] !== characters) {
-                        let username = authentication.username
-                        logger.log('info', `submitting score of ${characters} in ${exercise.title} for user: ${username}`)
-                        ddbUtils.updateExercise(username, exercise.title, characters)
-                        ddbUtils.updateExercises(exercise.title, user.exercises[exerciseFilename], -1)
-                        ddbUtils.updateExercises(exercise.title, characters, 1)
+                    let usersPreviousScore = user.exercises[exerciseFilename]
+                    if (usersPreviousScore && usersPreviousScore === currentScore) {
+                        return
                     }
+
+                    if (usersPreviousScore) {
+                      ddbUtils.updateExercises(exercise.title, usersPreviousScore, -1)
+                    }
+
+                    let username = authentication.username
+                    logger.log('info', `submitting score of ${currentScore} in ${exercise.title} for user: ${username}`)
+                    ddbUtils.updateExercise(username, exercise.title, currentScore)
+                    ddbUtils.updateExercises(exercise.title, currentScore, 1)
+
                 }).catch(reason => logger.log('error', `submit exercise error: ${reason}`))
             }
         }
