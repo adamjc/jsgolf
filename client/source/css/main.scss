@@ -10,14 +10,12 @@ $screen-sm-min: 768px;
 @import "register";
 @import "result";
 
-@import "footer";
+body {
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+}
 
 a {
     cursor: pointer;
-}
-
-.main-container {
-    padding-top: 50px;
 }
 
 .waiting-spinner {
@@ -29,4 +27,36 @@ a {
       font-size: 10em;
       animation: rotate 1s infinite;
   }
+}
+
+@media (min-width: $screen-sm-min) {
+  .navbar {
+    padding: 0 68px;
+  }
+}
+
+.navbar {
+  min-height: 64px;
+  border-radius: 0px;
+}
+
+.navbar-header {
+  min-height: 62px;
+}
+
+.navbar-toggle {
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
+
+.navbar-nav > li > a {
+  padding: 21px;
+  font-size: 1.1em;
+}
+
+.navbar-inverse .navbar-brand {
+  padding: 19px;
+  font-weight: 100;
+  color: #fff;
+  font-size: 2em;
 }

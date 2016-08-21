@@ -26,37 +26,53 @@ module.exports = React.createClass({
     },
 
     render() {
-        let userSignedIn = localStorage.getItem('jwt')
-        let accountControls
+      let userSignedIn = localStorage.getItem('jwt')
+      let accountControls
 
-        if (userSignedIn === null) {
-            accountControls =
-                <ul className="nav navbar-nav">
-                    <li><a onClick={navigate('/exercises')}>Exercises</a></li>
-                    <li><a onClick={navigate('/sign-in')}>Sign In</a></li>
-                    <li><a onClick={navigate('/register')}>Register</a></li>
-                </ul>
-        } else {
-            accountControls =
-                <ul className="nav navbar-nav">
-                    <li><a onClick={navigate('/exercises')}>Exercises</a></li>
-                    <li><a onClick={navigate('/sign-out')}>Sign Out</a></li>
-                </ul>
-        }
+      if (userSignedIn === null) {
+        accountControls =
+          <div>
+            <ul className="nav navbar-nav">
+              <li><a onClick={navigate('/exercises')}>Exercises</a></li>
+            </ul>
 
-        return (
-            <nav className="navbar navbar-inverse navbar-fixed-top">
-                <div className="container">
-                    <div className="navbar-header">
-                        <li>
-                            <a className="navbar-brand" onClick={navigate('/')}>JSGolf</a>
-                        </li>
-                    </div>
-                    <div id="navbar" className="collapse navbar-collapse">
-                        {accountControls}
-                    </div>
-                </div>
-            </nav>
-        )
+            <ul className="nav navbar-nav navbar-right">
+              <li><a onClick={navigate('/sign-in')}>Sign In</a></li>
+              <li><a onClick={navigate('/register')}>Register</a></li>
+            </ul>
+          </div>
+      } else {
+        accountControls =
+          <div>
+            <ul className="nav navbar-nav">
+              <li><a onClick={navigate('/exercises')}>Exercises</a></li>
+            </ul>
+
+            <ul className="nav navbar-nav navbar-right">
+              <li><a onClick={navigate('/sign-out')}>Sign Out</a></li>
+            </ul>
+          </div>
+      }
+
+      return (
+        <nav className="navbar navbar-inverse navbar-default">
+          <div className="container-fluid">
+            <div className="navbar-header">
+              <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+                <span className="sr-only">Toggle navigation</span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+              </button>
+
+              <a className="navbar-brand" onClick={navigate('/')}>jsgolf</a>
+            </div>
+
+            <div className="collapse navbar-collapse" id="navbar">
+              {accountControls}
+            </div>
+          </div>
+        </nav>
+      )
     }
 })
