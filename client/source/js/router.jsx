@@ -5,12 +5,15 @@ const ExerciseList = require('./views/exercise-list.jsx')
 const Register = require('./views/register.jsx')
 const SignIn = require('./views/sign-in.jsx')
 const Home = require('./views/home.jsx')
+const ReactGA = require('react-ga')
 
 const UserActions = require('./actions/user-actions')
 
+ReactGA.initialize('UA-38765332-2');
+
 function setAndSendStat(route, statType = 'pageView') {
-  window.ga('set', 'page', route);
-  window.ga('send', statType);
+  ReactGA.set({ page: window.location.pathname })
+  ReactGA.pageview(window.location.pathname)
 }
 
 module.exports = React.createClass({
