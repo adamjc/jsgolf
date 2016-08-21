@@ -26,6 +26,7 @@ class UserActions {
 
     requestPromise(requestOptions)
       .then(result => {
+        result.username = userInfo.username;
         this.actions.updateUser(result)
         page('/exercises')
       }).catch(errorMessage => {

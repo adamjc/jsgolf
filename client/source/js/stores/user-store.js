@@ -16,12 +16,14 @@ class UserStore {
     if (data.success) {
       this.jwt = data.token
       localStorage.setItem('jwt', data.token)
+      localStorage.setItem('username', data.username)
     }
   }
 
   handleSignOut () {
     this.jwt = null
     localStorage.removeItem('jwt')
+    localStorage.removeItem('username')
   }
 
   handleAwaitingResults (signInInfo) {

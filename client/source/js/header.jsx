@@ -49,6 +49,7 @@ module.exports = React.createClass({
             </ul>
 
             <ul className="nav navbar-nav navbar-right">
+              <li><a>Signed in as: {localStorage.getItem('username')}</a></li>
               <li><a onClick={navigate('/sign-out')}>Sign Out</a></li>
             </ul>
           </div>
