@@ -72,7 +72,7 @@ process.on('attemptToProcess', () => {
           let currentScore = request.req.body.answer.length
 
           let usersPreviousScore = user.exercises[exerciseFilename]
-          if (usersPreviousScore && usersPreviousScore === currentScore) {
+          if (usersPreviousScore && usersPreviousScore <= currentScore) {
             return
           }
 

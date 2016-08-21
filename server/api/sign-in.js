@@ -19,7 +19,7 @@ function signIn (req, res) {
       }
 
       let token = jwt.sign(user, passwordUtils.getSecret(), {
-        expiresIn: 10080
+        expiresIn: "7d"
       })
 
       res.status(200).send({ success: true, token: `${token}` })
