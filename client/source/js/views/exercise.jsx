@@ -50,13 +50,6 @@ module.exports = React.createClass({
 
       return(
         <div>
-          <ReactCSSTransitionGroup
-            transitionName="button-transition"
-            transitionAppear={true}
-            transitionAppearTimeout={500}
-            transitionEnterTimeout={500}
-            transitionLeaveTimeout={300}
-          >
             <div className="col-sm-12">
               <h2>{this.state.exercise.title}</h2>
               <p>{this.state.exercise.description}</p>
@@ -67,7 +60,6 @@ module.exports = React.createClass({
             {result}
 
             {table}
-          </ReactCSSTransitionGroup>
         </div>
       )
     } else {
