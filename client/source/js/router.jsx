@@ -9,11 +9,11 @@ const ReactGA = require('react-ga')
 
 const UserActions = require('./actions/user-actions')
 
-ReactGA.initialize('UA-38765332-2');
+ReactGA.initialize('UA-38765332-2', { debug: true });
 
 function setAndSendStat(route, statType = 'pageView') {
-  ReactGA.set({ page: window.location.pathname })
-  ReactGA.pageview(window.location.pathname)
+  ReactGA.set({ page: route })
+  ReactGA.pageview(route)
 }
 
 module.exports = React.createClass({
