@@ -10,12 +10,14 @@ function signIn (req, res) {
     if (!user) {
       logger.log('info', `user: ${user}, no user found.`)
       res.status(401).send('Incorrect username')
+      return
     }
 
     passwordUtils.hash(req.body.password, user.salt).then(hash => {
       if (hash !== user.password) {
         logger.log('info', `user: ${user}, password does not match.`)
         res.status(401).send('Incorrect password')
+        return
       }
 
       let token = jwt.sign(user, passwordUtils.getSecret(), {

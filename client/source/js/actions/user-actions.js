@@ -9,6 +9,10 @@ class UserActions {
     this.dispatch(data)
   }
 
+  awaitingResults (signInInfo) {
+    this.dispatch(signInInfo)
+  }
+
   signIn (userInfo) {
     let requestOptions = {
       uri: signInUrl,
@@ -24,8 +28,13 @@ class UserActions {
       .then(result => {
         this.actions.updateUser(result)
         page('/exercises')
+      }).catch(errorMessage => {
+        this.actions.awaitingResults({
+          awaitingResults: false,
+          signInError: true
+        })
+        console.error(errorMessage)
       })
-      .catch(errorMessage => console.error(errorMessage))
   }
 
   signOut () {

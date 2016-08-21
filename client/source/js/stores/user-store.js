@@ -7,7 +7,8 @@ class UserStore {
 
     this.bindListeners({
       handleUpdateUser: UserActions.UPDATE_USER,
-      handleSignOut: UserActions.SIGN_OUT
+      handleSignOut: UserActions.SIGN_OUT,
+      handleAwaitingResults: UserActions.AWAITING_RESULTS
     })
   }
 
@@ -21,6 +22,10 @@ class UserStore {
   handleSignOut () {
     this.jwt = null
     localStorage.removeItem('jwt')
+  }
+
+  handleAwaitingResults (signInInfo) {
+    this.signInInfo = signInInfo;
   }
 }
 
