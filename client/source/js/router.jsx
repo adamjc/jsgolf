@@ -8,6 +8,11 @@ const Home = require('./views/home.jsx')
 
 const UserActions = require('./actions/user-actions')
 
+function setAndSendStat(route, statType = 'pageView') {
+  window.ga('set', 'page', route);
+  window.ga('send', statType);
+}
+
 module.exports = React.createClass({
     getInitialState() {
         return { component: <div /> }
@@ -19,44 +24,62 @@ module.exports = React.createClass({
 
     componentDidMount() {
         page('/', (ctx) => {
-            this.setState({
-                component: <Home />
-            })
+          setAndSendStat('/')
+
+          this.setState({
+            component: <Home />
+          })
         })
 
         page('/exercises', (ctx) => {
-            this.setState({
-                component: <ExerciseList></ExerciseList>
-            })
+          setAndSendStat('/exercises')
+
+          this.setState({
+            component: <ExerciseList></ExerciseList>
+          })
         })
 
         page('/exercises/:exercise', (ctx) => {
-            this.setState({
-                component: <Exercise exercise={ctx.params.exercise} />
-            })
+          setAndSendStat(`/exercises/${ctx.params.exercise}`)
+
+          this.setState({
+            component: <Exercise exercise={ctx.params.exercise} />
+          })
         })
 
         page('/sign-in', (ctx) => {
-            this.setState({
-                component: <SignIn></SignIn>
-            })
+          setAndSendStat('/sign-in')
+
+          this.setState({
+            component: <SignIn></SignIn>
+          })
         })
 
         page('/register', (ctx) => {
-            this.setState({
-                component: <Register></Register>
-            })
+          setAndSendStat('/register')
+
+          this.setState({
+            component: <Register></Register>
+          })
         })
 
         page('/sign-out', (ctx) => {
-            UserActions.signOut()
-            page('/')
+          setAndSendStat('/sign-out')
+
+          UserActions.signOut()
+          page('/')
+        })
+
+        page('/404', (ctx) => {
+          setAndSendStat('/404')
+
+          this.setState({
+            component: <div>404</div>
+          })
         })
 
         page('*', (ctx) => {
-            this.setState({
-                component: <div>404</div>
-            })
+          page('/404')
         })
 
         page.start()
