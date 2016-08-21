@@ -12,12 +12,21 @@ $screen-sm-min: 768px;
 
 @import "footer";
 
-
-
 a {
     cursor: pointer;
 }
 
 .main-container {
     padding-top: 50px;
+}
+
+.waiting-spinner {
+  padding-top: 100px;
+  text-align: center;
+
+  .glyphicon {
+      color: #333;
+      font-size: 10em;
+      animation: rotate 1s infinite;
+  }
 }

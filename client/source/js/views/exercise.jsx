@@ -4,6 +4,7 @@ const ExerciseTable = require('./exercise-table.jsx')
 const Result = require('./result.jsx')
 const ExerciseStore = require('../stores/exercise-store')
 const ExerciseActions = require('../actions/exercise-actions')
+const ReactCSSTransitionGroup = require('react-addons-css-transition-group')
 
 module.exports = React.createClass({
   getInitialState() {
@@ -27,6 +28,19 @@ module.exports = React.createClass({
     let result = <Result />
     let table
 
+    let waiting =
+      <ReactCSSTransitionGroup
+        transitionName="button-transition"
+        transitionAppear={true}
+        transitionAppearTimeout={500}
+        transitionEnterTimeout={500}
+        transitionLeaveTimeout={300}
+      >
+        <div className="waiting-spinner">
+          <span className="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+        </div>
+      </ReactCSSTransitionGroup>
+
     if (this.state.exercise) {
       if (this.state.exercise.tableData) {
         table = <ExerciseTable scores={this.state.exercise.tableData.scores}/>
@@ -36,20 +50,28 @@ module.exports = React.createClass({
 
       return(
         <div>
-          <div className="col-sm-12">
-            <h2>{this.state.exercise.title}</h2>
-            <p>{this.state.exercise.description}</p>
-          </div>
+          <ReactCSSTransitionGroup
+            transitionName="button-transition"
+            transitionAppear={true}
+            transitionAppearTimeout={500}
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={300}
+          >
+            <div className="col-sm-12">
+              <h2>{this.state.exercise.title}</h2>
+              <p>{this.state.exercise.description}</p>
+            </div>
 
-          <ExerciseInput exercise={this.state.exercise}/>
+            <ExerciseInput exercise={this.state.exercise}/>
 
-          {result}
+            {result}
 
-          {table}
+            {table}
+          </ReactCSSTransitionGroup>
         </div>
       )
     } else {
-      return(<div>Waiting...</div>)
+      return(waiting)
     }
   }
 })
