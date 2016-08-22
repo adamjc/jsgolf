@@ -66,7 +66,7 @@ module.exports = React.createClass({
                 <span className="icon-bar"></span>
               </button>
 
-              <a className="navbar-brand" onClick={navigate('/')}>jsgolf</a>
+              <a className="navbar-brand" onClick={navigate('/')}><img src="/public/jsgolf-logo.png"></img></a>
             </div>
 
             <div className="collapse navbar-collapse" id="navbar">
