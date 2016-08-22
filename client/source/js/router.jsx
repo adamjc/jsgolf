@@ -16,6 +16,10 @@ function setAndSendStat(route, statType = 'pageView') {
   ReactGA.pageview(route)
 }
 
+function setTitle(title) {
+    document.title = `jsgolf - ${title}`
+}
+
 module.exports = React.createClass({
     getInitialState() {
         return { component: <div /> }
@@ -28,6 +32,7 @@ module.exports = React.createClass({
     componentDidMount() {
         page('/', (ctx) => {
           setAndSendStat('/')
+          setTitle('home')
 
           this.setState({
             component: <Home />
@@ -36,6 +41,7 @@ module.exports = React.createClass({
 
         page('/exercises', (ctx) => {
           setAndSendStat('/exercises')
+          setTitle('exercises')
 
           this.setState({
             component: <ExerciseList></ExerciseList>
@@ -44,6 +50,7 @@ module.exports = React.createClass({
 
         page('/exercises/:exercise', (ctx) => {
           setAndSendStat(`/exercises/${ctx.params.exercise}`)
+          setTitle(`exercises - ${ctx.params.exercise}`)
 
           this.setState({
             component: <Exercise exercise={ctx.params.exercise} />
@@ -52,6 +59,7 @@ module.exports = React.createClass({
 
         page('/sign-in', (ctx) => {
           setAndSendStat('/sign-in')
+          setTitle('sign in')
 
           this.setState({
             component: <SignIn></SignIn>
@@ -60,6 +68,7 @@ module.exports = React.createClass({
 
         page('/register', (ctx) => {
           setAndSendStat('/register')
+          setTitle('register')
 
           this.setState({
             component: <Register></Register>
@@ -68,6 +77,7 @@ module.exports = React.createClass({
 
         page('/sign-out', (ctx) => {
           setAndSendStat('/sign-out')
+          setTitle('sign out')
 
           UserActions.signOut()
           page('/')
@@ -75,6 +85,7 @@ module.exports = React.createClass({
 
         page('/404', (ctx) => {
           setAndSendStat('/404')
+          setTitle('404')
 
           this.setState({
             component: <div>404</div>
