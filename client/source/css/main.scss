@@ -11,8 +11,14 @@ $screen-md-min: 992px;
 @import "register";
 @import "result";
 
+html {
+  background-image: url(/public/geometry2.png);
+  background-repeat: repeat;
+}
+
 body {
   font-family: "Roboto", Helvetica, Arial, sans-serif;
+  background: none;
 }
 
 a {
