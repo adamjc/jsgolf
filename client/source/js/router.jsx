@@ -9,7 +9,7 @@ const ReactGA = require('react-ga')
 
 const UserActions = require('./actions/user-actions')
 
-ReactGA.initialize('UA-38765332-2', { debug: true });
+ReactGA.initialize('UA-38765332-2');
 
 function setAndSendStat(route, statType = 'pageView') {
   ReactGA.set({ page: route })
