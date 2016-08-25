@@ -10,7 +10,7 @@ module.exports = React.createClass({
         return (
             <div>
                 <div className="col-sm-12">
-                    <h2 className="text-center heading--home">Less characters = better score</h2>
+                    <h2 className="text-center heading--home">Fewer characters = better score</h2>
 
                     <button className="btn btn-block btn--green btn--home" onClick={ this.handleClick }>
                         Have a go!
