@@ -1,5 +1,9 @@
 .exercise-input {
+    margin-bottom: 20px;
 
+    @media (min-width: $screen-sm-min) {
+      margin-bottom: 0;
+    }
 }
 
 .exercise-input__header {
@@ -7,7 +11,7 @@
 }
 
 .exercise-input__header-length {
-    
+
 }
 
 .exercise-input__editor {

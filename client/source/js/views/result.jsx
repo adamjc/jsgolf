@@ -41,8 +41,8 @@ module.exports = React.createClass({
                 let icon = <span className={iconClass} aria-hidden="true"></span>
 
                 return (
-                    <li key={result.id} className="col-sm-12 result__list-item">
-                        <div className="result-text col-sm-6">
+                    <li key={result.id} className="col-xs-12 result__list-item">
+                        <div className="result-text col-xs-6">
                             <div>
                                 <span className="result-text__descriptor">IN: </span>
                                 {resultInput}
@@ -52,7 +52,7 @@ module.exports = React.createClass({
                                 {resultOutput}
                             </div>
                         </div>
-                        <div className="glyph-wrapper col-sm-6">{icon}</div>
+                        <div className="glyph-wrapper col-xs-6">{icon}</div>
                     </li>
                 )
             })
