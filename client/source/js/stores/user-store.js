@@ -27,7 +27,7 @@ class UserStore {
   }
 
   handleAwaitingResults (signInInfo) {
-    this.signInInfo = signInInfo;
+    this.signInInfo = signInInfo
   }
 }
 
