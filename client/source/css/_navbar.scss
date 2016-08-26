@@ -1,0 +1,28 @@
+.navbar {
+  min-height: 64px;
+  border-radius: 0px;
+}
+
+.navbar-header {
+  min-height: 62px;
+}
+
+.navbar-toggle {
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
+
+.navbar-nav > li > a {
+  padding: 21px;
+  font-size: 1.1em;
+}
+
+.navbar-inverse .navbar-brand {
+  height: 62px;
+  padding: 0;
+
+  & > img {
+    margin: 4px;
+    width: 54px;
+  }
+}
