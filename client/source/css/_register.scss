@@ -3,67 +3,67 @@
 }
 
 .register__title {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 
 .register__inner {
-    max-width: 300px;
+  max-width: 300px;
 }
 
 .register__inputs {
-    margin-top: 20px;
-    display: block;
+  margin-top: 20px;
+  display: block;
 }
 
 .register__input {
-    padding: 5px;
-    line-height: 1em;
-    font-size: 1.5em;
-    margin-top: 20px;
-    width: 100%;
+  padding: 5px;
+  line-height: 1em;
+  font-size: 1.5em;
+  margin-top: 20px;
+  width: 100%;
 }
 
 .register__input--alert {
-    color: $pink-1991;
-    text-align: center;
-    margin: 5px auto 0 auto;
+  color: $pink-1991;
+  text-align: center;
+  margin: 5px auto 0 auto;
 }
 
 .register__password-wrapper {
-    position: relative;
+  position: relative;
 }
 
 .register__password-visibility {
-    cursor: pointer;
-    font-weight: bold;
-    position: absolute;
-    right: 10px;
-    top: 29px;
-    color: $grey;
+  cursor: pointer;
+  font-weight: bold;
+  position: absolute;
+  right: 10px;
+  top: 29px;
+  color: $grey;
 }
 
 .register__button {
-    font-size: 1.5em;
-    margin-top: 20px;
-    background-color: $green-1991;
+  font-size: 1.5em;
+  margin-top: 20px;
+  background-color: $green-1991;
 
-    &:hover {
-        background-color: $dark-green-1991;
-    }
+  &:hover {
+    background-color: $dark-green-1991;
+  }
 
-    &:active {
-        background-color: $darker-green-1991;
-    }
+  &:active {
+    background-color: $darker-green-1991;
+  }
 }
 
 .register__button--inactive {
+  background-color: $grey;
+
+  &:hover {
     background-color: $grey;
+  }
 
-    &:hover {
-        background-color: $grey;
-    }
-
-    &:active {
-        background-color: $grey;
-    }
+  &:active {
+    background-color: $grey;
+  }
 }

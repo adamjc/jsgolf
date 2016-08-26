@@ -1,47 +1,47 @@
 .result__header {
-    text-align: center;
+  text-align: center;
 
-    @media (min-width: $screen-sm-min) {
-      text-align: left;
-      margin: 0;
-    }
+  @media (min-width: $screen-sm-min) {
+    text-align: left;
+    margin: 0;
+  }
 }
 
 .result__list {
-    height: auto;
-    margin: 10px 0 0 0;
-    padding: 0;
-    list-style: none;
+  height: auto;
+  margin: 10px 0 0 0;
+  padding: 0;
+  list-style: none;
 }
 
 .result__list-item {
-    padding: 0;
-    border-radius: 4px;
-    border: 1px solid #aaa;
-    margin: 5px 0;
+  padding: 0;
+  border-radius: 4px;
+  border: 1px solid #aaa;
+  margin: 5px 0;
 
-    .result-text {
-        padding: 5px;
+  .result-text {
+    padding: 5px;
+  }
+
+  .glyph-wrapper {
+    text-align: center;
+    padding: 5px 0;
+
+    .glyphicon {
+      font-size: 40px;
     }
 
-    .glyph-wrapper {
-        text-align: center;
-        padding: 5px 0;
-
-        .glyphicon {
-            font-size: 40px;
-        }
-
-        .result-correct {
-            color: $darker-green-1991;
-        }
-
-        .result-incorrect {
-            color: $darker-pink-1991;
-        }
+    .result-correct {
+      color: $darker-green-1991;
     }
+
+    .result-incorrect {
+      color: $darker-pink-1991;
+    }
+  }
 }
 
 .result-text__descriptor {
-    color: #999;
+  color: #999;
 }

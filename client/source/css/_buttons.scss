@@ -1,25 +1,25 @@
 .btn {
+  color: #fff;
+  outline: none;
+  outline-style: none;
+
+  &:hover {
     color: #fff;
     outline: none;
     outline-style: none;
+  }
 
-    &:hover {
-        color: #fff;
-        outline: none;
-        outline-style: none;
-    }
+  &:focus {
+    color: #fff;
+    outline: none;
+    outline-style: none;
+  }
 
-    &:focus {
-        color: #fff;
-        outline: none;
-        outline-style: none;
-    }
-
-    &:active {
-        color: #fff;
-        outline: none;
-        outline-style: none;
-    }
+  &:active {
+    color: #fff;
+    outline: none;
+    outline-style: none;
+  }
 }
 
 .btn--green {
@@ -33,49 +33,49 @@
 }
 
 .button--sent {
-    position: absolute;
-    top: 0;
-    background-color: $green-1991;
-    border-color: $dark-green-1991;
-    display: none;
-    text-align: center;
-    display: block;
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
+  position: absolute;
+  top: 0;
+  background-color: $green-1991;
+  border-color: $dark-green-1991;
+  display: none;
+  text-align: center;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
 
-    .glyphicon {
-        color: #fff;
-        font-size: 1.5em;
-        top: 10px;
-        width: 22px;
-        animation: rotate 1s infinite;
-    }
+  .glyphicon {
+    color: #fff;
+    font-size: 1.5em;
+    top: 10px;
+    width: 22px;
+    animation: rotate 1s infinite;
+  }
 }
 
 .button-transition-enter {
-    opacity: 0.01;
+  opacity: 0.01;
 
-    &.button-transition-enter-active {
-        opacity: 1;
-        transition: opacity 500ms ease-in;
-    }
+  &.button-transition-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+  }
 }
 
 .button-transition-leave {
-    opacity: 1;
+  opacity: 1;
 
-    &.button-transition-leave-active {
-        opacity: 0.01;
-        transition: opacity 300ms ease-in;
-    }
+  &.button-transition-leave-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+  }
 }
 
 .button-transition-appear {
     opacity: 0.01;
 
-    &.button-transition-appear-active {
-        opacity: 1;
-        transition: opacity .5s ease-in;
-    }
+  &.button-transition-appear-active {
+    opacity: 1;
+    transition: opacity .5s ease-in;
+  }
 }

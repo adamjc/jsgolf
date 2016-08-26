@@ -1,13 +1,13 @@
 .exercise-input {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 
-    @media (min-width: $screen-sm-min) {
-      margin-bottom: 0;
-    }
+  @media (min-width: $screen-sm-min) {
+    margin-bottom: 0;
+  }
 }
 
 .exercise-input__header {
-    margin: 0;
+  margin: 0;
 }
 
 .exercise-input__header-length {
@@ -15,58 +15,58 @@
 }
 
 .exercise-input__editor {
-    height: 200px;
-    border-radius: 4px 4px 0 0;
-    margin-top: 15px;
+  height: 200px;
+  border-radius: 4px 4px 0 0;
+  margin-top: 15px;
 }
 
 .exercise-input__button-wrapper {
-    position: relative;
+  position: relative;
 }
 
 .exercise-input__button {
-    color: #fff;
-    font-weight: bold;
-    font-size: 1.5em;
-    line-height: 20px;
-    border-radius: 0 0 4px 4px;
-    background-color: $pink-1991;
-    border-color: $dark-pink-1991;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.5em;
+  line-height: 20px;
+  border-radius: 0 0 4px 4px;
+  background-color: $pink-1991;
+  border-color: $dark-pink-1991;
 
-    &:hover {
-        background-color: $dark-pink-1991;
-    }
+  &:hover {
+    background-color: $dark-pink-1991;
+  }
 
-    &:active {
-        background-color: $darker-pink-1991;
-    }
+  &:active {
+    background-color: $darker-pink-1991;
+  }
 }
 
 .exericse-input-transition-enter {
-    opacity: 0.01;
+  opacity: 0.01;
 
-    &.exericse-input-transition-enter-active {
-        opacity: 1;
-        transition: opacity 500ms ease-in;
-    }
+  &.exericse-input-transition-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+  }
 }
 
 .exericse-input-transition-leave {
-    opacity: 1;
+  opacity: 1;
 
-    &.exericse-input-transition-leave-active {
-        opacity: 0.01;
-        transition: opacity 300ms ease-in;
-    }
+  &.exericse-input-transition-leave-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+  }
 }
 
 .exericse-input-transition-appear {
-    opacity: 0.01;
+  opacity: 0.01;
 
-    &.exericse-input-transition-appear-active {
-        opacity: 1;
-        transition: opacity .5s ease-in;
-    }
+  &.exericse-input-transition-appear-active {
+    opacity: 1;
+    transition: opacity .5s ease-in;
+  }
 }
 
 .exercise-input__sent {
