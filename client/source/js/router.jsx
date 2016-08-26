@@ -17,85 +17,85 @@ function setAndSendStat(route, statType = 'pageView') {
 }
 
 function setTitle(title) {
-    document.title = `jsgolf - ${title}`
+  document.title = `jsgolf - ${title}`
 }
 
 module.exports = React.createClass({
-    getInitialState() {
-        return { component: <div /> }
-    },
+  getInitialState() {
+    return { component: <div /> }
+  },
 
-    render() {
-        return this.state.component
-    },
+  render() {
+    return this.state.component
+  },
 
-    componentDidMount() {
-        page('/', (ctx) => {
-          setAndSendStat('/')
-          setTitle('home')
+  componentDidMount() {
+    page('/', (ctx) => {
+      setAndSendStat('/')
+      setTitle('home')
 
-          this.setState({
-            component: <Home />
-          })
-        })
+      this.setState({
+        component: <Home />
+      })
+    })
 
-        page('/exercises', (ctx) => {
-          setAndSendStat('/exercises')
-          setTitle('exercises')
+    page('/exercises', (ctx) => {
+      setAndSendStat('/exercises')
+      setTitle('exercises')
 
-          this.setState({
-            component: <ExerciseList></ExerciseList>
-          })
-        })
+      this.setState({
+        component: <ExerciseList></ExerciseList>
+      })
+    })
 
-        page('/exercises/:exercise', (ctx) => {
-          setAndSendStat(`/exercises/${ctx.params.exercise}`)
-          setTitle(`exercises - ${ctx.params.exercise}`)
+    page('/exercises/:exercise', (ctx) => {
+      setAndSendStat(`/exercises/${ctx.params.exercise}`)
+      setTitle(`exercises - ${ctx.params.exercise}`)
 
-          this.setState({
-            component: <Exercise exercise={ctx.params.exercise} />
-          })
-        })
+      this.setState({
+        component: <Exercise exercise={ctx.params.exercise} />
+      })
+    })
 
-        page('/sign-in', (ctx) => {
-          setAndSendStat('/sign-in')
-          setTitle('sign in')
+    page('/sign-in', (ctx) => {
+      setAndSendStat('/sign-in')
+      setTitle('sign in')
 
-          this.setState({
-            component: <SignIn></SignIn>
-          })
-        })
+      this.setState({
+        component: <SignIn></SignIn>
+      })
+    })
 
-        page('/register', (ctx) => {
-          setAndSendStat('/register')
-          setTitle('register')
+    page('/register', (ctx) => {
+      setAndSendStat('/register')
+      setTitle('register')
 
-          this.setState({
-            component: <Register></Register>
-          })
-        })
+      this.setState({
+        component: <Register></Register>
+      })
+    })
 
-        page('/sign-out', (ctx) => {
-          setAndSendStat('/sign-out')
-          setTitle('sign out')
+    page('/sign-out', (ctx) => {
+      setAndSendStat('/sign-out')
+      setTitle('sign out')
 
-          UserActions.signOut()
-          page('/')
-        })
+      UserActions.signOut()
+      page('/')
+    })
 
-        page('/404', (ctx) => {
-          setAndSendStat('/404')
-          setTitle('404')
+    page('/404', (ctx) => {
+      setAndSendStat('/404')
+      setTitle('404')
 
-          this.setState({
-            component: <div>404</div>
-          })
-        })
+      this.setState({
+        component: <div>404</div>
+      })
+    })
 
-        page('*', (ctx) => {
-          page('/404')
-        })
+    page('*', (ctx) => {
+      page('/404')
+    })
 
-        page.start()
-    }
+    page.start()
+  }
 })

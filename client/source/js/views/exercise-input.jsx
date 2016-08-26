@@ -46,51 +46,51 @@ module.exports = React.createClass({
     })
   },
 
-    render() {
-      let awaitingResults
+  render() {
+    let awaitingResults
 
-      if (this.state.awaitingResults) {
-        awaitingResults =
-              <div className="exercise-input__sent">
-                <span className="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-              </div>
-      }
-
-      return (
-        <div className="exercise-input col-sm-6">
-          <h3 className="exercise-input__header">
-            Score: <span className="exercise-input__header-length">{this.state.answer.length}</span>
-          </h3>
-
-          <AceEditor
-            className="exercise-input__editor"
-            mode="javascript"
-            theme="monokai"
-            name="editor"
-            height=""
-            width=""
-            onChange={this.onChange}
-            value={this.state.answer}
-          />
-
-          <div className="exercise-input__button-wrapper">
-            <button
-              className="exercise-input__button btn btn-block"
-              onClick={this.handleClick}>
-              GO
-            </button>
-
-            <ReactCSSTransitionGroup
-              transitionName="exericse-input-transition"
-              transitionAppear={true}
-              transitionAppearTimeout={500}
-              transitionEnterTimeout={500}
-              transitionLeaveTimeout={300}
-            >
-              {awaitingResults}
-            </ReactCSSTransitionGroup>
-          </div>
+    if (this.state.awaitingResults) {
+      awaitingResults =
+        <div className="exercise-input__sent">
+          <span className="glyphicon glyphicon-refresh" aria-hidden="true"></span>
         </div>
-      )
     }
+
+    return (
+      <div className="exercise-input col-sm-6">
+        <h3 className="exercise-input__header">
+          Score: <span className="exercise-input__header-length">{this.state.answer.length}</span>
+        </h3>
+
+        <AceEditor
+          className="exercise-input__editor"
+          mode="javascript"
+          theme="monokai"
+          name="editor"
+          height=""
+          width=""
+          onChange={this.onChange}
+          value={this.state.answer}
+        />
+
+        <div className="exercise-input__button-wrapper">
+          <button
+            className="exercise-input__button btn btn-block"
+            onClick={this.handleClick}>
+            GO
+          </button>
+
+          <ReactCSSTransitionGroup
+            transitionName="exericse-input-transition"
+            transitionAppear={true}
+            transitionAppearTimeout={500}
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={300}
+          >
+            {awaitingResults}
+          </ReactCSSTransitionGroup>
+        </div>
+      </div>
+    )
+  }
 })
