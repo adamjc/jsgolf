@@ -5,6 +5,11 @@ const Result = require('./result.jsx')
 const ExerciseStore = require('../stores/exercise-store')
 const ExerciseActions = require('../actions/exercise-actions')
 const ReactCSSTransitionGroup = require('react-addons-css-transition-group')
+const page = require('page')
+
+function navigate (url) {
+  return _ => page(url)
+}
 
 module.exports = React.createClass({
   getInitialState() {
@@ -27,7 +32,7 @@ module.exports = React.createClass({
   render() {
     let result = <Result />
     let table
-
+    let notSignedInText
     let waiting =
       <ReactCSSTransitionGroup
         transitionName="button-transition"
@@ -40,6 +45,13 @@ module.exports = React.createClass({
           <span className="glyphicon glyphicon-refresh" aria-hidden="true"></span>
         </div>
       </ReactCSSTransitionGroup>
+
+    if (!localStorage.getItem('username')) {
+      notSignedInText =
+        <div className="not-signed-in-text text-center col-xs-12">
+          Hey! Just to let you know that your score won't be submitted as you're not signed in. <a onClick={navigate('/register')}>Click here to register</a>
+        </div>
+    } else notSignedInText = <div></div>
 
     if (this.state.exercise) {
       if (this.state.exercise.tableData) {
@@ -58,7 +70,7 @@ module.exports = React.createClass({
             <ExerciseInput exercise={this.state.exercise}/>
 
             {result}
-
+            {notSignedInText}
             {table}
         </div>
       )

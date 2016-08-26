@@ -2,10 +2,8 @@ const React = require('react')
 const page = require('page')
 const UserStore = require('./stores/user-store');
 
-function navigate (url) {
-  return () => {
-    page(url)
-  }
+function navigate (url) { 
+  return _ => page(url)
 }
 
 module.exports = React.createClass({
