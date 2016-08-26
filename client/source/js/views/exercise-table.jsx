@@ -8,7 +8,7 @@ module.exports = React.createClass({
   render() {
     let scores = Object.keys(this.props.scores).map(a => {
       return (
-        <tr>
+        <tr key={a}>
           <td>{a}</td>
           <td>{this.props.scores[a]}</td>
         </tr>
