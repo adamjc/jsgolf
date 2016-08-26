@@ -41,7 +41,7 @@ gulp.task('browserify', () => {
     return b.bundle()
             .pipe(source('main.js'))
             .pipe(buffer())
-            //.pipe(uglify())
+            .pipe(uglify())
             .pipe(gulp.dest(`${settings.destFolder}/js`))
 })
 
