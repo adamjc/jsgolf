@@ -1,4 +1,4 @@
-const maps = {
+const multipleParams = {
     title: "Multiple Parameters",
     description: "Produce a function that takes two numbers and returns the sum of both",
     tests: [{
@@ -11,4 +11,4 @@ const maps = {
     }]
 }
 
-module.exports = maps
+module.exports = multipleParams

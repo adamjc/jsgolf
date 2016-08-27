@@ -1,26 +1,30 @@
 const publicExercises = {
-    'Hello World': 'hello-world',
-    'Add One': 'add-one',
-    'Sum': 'sum',
-    'Map': 'map',
-    'Multiple Parameters': 'multiple-parameters'
+  "Hello World": "hello-world",
+  "Add One": "add-one",
+  "Multiple Parameters": "multiple-parameters",
+  "Babby's First Reduce": "babbys-first-reduce",
+  "Babby's First Map" : "babbys-first-map",
 }
 
-function getExerciseFilename(exerciseTitle) {
-    return publicExercises[exerciseTitle]
+function getAllExercises () {
+
 }
 
-function getExerciseData(exercise) {
-    let exerciseFilename = getExerciseFilename(exercise)
-    if (exerciseFilename) {
-        return require(`../exercises/${exerciseFilename}`)
-    }
+function getExerciseFilename (exerciseTitle) {
+  return publicExercises[exerciseTitle]
+}
 
-    console.error(`Error attempting to getExerciseData: ${exercise}`)
+function getExerciseData (exercise) {
+  let exerciseFilename = getExerciseFilename(exercise)
+  if (exerciseFilename) {
+    return require(`../exercises/${exerciseFilename}`)
+  }
+
+  console.error(`Error attempting to getExerciseData: ${exercise}`)
 }
 
 module.exports = {
-    publicExercises,
-    getExerciseData,
-    getExerciseFilename
+  publicExercises,
+  getExerciseData,
+  getExerciseFilename
 }

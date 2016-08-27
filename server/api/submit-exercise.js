@@ -132,6 +132,7 @@ function runTest(sandbox, test, func) {
       }
 
       resultObject.input = test.testInput
+      resultObject.expectedOutput = test.expectedOutput
       resultObject.id = test.id
       resultObject.correct = _.isEqual(resultObject.output, test.expectedOutput)
 

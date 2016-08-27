@@ -31,6 +31,7 @@ module.exports = React.createClass({
       resultsListItems = this.state.results.map(result => {
         let resultInput = stringifyObject(result.input)
         let resultOutput = stringifyObject(result.output)
+        let expectedOutput = stringifyObject(result.expectedOutput)
         let iconClass = classNames({
           'glyphicon': true,
           'glyphicon-ok-circle': result.correct,
@@ -44,12 +45,16 @@ module.exports = React.createClass({
           <li key={result.id} className="col-xs-12 result__list-item">
             <div className="result-text col-xs-6">
               <div>
-                <span className="result-text__descriptor">IN: </span>
+                <span className="result-text__descriptor">input: </span>
                 {resultInput}
               </div>
               <div>
-                <span className="result-text__descriptor">OUT: </span>
+                <span className="result-text__descriptor">output: </span>
                 {resultOutput}
+              </div>
+              <div>
+                <span className="result-text__descriptor">Expected output: </span>
+                {expectedOutput}
               </div>
             </div>
             <div className="glyph-wrapper col-xs-6">{icon}</div>
