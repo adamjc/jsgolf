@@ -4,6 +4,7 @@ const publicExercises = {
   "Multiple Parameters": "multiple-parameters",
   "Babby's First Reduce": "babbys-first-reduce",
   "Babby's First Map" : "babbys-first-map",
+  "N Parameters" : "n-parameters",
 }
 
 function getExerciseFilename (exerciseTitle) {
