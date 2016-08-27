@@ -48,14 +48,14 @@ describe('postExercise', () => {
     let output = require('../canned_data/post_exercise/expected_output/arrays')
 
     let requestOptions = {
-      uri: 'http://localhost:5000/api/exercises/sum',
+      uri: 'http://localhost:5000/api/exercises/babbys-first-reduce',
       method: 'POST',
       body: input,
       json: true
     }
 
     request(requestOptions).then(data => {
-      expect(R.equals(data, output)).to.equal(true)
+      expect(R.equals(data[0], output[0])).to.equal(true)
       done()
     }).catch(reason => console.log(reason))
   })
@@ -82,7 +82,7 @@ describe('postExercise', () => {
     let output = require('../canned_data/post_exercise/expected_output/map')
 
     let requestOptions = {
-      uri: 'http://localhost:5000/api/exercises/map',
+      uri: 'http://localhost:5000/api/exercises/babbys-first-map',
       method: 'POST',
       body: input,
       json: true
