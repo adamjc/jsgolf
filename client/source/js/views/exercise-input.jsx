@@ -11,8 +11,10 @@ require('brace/theme/monokai')
 
 module.exports = React.createClass({
   getInitialState() {
+    let storedAnswer = localStorage.getItem(`${this.props.exercise.title}`)
+
     return {
-      answer: 'function () {\n\t// Your code goes here...\n}'
+      answer: storedAnswer || 'function () {\n\t// Your code goes here...\n}'
     }
   },
 
@@ -25,6 +27,8 @@ module.exports = React.createClass({
   },
 
   onChange(answer) {
+    localStorage.setItem(`${this.props.exercise.title}`, answer)
+    
     this.setState({
       answer: answer
     })
