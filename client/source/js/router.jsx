@@ -20,8 +20,9 @@ function setTitle (title) {
   document.title = `jsgolf - ${title}`
 }
 
-function authorise (next) {
+function authorise (ctx, next) {
   UserActions.authorise()
+  next(ctx)
 }
 
 module.exports = React.createClass({
