@@ -8,6 +8,27 @@ const multipleParams = {
             1
         ],
         'expectedOutput': 2
+    }, {
+        'id': 1,
+        'testInput': [
+            2,
+            2
+        ],
+        'expectedOutput': 4
+    }, {
+        'id': 2,
+        'testInput': [
+            -10,
+            10
+        ],
+        'expectedOutput': 20
+    }, {
+        'id': 3,
+        'testInput': [
+            100,
+            100
+        ],
+        'expectedOutput': 200
     }]
 }
 

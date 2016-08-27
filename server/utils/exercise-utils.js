@@ -6,10 +6,6 @@ const publicExercises = {
   "Babby's First Map" : "babbys-first-map",
 }
 
-function getAllExercises () {
-
-}
-
 function getExerciseFilename (exerciseTitle) {
   return publicExercises[exerciseTitle]
 }
