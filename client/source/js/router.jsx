@@ -11,13 +11,17 @@ const UserActions = require('./actions/user-actions')
 
 ReactGA.initialize('UA-38765332-2');
 
-function setAndSendStat(route, statType = 'pageView') {
+function setAndSendStat (route, statType = 'pageView') {
   ReactGA.set({ page: route })
   ReactGA.pageview(route)
 }
 
-function setTitle(title) {
+function setTitle (title) {
   document.title = `jsgolf - ${title}`
+}
+
+function authorise (next) {
+  UserActions.authorise()
 }
 
 module.exports = React.createClass({
@@ -30,7 +34,7 @@ module.exports = React.createClass({
   },
 
   componentDidMount() {
-    page('/', (ctx) => {
+    page('/', authorise, ctx => {
       setAndSendStat('/')
       setTitle('home')
 
@@ -39,7 +43,7 @@ module.exports = React.createClass({
       })
     })
 
-    page('/exercises', (ctx) => {
+    page('/exercises', ctx => {
       setAndSendStat('/exercises')
       setTitle('exercises')
 
@@ -48,7 +52,7 @@ module.exports = React.createClass({
       })
     })
 
-    page('/exercises/:exercise', (ctx) => {
+    page('/exercises/:exercise', ctx => {
       setAndSendStat(`/exercises/${ctx.params.exercise}`)
       setTitle(`exercises - ${ctx.params.exercise}`)
 
@@ -57,7 +61,7 @@ module.exports = React.createClass({
       })
     })
 
-    page('/sign-in', (ctx) => {
+    page('/sign-in', ctx => {
       setAndSendStat('/sign-in')
       setTitle('sign in')
 
@@ -66,7 +70,7 @@ module.exports = React.createClass({
       })
     })
 
-    page('/register', (ctx) => {
+    page('/register', authorise, ctx => {
       setAndSendStat('/register')
       setTitle('register')
 
@@ -75,7 +79,7 @@ module.exports = React.createClass({
       })
     })
 
-    page('/sign-out', (ctx) => {
+    page('/sign-out', ctx => {
       setAndSendStat('/sign-out')
       setTitle('sign out')
 
@@ -83,7 +87,7 @@ module.exports = React.createClass({
       page('/')
     })
 
-    page('/404', (ctx) => {
+    page('/404', ctx => {
       setAndSendStat('/404')
       setTitle('404')
 
@@ -92,7 +96,7 @@ module.exports = React.createClass({
       })
     })
 
-    page('*', (ctx) => {
+    page('*', ctx => {
       page('/404')
     })
 

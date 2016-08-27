@@ -13,6 +13,25 @@ class UserActions {
     this.dispatch(signInInfo)
   }
 
+  authorise () {
+    let self = this
+    let requestOptions = {
+      uri: `${location.origin}/api/is-authorised`,
+      method: 'GET',
+      headers: {
+        'Authorization': localStorage.getItem('jwt')
+      }
+    }
+
+    requestPromise(requestOptions)
+      .then(result => {
+        debugger
+        if (result !== "OK") self.actions.signOut()
+      }).catch(errorMessage => {
+        console.error(errorMessage)
+      })
+  }
+
   signIn (userInfo) {
     let requestOptions = {
       uri: signInUrl,

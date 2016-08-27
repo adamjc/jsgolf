@@ -11,8 +11,8 @@ const passwordUtils = require('./utils/password-utils')
 const logger = require('./utils/logger')
 
 const jwtOptions = {
-    jwtFromRequest: ExtractJwt.fromAuthHeader(),
-    secretOrKey: passwordUtils.getSecret()
+  jwtFromRequest: ExtractJwt.fromAuthHeader(),
+  secretOrKey: passwordUtils.getSecret()
 }
 
 const getExerciseList = require('./api/get-exercises-list')
@@ -26,14 +26,14 @@ const requireAuth = passport.authenticate('jwt', { session: false })
 const jwt = require('jsonwebtoken')
 
 passport.use(new JwtStrategy(jwtOptions, (jwtPayload, done) => {
-    ddbUtils.getUser(jwtPayload.username).then(user => {
-        if (!user) {
-            logger.log('info', `user: ${user}, no user found.`)
-            return done(null, false, { message: 'Incorrect username.'})
-        }
+  ddbUtils.getUser(jwtPayload.username).then(user => {
+    if (!user) {
+      logger.log('info', `user: ${user}, no user found.`)
+      return done(null, false, { message: 'Incorrect username.'})
+    }
 
-        return done(null, user)
-    })
+    return done(null, user)
+  })
 }))
 
 app.use(passport.initialize())
@@ -47,15 +47,31 @@ app.get('/api/exercises/:exercise', getExercise) /* Fetches exercise data */
 app.post('/api/exercises/:exercise', postExercise) /* Tests user code  */
 app.post('/api/register', postRegister) /* Attempts to register a user */
 app.post('/api/sign-in', signIn) /* Attempts to sign a user in */
+app.get('/api/is-authorised', (req, res) => {
+  let authentication
+  let authHeader = req.headers.authorization
+
+  if (authHeader) {
+    try {
+      authentication = jwt.verify(authHeader, passwordUtils.getSecret())
+    } catch (e) {
+      logger.log('error', e)
+      res.sendStatus(401)
+    }
+
+    if (authentication && authentication.username) res.sendStatus(200)
+  }
+})
 
 app.get('/*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../index.html'))
+  res.sendFile(path.resolve(__dirname, '../index.html'))
 })
+
 
 app.set('port', (process.env.PORT || 5000))
 
 let server = app.listen(app.get('port'), () => {
-    logger.log('info', `[${new Date()}] jsgolf server running on port ${server.address().port}`)
+  logger.log('info', `[${new Date()}] jsgolf server running on port ${server.address().port}`)
 })
 
 module.exports = server
