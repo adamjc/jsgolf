@@ -32,6 +32,10 @@ class UserActions {
       })
   }
 
+  addCompletedExercise (exercise) {
+    this.dispatch(exercise)
+  }
+
   signIn (userInfo) {
     let requestOptions = {
       uri: signInUrl,

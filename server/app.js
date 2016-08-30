@@ -67,7 +67,6 @@ app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../index.html'))
 })
 
-
 app.set('port', (process.env.PORT || 5000))
 
 let server = app.listen(app.get('port'), () => {
