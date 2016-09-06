@@ -14,9 +14,7 @@ describe('getExercisesList', () => {
         req = httpMocks.createRequest({
             method: 'GET',
             url: '/api/exercises',
-            headers: {
-              authorization: 'null'
-            }
+            headers: undefined
         });
 
         res = httpMocks.createResponse();

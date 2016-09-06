@@ -8,12 +8,15 @@ class ExerciseListActions {
   }
 
   getExerciseList(data) {
+    let headers
+    let jwt = localStorage.getItem('jwt')
+    
+    if (jwt) headers = { 'Authorization' : jwt }
+
     let requestOptions = {
-      uri: url,
-      method: 'GET',
-      headers: {
-        'Authorization': localStorage.getItem('jwt')
-      }
+      uri : url,
+      method : 'GET',
+      headers : headers
     }
 
     this.dispatch()
