@@ -4,14 +4,13 @@ const jwt = require('jsonwebtoken')
 const passwordUtils = require('../utils/password-utils')
 
 /* Returns the list of exercises available. */
-function getExercisesList(req, res) {
-  let authHeader = req.headers.authorization
-
-  let jwtPromise = new Promise((resolve, reject) => {
+function getExercisesList (req, res) {
+  const jwtPromise = new Promise(resolve => {
     try {
-      let authentication = jwt.verify(authHeader, passwordUtils.getSecret())
-      resolve(authentication)
+      const authorized = jwt.verify(req.headers.authorization, passwordUtils.getSecret())
+      resolve(authorized)
     } catch (e) {
+      logger.log('error', e)
       res.json(buildExercisesList())
     }
   })
@@ -22,25 +21,19 @@ function getExercisesList(req, res) {
             .then(exercises => res.json(exercises))
 }
 
-function buildExercisesList(completedExercises) {
-  let exercises = []
+function buildExercisesList (completedExercises = []) {
   const publicExercises = require('../utils/exercise-utils').publicExercises
+  const exercises = Object.keys(publicExercises).map(exerciseTitle => {
+    const exerciseFilename = publicExercises[exerciseTitle]
+    const userHasCompletedExercise = (completedExercises.indexOf(exerciseFilename) >= 0)
+    const exerciseCompleted = userHasCompletedExercise ? true : false
 
-  Object.keys(publicExercises).forEach(exercise => {
-    let exerciseFilename = publicExercises[exercise]
-    let fullExercise = require(`../exercises/${exerciseFilename}`)
-
-    let fetchedExercise = {
+    return {
       id: exerciseFilename,
-      title: fullExercise.title,
-      url: `/exercises/${exerciseFilename}`
+      title: exerciseTitle,
+      url: `/exercises/${exerciseFilename}`,
+      completed: exerciseCompleted
     }
-
-    if (completedExercises && completedExercises.indexOf(exerciseFilename)) {
-      fetchedExercise.completed = true
-    }
-
-    exercises.push(fetchedExercise)
   })
 
   return exercises
