@@ -10,19 +10,19 @@ class ExerciseListActions {
   getExerciseList(data) {
     let requestOptions = {
       uri: url,
-      method: 'GET'
+      method: 'GET',
+      headers: {
+        'Authorization': localStorage.getItem('jwt')
+      }
     }
 
-    // we dispatch an event here so we can have a 'loading' event.
     this.dispatch()
 
-    requestPromise(requestOptions)
-      .then((results) => {
-        this.actions.updateExerciseList(JSON.parse(results))
-      })
-      .catch((errorMessage) => {
-        console.log(errorMessage)
-      })
+    requestPromise(requestOptions).then(results => {
+      this.actions.updateExerciseList(JSON.parse(results))
+    }).catch(errorMessage => {
+      console.log(errorMessage)
+    })
 
     this.actions.updateExerciseList(data)
   }

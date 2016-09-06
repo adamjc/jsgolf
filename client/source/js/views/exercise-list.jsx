@@ -25,12 +25,13 @@ module.exports = React.createClass({
 
   render() {
     let exercises
-
+    console.log('exercises', this.state.exerciseList)
     if (this.state.exerciseList) {
       exercises = this.state.exerciseList.map(exercise => {
         return (
           <li key={exercise.id}>
             <a href={exercise.url}>{exercise.title}</a>
+            { exercise.completed ? <span className="exercise-list__completed glyphicon glyphicon-ok" /> : null }
           </li>
         )
       })

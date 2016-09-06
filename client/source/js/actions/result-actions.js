@@ -29,7 +29,6 @@ class ResultActions {
       json: true
     }
 
-    // we dispatch an event here so we can have a 'loading' event.
     this.dispatch()
 
     request(requestOptions)

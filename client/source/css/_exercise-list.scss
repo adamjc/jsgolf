@@ -4,4 +4,11 @@
 
 .exercise-list__list {
   list-style: none;
+  font-size: 1.2em;
+  line-height: 2em;
+}
+
+.exercise-list__completed {
+  padding-left: 20px;
+  color: $light-green-1991
 }
