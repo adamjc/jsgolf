@@ -6,23 +6,20 @@ const passwordUtils = require('../utils/password-utils')
 /* Returns the list of exercises available. */
 function getExercisesList(req, res) {
   let authHeader = req.headers.authorization
-  let authentication
-  let completedExercises
-  let exercises
 
-  if (authHeader) {
-    authentication = jwt.verify(authHeader, passwordUtils.getSecret())
-  }
+  let jwtPromise = new Promise((resolve, reject) => {
+    try {
+      let authentication = jwt.verify(authHeader, passwordUtils.getSecret())
+      resolve(authentication)
+    } catch (e) {
+      res.json(buildExercisesList())
+    }
+  })
 
-  if (authentication) {
-    ddbUtils.getUser(authentication.username)
+  jwtPromise.then(auth => ddbUtils.getUser(auth.username))
             .then(user => Object.keys(user.exercises).map(a => a.replace(new RegExp('_', 'g'), '-')))
             .then(buildExercisesList)
             .then(exercises => res.json(exercises))
-  } else {
-    exercises = buildExercisesList()
-    res.json(exercises)
-  }
 }
 
 function buildExercisesList(completedExercises) {
