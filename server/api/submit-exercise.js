@@ -1,5 +1,6 @@
 const Sandbox = require('adamjc-sandbox')
 const _ = require('lodash')
+const R = require('ramda')
 const exerciseUtils = require('../utils/exercise-utils')
 const ddbUtils = require('../utils/ddb-utils')
 const jwt = require('jsonwebtoken')
@@ -89,14 +90,12 @@ process.on('attemptToProcess', () => {
 })
 
 function runTests(sandbox, request) {
-  let testResults = []
-  let tests = request.exercise.tests
-
-  tests.forEach((test) => {
+  let tests = R.take(5, _.shuffle(request.exercise.tests))
+  let testResults = tests.map(test => {
     let functionString = createFunctionString(test, request.userAnswer)
     let testResult = runTest(sandbox, test, functionString)
 
-    testResults.push(testResult)
+    return testResult
   })
 
   return testResults

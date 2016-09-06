@@ -12,7 +12,7 @@ module.exports = [{
   expectedOutput: 500,
   id: 1,
   correct: true,
-  'expectedOutput': 500
+  expectedOutput: 500
 }, {
   output: -6,
   input: [ [-1, -2, -3] ],

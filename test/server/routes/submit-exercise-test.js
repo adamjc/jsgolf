@@ -45,7 +45,6 @@ describe('postExercise', () => {
 
   it('can handle arrays', (done) => {
     let input = require('../canned_data/post_exercise/input/arrays')
-    let output = require('../canned_data/post_exercise/expected_output/arrays')
 
     let requestOptions = {
       uri: 'http://localhost:5000/api/exercises/babbys-first-reduce',
@@ -54,15 +53,14 @@ describe('postExercise', () => {
       json: true
     }
 
-    request(requestOptions).then(data => {
-      expect(R.equals(data[0], output[0])).to.equal(true)
+    request(requestOptions).then(results => {
+      results.forEach(result => expect(result.output).to.equal(result.expectedOutput))
       done()
     }).catch(reason => console.log(reason))
   })
 
   it('can handle multiple parameters', (done) => {
     let input = require('../canned_data/post_exercise/input/multiple-params')
-    let output = require('../canned_data/post_exercise/expected_output/multiple-params')
 
     let requestOptions = {
       uri: 'http://localhost:5000/api/exercises/multiple-parameters',
@@ -71,15 +69,14 @@ describe('postExercise', () => {
       json: true
     }
 
-    request(requestOptions).then(data => {
-      expect(R.equals(data, output)).to.equal(true)
+    request(requestOptions).then(results => {
+      results.forEach(result => expect(result.output).to.equal(result.expectedOutput))
       done()
     }).catch(reason => console.log(reason))
   })
 
   it('can handle objects as parameters', (done) => {
     let input = require('../canned_data/post_exercise/input/map')
-    let output = require('../canned_data/post_exercise/expected_output/map')
 
     let requestOptions = {
       uri: 'http://localhost:5000/api/exercises/babbys-first-map',
@@ -88,8 +85,8 @@ describe('postExercise', () => {
       json: true
     }
 
-    request(requestOptions).then(data => {
-      expect(R.equals(data, output)).to.equal(true)
+    request(requestOptions).then(results => {
+      results.forEach(result => expect(R.head(result.output)).to.equal(R.head(result.expectedOutput)))
       done()
     }).catch(reason => console.log(reason))
   });
