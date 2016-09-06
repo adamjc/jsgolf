@@ -13,7 +13,10 @@ describe('getExercisesList', () => {
     beforeEach(() => {
         req = httpMocks.createRequest({
             method: 'GET',
-            url: '/api/exercises'
+            url: '/api/exercises',
+            headers: {
+              authorization: 'null'
+            }
         });
 
         res = httpMocks.createResponse();

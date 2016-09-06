@@ -10,19 +10,19 @@ function getExercisesList(req, res) {
   let completedExercises
   let exercises
 
-  if (authHeader) {
-    authentication = jwt.verify(authHeader, passwordUtils.getSecret())
+  if (authHeader !== 'null') {
+    authentication = jwt.verify(authHeader, passwordUtils.getSecret())  
+  }
 
-    if (authentication) {
-      ddbUtils.getUser(authentication.username).then(user => {
-        completedExercises = Object.keys(user.exercises).map(a => a.replace(new RegExp('_', 'g'), '-'))
-        return completedExercises
-      }).then(buildExercisesList)
-        .then(exercises => res.json(exercises))
-    } else {
-      exercises = buildExercisesList()
-      res.json(exercises)
-    }
+  if (authentication) {
+    ddbUtils.getUser(authentication.username).then(user => {
+      completedExercises = Object.keys(user.exercises).map(a => a.replace(new RegExp('_', 'g'), '-'))
+      return completedExercises
+    }).then(buildExercisesList)
+      .then(exercises => res.json(exercises))
+  } else {
+    exercises = buildExercisesList()
+    res.json(exercises)
   }
 }
 
@@ -40,7 +40,7 @@ function buildExercisesList(completedExercises) {
       url: `/exercises/${exerciseFilename}`
     }
 
-    if (completedExercises.indexOf(exerciseFilename)) {
+    if (completedExercises && completedExercises.indexOf(exerciseFilename)) {
       fetchedExercise.completed = true
     }
 
