@@ -24,11 +24,7 @@ function signIn (req, res) {
         expiresIn: "30d"
       })
 
-      res.status(200).send({
-        success: true,
-        token: `${token}`,
-        exercises: Object.keys(user.exercises)
-      })
+      res.status(200).send({ success: true, token: `${token}` })
     })
   }).catch(err => logger.log('error', err))
 
