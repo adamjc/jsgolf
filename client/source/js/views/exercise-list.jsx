@@ -25,7 +25,7 @@ module.exports = React.createClass({
 
   render() {
     let exercises
-    console.log('exercises', this.state.exerciseList)
+    
     if (this.state.exerciseList) {
       exercises = this.state.exerciseList.map(exercise => {
         return (

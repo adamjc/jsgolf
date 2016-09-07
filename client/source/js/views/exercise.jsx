@@ -12,24 +12,32 @@ function navigate (url) {
 }
 
 module.exports = React.createClass({
-  getInitialState() {
+  getInitialState () {
     return {}
   },
 
-  componentDidMount() {
+  componentDidMount () {
     ExerciseStore.listen(this.onChange)
     ExerciseActions.getExercise(this.props.exercise)
   },
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     ExerciseStore.unlisten(this.onChange)
   },
 
-  onChange(state) {
+  componentWillReceiveProps (newProps) {
+    ExerciseActions.getExercise(newProps.exercise)
+  },
+
+  onChange (state) {
     this.setState(state)
   },
 
-  render() {
+  handleNextExercise () {
+    page(this.state.exercise.nextExerciseUrl)
+  },
+
+  render () {
     let result = <Result />
     let table
     let notSignedInText
@@ -72,6 +80,8 @@ module.exports = React.createClass({
             {result}
             {notSignedInText}
             {table}
+
+            <button onClick={this.handleNextExercise}>Next Exercise</button>
         </div>
       )
     } else {

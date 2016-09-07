@@ -3,17 +3,23 @@ const ddbUtils = require('../utils/ddb-utils')
 const logger = require('../utils/logger')
 const R = require('ramda')
 
-/* Returns the list of exercises available. */
+/* Returns a specific exercise. */
 function getExercise(req, res) {
   let exerciseTitle = req.params.exercise
   let fullExercise
 
-  Object.keys(publicExercises).forEach((exercise) => {
+  Object.keys(publicExercises).forEach(exercise => {
     let exerciseFilename = publicExercises[exercise]
 
     if (exerciseFilename === exerciseTitle) {
       fullExercise = require(`../exercises/${exerciseFilename}`)
       fullExercise.url = `/exercises/${exerciseFilename}`
+
+      let exerciseTitles = Object.keys(publicExercises)
+      let nextExerciseIndex = (exerciseTitles.indexOf(exercise) + 1) % exerciseTitles.length
+      let nextExercise = exerciseTitles[nextExerciseIndex]
+      let nextExerciseFilename = publicExercises[nextExercise]
+      fullExercise.nextExerciseUrl = `/exercises/${nextExerciseFilename}`
     }
   })
 
@@ -24,6 +30,8 @@ function getExercise(req, res) {
       if (fullExercise.tableData) {
         fullExercise.tableData.scores = parseScores(fullExercise.tableData.scores)
       }
+
+
 
       res.json(fullExercise)
     }).catch(reason => logger.log('error', `getExercise Endpoint Error: ${reason}`))
