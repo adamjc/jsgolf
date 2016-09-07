@@ -4,6 +4,7 @@ const ExerciseTable = require('./exercise-table.jsx')
 const Result = require('./result.jsx')
 const ExerciseStore = require('../stores/exercise-store')
 const ExerciseActions = require('../actions/exercise-actions')
+const ResultActions = require('../actions/result-actions')
 const ReactCSSTransitionGroup = require('react-addons-css-transition-group')
 const page = require('page')
 
@@ -27,6 +28,7 @@ module.exports = React.createClass({
 
   componentWillReceiveProps (newProps) {
     ExerciseActions.getExercise(newProps.exercise)
+    ResultActions.clearResults();
   },
 
   onChange (state) {
@@ -75,13 +77,18 @@ module.exports = React.createClass({
               <p>{this.state.exercise.description}</p>
             </div>
 
-            <ExerciseInput exercise={this.state.exercise}/>
+            <div className="col-sm-6">
+              <ExerciseInput exercise={this.state.exercise}/>
+
+              <button className="btn btn--green exercise__button" onClick={this.handleNextExercise}>Next Exercise</button>
+            </div>
+
 
             {result}
             {notSignedInText}
             {table}
 
-            <button onClick={this.handleNextExercise}>Next Exercise</button>
+
         </div>
       )
     } else {

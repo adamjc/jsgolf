@@ -4,15 +4,19 @@ const baseUrl = `${location.origin}/api`
 const exerciseUrl = `${baseUrl}/exercises`
 
 class ResultActions {
-  updateResults(results) {
+  updateResults (results) {
     this.dispatch(results)
   }
 
-  resultsFailed() {
+  resultsFailed () {
     console.log('resultsFailed')
   }
 
-  fetchResults(exercise, answer) {
+  clearResults () {
+    this.dispatch();
+  }
+
+  fetchResults (exercise, answer) {
     this.dispatch()
 
     let webTitle = exercise.title.toLowerCase().split(' ').join('-')
