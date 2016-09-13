@@ -10,7 +10,7 @@ require('brace/mode/javascript')
 require('brace/theme/monokai')
 
 module.exports = React.createClass({
-  getInitialState() {
+  getInitialState () {
     let storedAnswer = localStorage.getItem(`${this.props.exercise.title}`)
 
     return {
@@ -18,15 +18,24 @@ module.exports = React.createClass({
     }
   },
 
-  componentDidMount() {
+  componentDidMount () {
     ResultStore.listen(this.onResult)
   },
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     ResultStore.unlisten(this.onResult)
   },
 
-  onChange(answer) {
+  componentWillReceiveProps (newProps) {
+    debugger
+    let storedAnswer = localStorage.getItem(`${newProps.exercise.title}`)
+
+    this.setState({
+      answer: storedAnswer || 'function () {\n\t// Your code goes here...\n}'
+    })
+  },
+
+  onChange (answer) {
     localStorage.setItem(`${this.props.exercise.title}`, answer)
 
     this.setState({
@@ -34,13 +43,13 @@ module.exports = React.createClass({
     })
   },
 
-  onResult() {
+  onResult () {
     this.setState({
       awaitingResults: false
     })
   },
 
-  handleClick() {
+  handleClick () {
     if (!this.state.answer) return
 
     ResultActions.fetchResults(this.props.exercise, this.state.answer)
@@ -50,7 +59,7 @@ module.exports = React.createClass({
     })
   },
 
-  render() {
+  render () {
     let awaitingResults
 
     if (this.state.awaitingResults) {
