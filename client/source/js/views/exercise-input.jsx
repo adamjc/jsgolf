@@ -5,6 +5,7 @@ const ResultActions = require('../actions/result-actions')
 const ResultStore = require('../stores/result-store')
 const ExerciseActions = require('../actions/exercise-actions')
 const ReactCSSTransitionGroup = require('react-addons-css-transition-group')
+const defaultAnswer = '// Your code goes here, ES6 is allowed..\nfunction () {}'
 
 require('brace/mode/javascript')
 require('brace/theme/monokai')
@@ -14,7 +15,7 @@ module.exports = React.createClass({
     let storedAnswer = localStorage.getItem(`${this.props.exercise.title}`)
 
     return {
-      answer: storedAnswer || 'function () {\n\t// Your code goes here...\n}'
+      answer: storedAnswer || defaultAnswer
     }
   },
 
@@ -31,7 +32,7 @@ module.exports = React.createClass({
     let storedAnswer = localStorage.getItem(`${newProps.exercise.title}`)
 
     this.setState({
-      answer: storedAnswer || 'function () {\n\t// Your code goes here...\n}'
+      answer: storedAnswer || defaultAnswer
     })
   },
 
