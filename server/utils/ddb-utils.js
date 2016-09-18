@@ -61,9 +61,13 @@ function updateHighscore(exercise, username, score) {
   })
 }
 
-function updateExercise(username, exercise, characters) {
+function updateExercise(username, exercise, answer) {
+  let answerMap = {
+    characters: answer.length,
+    answer: answer
+  }
   let ddbExercise = exerciseUtils.getExerciseFilename(exercise).split('-').join('_')
-  let expression = `set exercises.${ddbExercise} = :c`
+  let expression = `set exercises.${ddbExercise} = :answer`
   let query = {
     TableName : 'users',
     Key: {
@@ -71,7 +75,7 @@ function updateExercise(username, exercise, characters) {
     },
     UpdateExpression: expression,
     ExpressionAttributeValues: {
-      ':c': characters
+      ':answer': answerMap
     },
   }
 

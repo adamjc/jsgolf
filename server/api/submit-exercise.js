@@ -62,8 +62,6 @@ process.on('attemptToProcess', () => {
       let authHeader = request.req.headers.authorization
       let authentication
 
-      logger.log('info', `${authHeader}, ${passwordUtils.getSecret()}`)
-
       if (authHeader) authentication = jwt.verify(authHeader, passwordUtils.getSecret())
 
       if (authHeader && authentication) {
@@ -73,13 +71,13 @@ process.on('attemptToProcess', () => {
           let currentScore = request.req.body.answer.length
 
           let usersPreviousScore = user.exercises[exerciseFilename]
-          if (usersPreviousScore && usersPreviousScore <= currentScore) {
+          if (usersPreviousScore && usersPreviousScore.characters <= currentScore) {
             return
           }
 
           let username = authentication.username
           logger.log('info', `submitting score of ${currentScore} in ${exercise.title} for user: ${username}`)
-          ddbUtils.updateExercise(username, exercise.title, currentScore)
+          ddbUtils.updateExercise(username, exercise.title, request.userAnswer)
           ddbUtils.updateHighscore(exercise.title, username, currentScore)
         }).catch(reason => logger.log('error', `submit exercise error: ${reason}`))
       }
