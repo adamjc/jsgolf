@@ -139,8 +139,8 @@ function runTest(sandbox, test, func) {
 }
 
 function formatInput(input) {
-  if (_.isArray(input)) return "[" + input + "]"
-  if (typeof input === 'string') return "'" + input + "'"
+  if (_.isArray(input)) return `[${input}]`
+  if (typeof input === 'string') return 'input'
   if (typeof input === 'object') return JSON.stringify(input)
 
   return input

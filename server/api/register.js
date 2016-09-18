@@ -8,40 +8,37 @@ AWS.config.update({
   endpoint: 'dynamodb.eu-west-1.amazonaws.com'
 })
 
-const table = 'users'
-const docClient = new AWS.DynamoDB.DocumentClient()
-
 /* Attempts to register a new user. */
-function postRegister(req, res) {
-    let username = req.body.username
-    let password = req.body.password
-    let email = req.body.email
-    let salt = passwordUtils.salt()
+function postRegister (req, res) {
+  let username = req.body.username
+  let password = req.body.password
+  let email = req.body.email
+  let salt = passwordUtils.salt()
 
-    if (!username) {
-        return res.status(422).send('No username was provided.')
+  if (!username) {
+    return res.status(422).send('No username was provided.')
+  }
+
+  if (!password) {
+    return res.status(422).send('No password was provided.')
+  }
+
+  ddbUtils.getUser(username).then(data => {
+    if (data && data.username) {
+      logger.log('info', `user ${data.username} already exists`)
+      return res.status(422).send('Username already exists.')
     }
 
-    if (!password) {
-        return res.status(422).send('No password was provided.')
-    }
-
-    ddbUtils.getUser(username).then(data => {
-        if (data && data.username) {
-            logger.log('info', `user ${data.username} already exists`)
-            return res.status(422).send('Username already exists.')
-        }
-
-        passwordUtils.hash(password, salt).then(hash => {
-            ddbUtils.addUser(username, hash, salt, email)
-                .then(data => {
-                    res.status(200).send()
-                }).catch(error => {
-                    logger.log('info', `promise rejected: ${data}`)
-                    res.status(500).send()
-                })
-        })
+    passwordUtils.hash(password, salt).then(hash => {
+      ddbUtils.addUser(username, hash, salt, email)
+          .then(_ => {
+            res.status(200).send()
+          }).catch(_ => {
+            logger.log('info', `promise rejected: ${data}`)
+            res.status(500).send()
+          })
     })
+  })
 }
 
 module.exports = postRegister

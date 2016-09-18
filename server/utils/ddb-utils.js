@@ -9,7 +9,7 @@ AWS.config.update({
 
 const docClient = new AWS.DynamoDB.DocumentClient()
 
-function addUser(username, hash, salt, email) {
+function addUser (username, hash, salt, email) {
   let params = {
     TableName: 'users',
     Item: {
@@ -34,7 +34,7 @@ function addUser(username, hash, salt, email) {
   })
 }
 
-function updateHighscore(exercise, username, score) {
+function updateHighscore (exercise, username, score) {
   exercise = exerciseUtils.getExerciseFilename(exercise).split('-').join('_')
 
   let query = {
@@ -52,7 +52,7 @@ function updateHighscore(exercise, username, score) {
   }
 
   return new Promise((resolve, reject) => {
-    docClient.update(query, (err, data) => {
+    docClient.update(query, err => {
       if (err) {
         logger.log('error', `updateHighscore error: ${err}`)
         reject(err)
@@ -61,7 +61,7 @@ function updateHighscore(exercise, username, score) {
   })
 }
 
-function updateExercise(username, exercise, answer) {
+function updateExercise (username, exercise, answer) {
   let answerMap = {
     characters: answer.length,
     answer: answer
@@ -76,7 +76,7 @@ function updateExercise(username, exercise, answer) {
     UpdateExpression: expression,
     ExpressionAttributeValues: {
       ':answer': answerMap
-    },
+    }
   }
 
   return new Promise((resolve, reject) => {
@@ -91,7 +91,7 @@ function updateExercise(username, exercise, answer) {
   })
 }
 
-function getExercise(exercise) {
+function getExercise (exercise) {
   let query = {
     TableName : 'exercises',
     KeyConditionExpression: 'exercise = :exercise',
@@ -110,7 +110,7 @@ function getExercise(exercise) {
   })
 }
 
-function getUser(username) {
+function getUser (username) {
   let query = {
     TableName : 'users',
     KeyConditionExpression: 'username = :username',
@@ -129,7 +129,7 @@ function getUser(username) {
   })
 }
 
-function dDBifyExercise(string) {
+function dDBifyExercise (string) {
   return string.toLowerCase().split(/-| /).join('_')
 }
 
