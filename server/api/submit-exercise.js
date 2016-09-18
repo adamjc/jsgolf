@@ -78,7 +78,7 @@ process.on('attemptToProcess', () => {
           let username = authentication.username
           logger.log('info', `submitting score of ${currentScore} in ${exercise.title} for user: ${username}`)
           ddbUtils.updateExercise(username, exercise.title, request.userAnswer)
-          ddbUtils.updateHighscore(exercise.title, username, currentScore)
+          ddbUtils.updateHighscore(exercise.title, username, request.userAnswer)
         }).catch(reason => logger.log('error', `submit exercise error: ${reason}`))
       }
     }
@@ -106,7 +106,7 @@ function createFunctionString(test, userAnswer) {
                 return "" + JSON.stringify(result) + ""
               })()`
 
-  test.testInput.forEach(input => func = func.replace('{input}', formatInput(input) + ', {input}'))
+  test.testInput.forEach(input => func = func.replace('{input}', `${formatInput(input)}, {input}`))
 
   func = func.replace(', {input}', '')
   func = func.replace('{userAnswer}', userAnswer)
@@ -140,7 +140,7 @@ function runTest(sandbox, test, func) {
 
 function formatInput(input) {
   if (_.isArray(input)) return `[${input}]`
-  if (typeof input === 'string') return 'input'
+  if (typeof input === 'string') return '\'input\''
   if (typeof input === 'object') return JSON.stringify(input)
 
   return input

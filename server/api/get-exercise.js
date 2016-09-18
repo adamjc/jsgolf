@@ -31,8 +31,6 @@ function getExercise(req, res) {
         fullExercise.tableData.scores = parseScores(fullExercise.tableData.scores)
       }
 
-
-
       res.json(fullExercise)
     }).catch(reason => logger.log('error', `getExercise Endpoint Error: ${reason}`))
   } else {

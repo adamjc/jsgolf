@@ -34,8 +34,13 @@ function addUser (username, hash, salt, email) {
   })
 }
 
-function updateHighscore (exercise, username, score) {
+function updateHighscore (exercise, username, answer) {
   exercise = exerciseUtils.getExerciseFilename(exercise).split('-').join('_')
+
+  let answerMap = {
+    characters: answer.length,
+    answer: answer
+  }
 
   let query = {
     TableName : 'exercises',
@@ -47,7 +52,7 @@ function updateHighscore (exercise, username, score) {
       '#username': username
     },
     ExpressionAttributeValues: {
-      ':score': score
+      ':answer': answerMap
     }
   }
 
