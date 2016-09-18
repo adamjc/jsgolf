@@ -47,7 +47,7 @@ function updateHighscore (exercise, username, answer) {
     Key: {
       'exercise': exercise
     },
-    UpdateExpression: 'set scores.#username = :score',
+    UpdateExpression: 'set scores.#username = :answer',
     ExpressionAttributeNames: {
       '#username': username
     },
