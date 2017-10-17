@@ -19,10 +19,8 @@ function hash (password, salt) {
   })
 }
 
-function salt (byteSize) {
-  this.byteSize = byteSize || DEFAULT_HASH_SIZE
-
-  return crypto.randomBytes(this.byteSize)
+function salt (byteSize = DEFAULT_HASH_SIZE) {
+  return crypto.randomBytes(byteSize)
 }
 
 module.exports = {
