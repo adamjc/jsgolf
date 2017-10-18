@@ -11,8 +11,8 @@ after_success:
     - eval "$(ssh-agent -s)"
     - chmod 600 ./travis
     - ssh-add ./travis
-    - git remote add deploy ssh://root@jsgolf.co/var/repo/jsgolf.git
+    - git remote add deploy ssh://root@jsgolf.xyz/var/repo/jsgolf.git
     - git push deploy
 addons:
   ssh_known_hosts:
-      - jsgolf.co
+      - jsgolf.xyz
