@@ -13,7 +13,8 @@ var transports = [
   })
 ]
 
-if (process.env.NODE_ENV === 'debug') {
+if (process.env.DEBUG) {
+  console.log(`Debug Enabled`)
   transports.push(new (winston.transports.Console)())
 }
 
