@@ -18,9 +18,10 @@ const jwtOptions = {
 const getExerciseList = require('./api/get-exercises-list')
 const getExercise = require('./api/get-exercise')
 const postExercise = require('./api/submit-exercise')
-const postRegister = require('./api/register')
+const register = require('./api/register')
 const signIn = require('./api/sign-in')
 const isUsernameAvailable = require('./api/is-username-available')
+const isAuthorised = require('./api/is-authorised')
 
 const requireAuth = passport.authenticate('jwt', { session: false })
 const jwt = require('jsonwebtoken')
@@ -41,32 +42,17 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use('/public', express.static(path.resolve(__dirname, '../public')))
 
+app.get('/api/is-authorised', isAuthorised)
 app.get('/api/is-username-available/:username', isUsernameAvailable)
-app.get('/api/exercises', getExerciseList) /* Returns the list of exercises. */
-app.get('/api/exercises/:exercise', getExercise) /* Fetches exercise data */
-app.post('/api/exercises/:exercise', postExercise) /* Tests user code  */
-app.post('/api/register', postRegister) /* Attempts to register a user */
-app.post('/api/sign-in', signIn) /* Attempts to sign a user in */
-app.get('/api/is-authorised', (req, res) => {
-  let authentication
-  let authHeader = req.headers.authorization
-
-  if (authHeader) {
-    try {
-      authentication = jwt.verify(authHeader, passwordUtils.getSecret())
-    } catch (e) {
-      logger.log('error', e)
-      res.sendStatus(401)
-    }
-
-    if (authentication && authentication.username) res.sendStatus(200)
-  }
-})
+app.get('/api/exercises', getExerciseList)
+app.get('/api/exercises/:exercise', getExercise)
+app.post('/api/exercises/:exercise', postExercise)
+app.post('/api/register', register)
+app.post('/api/sign-in', signIn)
 
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../index.html'))
 })
-
 
 app.set('port', (process.env.PORT || 5000))
 
