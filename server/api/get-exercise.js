@@ -39,7 +39,7 @@ function getExercise(req, res) {
 }
 
 function parseScores (scores) {
-  let sortedUsers = R.take(10, R.keys(scores).sort((a, b) => scores[a] - scores[b]))
+  let sortedUsers = R.take(10, R.keys(scores).sort((a, b) => scores[a].characters - scores[b].characters))
   let parsedScores = {}
 
   sortedUsers.forEach(a => parsedScores[a] = scores[a])
