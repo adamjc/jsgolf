@@ -32,7 +32,8 @@ const nParams = {
       0
     ],
     'expectedOutput': 0
-  }]
+  }],
+  next: 'arabic-to-roman'
 }
 
 module.exports = nParams

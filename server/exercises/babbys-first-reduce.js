@@ -19,7 +19,8 @@ const babbysFirstReduce = {
       [-1, -2, -3]
     ],
     'expectedOutput': -6
-  }]
+  }],
+  next: 'babbys-first-map'
 }
 
 module.exports = babbysFirstReduce

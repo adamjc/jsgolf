@@ -29,7 +29,8 @@ const multipleParams = {
       100
     ],
     'expectedOutput': 200
-  }]
+  }],
+  next: 'babbys-first-reduce'
 }
 
 module.exports = multipleParams

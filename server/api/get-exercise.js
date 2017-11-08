@@ -1,38 +1,22 @@
-const publicExercises = require('../utils/exercise-utils').publicExercises
-const ddbUtils = require('../utils/ddb-utils')
-const logger = require('../utils/logger')
+const fs = require('fs')
 const R = require('ramda')
+const exercises = fs.readdirSync('./server/exercises').map(filename => filename.split('.')[0])
+const ddbUtils = require('../utils/ddb-utils')
 
-/* Returns a specific exercise. */
-function getExercise(req, res) {
-  let exerciseTitle = req.params.exercise
-  let fullExercise
+async function getExercise(req, res) {
+  const exerciseTitle = req.params.exercise
 
-  Object.keys(publicExercises).forEach(exercise => {
-    let exerciseFilename = publicExercises[exercise]
+  if (exercises.includes(exerciseTitle)) {
+    let fullExercise = require(`../exercises/${exerciseTitle}.js`)
+    fullExercise.url = `/exercises/${exerciseTitle}`
+    fullExercise.nextExerciseUrl = `/exercises/${fullExercise.next}`
+    fullExercise.tableData = await ddbUtils.getExercise(exerciseTitle)
 
-    if (exerciseFilename === exerciseTitle) {
-      fullExercise = require(`../exercises/${exerciseFilename}`)
-      fullExercise.url = `/exercises/${exerciseFilename}`
-
-      let exerciseTitles = Object.keys(publicExercises)
-      let nextExerciseIndex = (exerciseTitles.indexOf(exercise) + 1) % exerciseTitles.length
-      let nextExercise = exerciseTitles[nextExerciseIndex]
-      let nextExerciseFilename = publicExercises[nextExercise]
-      fullExercise.nextExerciseUrl = `/exercises/${nextExerciseFilename}`
+    if (fullExercise.tableData) {
+      fullExercise.tableData.scores = parseScores(fullExercise.tableData.scores)
     }
-  })
 
-  if (fullExercise) {
-    ddbUtils.getExercise(exerciseTitle).then(data => {
-      fullExercise.tableData = data
-
-      if (fullExercise.tableData) {
-        fullExercise.tableData.scores = parseScores(fullExercise.tableData.scores)
-      }
-
-      res.json(fullExercise)
-    }).catch(reason => logger.log('error', `getExercise Endpoint Error: ${reason}`))
+    res.json(fullExercise)
   } else {
     res.status(500).send('500')
   }

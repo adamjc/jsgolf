@@ -9,7 +9,8 @@ const helloWorld = {
     'id': 1,
     'testInput': ['test'],
     'expectedOutput': 'Hello World!'
-  }]
+  }],
+  next: 'add-one'
 }
 
 module.exports = helloWorld

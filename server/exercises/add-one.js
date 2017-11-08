@@ -17,7 +17,8 @@ const addOne = {
     'id': 3,
     'testInput': [999],
     'expectedOutput': 1000
-  }]
+  }],
+  next: 'multiple-parameters'
 }
 
 module.exports = addOne

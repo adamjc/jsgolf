@@ -27,7 +27,8 @@ const babbysFirstMap = {
       e: 'Values'
     }],
     'expectedOutput': ['Hello', 'These', 'Are', 'The', 'Values']
-  }]
+  }],
+  next: 'n-parameters'
 }
 
 module.exports = babbysFirstMap
