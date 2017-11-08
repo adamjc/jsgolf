@@ -3,7 +3,7 @@ const fs = require('fs')
 const logger = require('./logger')
 
 const DEFAULT_HASH_SIZE = 256
-const secret = process.env.NODE_ENV === 'debug' ? 'secret' : fs.readFileSync(`${process.cwd()}/secret`, 'utf-8')
+const secret = process.env.DEBUG ? 'secret' : fs.readFileSync(`${process.cwd()}/secret`, 'utf-8')
 
 function getSecret () {
   return secret
