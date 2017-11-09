@@ -5,6 +5,10 @@ const fs = require('fs')
 const exerciseFilenames = fs.readdirSync('./server/exercises').map(filename => filename.split('.')[0])
 
 async function getExercisesList (req, res) {
+  if (!req.headers.authorization) {
+    res.json(buildExercisesList())
+  }
+  
   const authorized = jwt.verify(req.headers.authorization, passwordUtils.getSecret())
   const user = await ddbUtils.getUser(authorized.username)
   const completedExercises = Object.keys(user.exercises).map(a => a.replace(new RegExp('_', 'g'), '-'))
