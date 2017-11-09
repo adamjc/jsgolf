@@ -34,12 +34,10 @@ describe('postExercise', () => {
   it('should respond', () => {
     res.json = sinon.spy()
 
-    getExercisePromise = new Promise((resolve, reject) => {
-      resolve(postExercise(req, res))
-    })
+    postExercisePromise = Promise.resolve(postExercise(req,res))
 
-    getExercisePromise.then(data => {
-      expect(res.json.called).to.equal(true)
+    postExercisePromise.then(data => {
+      expect(res.statusMessage).to.equal("OK")
     })
   })
 

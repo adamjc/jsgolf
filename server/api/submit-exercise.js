@@ -18,8 +18,7 @@ for (let i = 0; i < maxSandboxes; i++) {
 
 function postExercise(req, res) {
   if (!req.body.answer || !req.body.exercise) {
-    res.status(500).send('Nah mate, no results innit.')
-    return
+    return res.status(500).send('Nah mate, no results innit.')    
   }
 
   let userAnswer = req.body.answer
