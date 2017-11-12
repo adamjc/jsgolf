@@ -25,5 +25,6 @@ module.exports = {
       1986
     ],
     'expectedOutput': 'MCMLXXXVI'
-  }]
+  }],
+  next: 'palindrome'
 }

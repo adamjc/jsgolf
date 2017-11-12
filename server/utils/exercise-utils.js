@@ -5,7 +5,8 @@ const publicExercises = {
   'Babby\'s First Reduce': 'babbys-first-reduce',
   'Babby\'s First Map' : 'babbys-first-map',
   'N Parameters' : 'n-parameters',
-  'Arabic To Roman': 'arabic-to-roman'
+  'Arabic To Roman': 'arabic-to-roman',
+  'Palindrome': 'palindrome'
 }
 
 function getExerciseFilename (exerciseTitle) {

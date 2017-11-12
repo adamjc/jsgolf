@@ -18,7 +18,7 @@ for (let i = 0; i < maxSandboxes; i++) {
 
 function postExercise(req, res) {
   if (!req.body.answer || !req.body.exercise) {
-    return res.status(500).send('Nah mate, no results innit.')    
+    return res.status(500).send('Nah mate, no results innit.')
   }
 
   let userAnswer = req.body.answer
@@ -139,7 +139,7 @@ function runTest(sandbox, test, func) {
 
 function formatInput(input) {
   if (_.isArray(input)) return `[${input}]`
-  if (typeof input === 'string') return '\'input\''
+  if (typeof input === 'string') return `\'${input}\'`
   if (typeof input === 'object') return JSON.stringify(input)
 
   return input
