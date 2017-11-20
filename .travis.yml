@@ -10,7 +10,7 @@ after_success:
 - echo $SSH_KEY
 - ssh-add `echo $SSH_KEY`
 - git remote add deploy ssh://root@jsgolf.xyz/var/repo/jsgolf.git
-- git push deploy
+- git push deploy HEAD:master
 addons:
   ssh_known_hosts:
   - jsgolf.xyz
