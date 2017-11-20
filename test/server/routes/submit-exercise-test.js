@@ -45,7 +45,7 @@ describe('postExercise', () => {
     let input = require('../canned_data/post_exercise/input/arrays')
 
     let requestOptions = {
-      uri: 'http://localhost:5000/api/exercises/babbys-first-reduce',
+      uri: 'http://localhost:1337/api/exercises/babbys-first-reduce',
       method: 'POST',
       body: input,
       json: true
@@ -61,7 +61,7 @@ describe('postExercise', () => {
     let input = require('../canned_data/post_exercise/input/multiple-params')
 
     let requestOptions = {
-      uri: 'http://localhost:5000/api/exercises/multiple-parameters',
+      uri: 'http://localhost:1337/api/exercises/multiple-parameters',
       method: 'POST',
       body: input,
       json: true
@@ -77,7 +77,7 @@ describe('postExercise', () => {
     let input = require('../canned_data/post_exercise/input/map')
 
     let requestOptions = {
-      uri: 'http://localhost:5000/api/exercises/babbys-first-map',
+      uri: 'http://localhost:1337/api/exercises/babbys-first-map',
       method: 'POST',
       body: input,
       json: true
