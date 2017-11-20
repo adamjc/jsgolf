@@ -87,7 +87,7 @@ function updateExercise (username, exercise, answer) {
   return new Promise((resolve, reject) => {
     docClient.update(query, (err, data) => {
       if (err) {
-        logger.log('error', `getUser error: ${err}`)
+        logger.log('error', `getExercise error: ${err}`)
         reject(err)
       } else {
         logger.log('info', `UpdateItem succeeded: ${JSON.stringify(data, null, 2)}`)
