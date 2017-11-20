@@ -1,19 +1,18 @@
 language: node_js
 node_js: 9.0.0
 before_install:
+- openssl aes-256-cbc -K $encrypted_833934672973_key -iv $encrypted_833934672973_iv -in travis_ci.pub.enc -out travis_ci.pub -d
 - export DEBUG=true
 install:
 - npm install
 script:
 - npm test
 after_success:
-- echo $SSH_KEY
-- ssh-add `echo $SSH_KEY`
+- eval "$(ssh-agent -s)"
+- chmod 600 ./travis_key
+- ssh-add ./travis_key
 - git remote add deploy ssh://root@jsgolf.xyz/var/repo/jsgolf.git
-- git push deploy HEAD:master
+- git push deploy
 addons:
   ssh_known_hosts:
   - jsgolf.xyz
-env:
-  global:
-    secure: M7Hs7STL3SrvC5+zkKSCfiEEPsHPjVvugxjriJ0QyTAn7fBLV0SKB6en6wIhkrwFgK0P0aIr28T7KFyUg07oNwJVZRcxmbAfWqLEcR66z9WymRSzYgprBgJ+0z29JNd9bHRhda1dpmmgquOQtCSiibvA+V4ThSZGWh8df5QAzFeQkA+N7zcB2Ai4g+LYdm830hpy60bsnKk1sAi20/fqD6bnkfkk7WhUnkR5BKJevkU22+kl8L5ddRAj33c6ObJg2uPJdhdjKTsoOBw33baw6ualptlaKReX68G1qwCW62iSc6PL6/RdnzOOQ88XCDi7d0WIBZeK6zYTT8EAZ58vc1Q4C0bep1pcSc6bZuolOB8KqeKWTkpW07njNCkSaMfIUppNkdKgLF2FHLAcnUN7An68yvANDNZDkQfzPNxP7/flDvv7U3oNvLlmbHnk/A2rjAc6bihsyI5vKQJxtVidh3aoJsFplQvbA0N4RiCw+K6mq5Y3etxRTrRtzhEvaE/uRqtwYqTu+/DNHZpzOGLRNtqijuOTpQiDrpVzffKTau8sh5L12wbgzqvixlyxFwWhH8CwMLv1OMVERB2/8+Rap79fu1LB0OQ8KkdADbZFRcn51S3aSmB1bJwPr6atDQjyWR0Hxa/gYl+P89uUOollZ91F7rOwkaW7CpIIaEyLABc=
