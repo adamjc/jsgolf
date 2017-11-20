@@ -12,7 +12,7 @@ after_success:
 - chmod 600 ./travis_ci_key
 - ssh-add ./travis_ci_key
 - git remote add deploy ssh://root@jsgolf.xyz/var/repo/jsgolf.git
-- git push deploy
+- git push deploy HEAD:master
 addons:
   ssh_known_hosts:
   - jsgolf.xyz
