@@ -10,6 +10,7 @@ phases:
       - npm install
   pre_build:
     commands:
+      - echo $SECRET > secret
       - npm test
       - npx gulp
   build:
@@ -18,7 +19,6 @@ phases:
       - mv client node_modules public server target
       - mv index.html target
       - mv robots.txt target
-      - echo $SECRET > secret
       - mv secret target
 
 artifacts:
