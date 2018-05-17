@@ -20,7 +20,8 @@ phases:
       - mv index.html target
       - mv robots.txt target
       - mv secret target
+      - tar -czf target.tar.gz target
 
 artifacts:
   files:
-    - target/**/*
+    - target.tar.gz
