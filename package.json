@@ -4,7 +4,8 @@
   "description": "JS Golf Website",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/**/*",
+    "test": "npx mocha test/**/*",
+    "build": "npx gulp",
     "start": "gulp && nodemon --harmony ./server/app.js"
   },
   "repository": {
@@ -51,6 +52,7 @@
     "lodash": "^3.10.1",
     "mocha": "^3.0.0",
     "node-mocks-http": "^1.4.4",
+    "nodemon": "^1.17.4",
     "page": "^1.6.4",
     "passport": "^0.3.2",
     "passport-jwt": "^2.0.0",

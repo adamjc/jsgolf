@@ -1,0 +1,26 @@
+version: 0.2
+
+env:
+  parameter-store: 
+    SECRET: "jsgolf-secret"
+
+phases:
+  install:
+    commands:
+      - npm install
+  pre_build:
+    commands:
+      - npm test
+      - npx gulp
+  build:
+    commands:
+      - mkdir target
+      - mv client node_modules public server target
+      - mv index.html target
+      - mv robots.txt target
+      - echo $SECRET > secret
+      - mv secret target
+
+artifacts:
+  files:
+    - target/**/*
