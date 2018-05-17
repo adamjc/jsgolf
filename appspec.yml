@@ -5,5 +5,5 @@ files:
     destination: /jsgolf
 hooks:
     ApplicationStart:
-      - location: start.sh
+      - location: /jsgolf/start.sh
         timeout: 180
