@@ -16,6 +16,7 @@ phases:
   build:
     commands:
       - mkdir target
+      - mv appspec.yml target
       - mv client node_modules public server target
       - mv index.html target
       - mv robots.txt target
