@@ -1,0 +1,42 @@
+Description: "Autoscaling Group"
+
+Resources:
+  InstanceRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - 
+            Effect: "Allow"
+            Principal:
+              Service:
+                - "ec2.amazonaws.com"
+            Action:
+              - "sts:AssumeRole"
+      Policies:
+        -
+          PolicyName: "jsgolf-instance-policy"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              -
+                Effect: "Allow"
+                Action: 
+                  - "s3:Get*"
+                  - "s3:List*"
+                  - "dynamodb:*"
+                Resource: "*"
+  InstanceProfile:
+    Type: "AWS::IAM::InstanceProfile"
+    Properties:
+      Path: "/"
+      Roles:
+        -
+          Ref: "InstanceRole"
+  # SecurityGroup:
+  # LaunchConfiguration:
+  # AutoScalingGroup:
+
+
+
