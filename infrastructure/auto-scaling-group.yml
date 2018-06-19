@@ -33,28 +33,9 @@ Resources:
       Path: "/"
       Roles:
         -
-          Ref: "InstanceRole"
-  SecurityGroup:
-    Type: "AWS::EC2::SecurityGroup"
-    Properties:
-      GroupDescription: "Security Group for jsgolf"
-      SecurityGroupEgress:
-        -
-          CidrIp: "0.0.0.0/0"
-          IpProtocol: "-1"
-      SecurityGroupEgress:
-        -
-          CidrIp: "0.0.0.0/0"
-          FromPort: "80"
-          ToPort: "80"
-          IpProtocol: "tcp"
-        -
-          CidrIp: "0.0.0.0/0"
-          FromPort: "443"
-          ToPort: "443"
-          IpProtocol: "tcp"          
+          Ref: "InstanceRole"       
   LaunchConfiguration:
-    Type: "AWS:::AutoScaling::LaunchConfiguration"
+    Type: "AWS::AutoScaling::LaunchConfiguration"
     Properties:
       AssociatePublicIpAddress: "true"
       IamInstanceProfile:
@@ -62,51 +43,47 @@ Resources:
       InstanceMonitoring: "false"
       InstanceType: "t2.micro"
       KeyName: "jsgolf-key-pair.pem"
-      SecurityGroup:
-        -
-          Ref: SecurityGroup
       SpotPrice: "0.006"
       UserData:
-        Fn:Base64: !Sub |
+        Fn::Base64: !Sub |
           - "#!/bin/bash -xe\n"
           - "INSTANCE_ID=$(ec2metadata --instance-id)\n"
           - "ALLOCATION_ID=$(aws ec2 describe-tags --region eu-west-1 --filters \"Name=resource-id,Values=$INSTANCE_ID\" \"Name=key,Values=AllocationId\" --output text | awk '{print $5}')\n"
           - "aws ec2 associate-address --region eu-west-1 --allocation-id $ALLOCATION_ID --instance-id $INSTANCE_ID\n"
-    AutoScalingGroup:
-      Type: "AWS::AutoScaling::AutoScalingGroup"
-      Properties:
-        AutoScalingGroupName: "jsgolf-autoscaling-group"
-        DesiredCapacity: 1
-        LaunchConfiguration: 
-          Ref: "LaunchConfiguration"
-        MaxSize: 1
-        MinSize: 0
-        Tags:
-          - 
-            Key: "Name"
-            Value: "jsgolf"
-          -
-            Key: "AllocationId"
-            Value:
-              Fn::GetAtt:
-                - Address
-                - AllocationId
-            PropagateAtLaunch: "true"
-        Address:
-          Type: "AWS::EC2::EIP"
-          Properties: 
-        DNSEntry:
-          Type: "AWS:::Route53::RecordSet"
-          Properties:
-            HostedZoneName: "jsgolf.xyz"
-            Name: "jsgolf.xyz"
-            ResourceRecords:
-              - 
-                Ref: "Address"
-            TTL: 60
-            Type: "A"
-
-    
-
+  AutoScalingGroup:
+    Type: "AWS::AutoScaling::AutoScalingGroup"
+    DependsOn: 
+      - "LaunchConfiguration"
+      - "Address"
+    Properties:
+      AutoScalingGroupName: "jsgolf-autoscaling-group"
+      DesiredCapacity: 1
+      LaunchConfiguration: 
+        Ref: "LaunchConfiguration"
+      MaxSize: 1
+      MinSize: 1
+      Tags:
+        - 
+          Key: "Name"
+          Value: "jsgolf"
+        -
+          Key: "AllocationId"
+          Value:
+            Fn::GetAtt:
+              - Address
+              - AllocationId
+          PropagateAtLaunch: "true"
+  Address:
+    Type: "AWS::EC2::EIP"
+  DNSEntry:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      HostedZoneName: "jsgolf.xyz"
+      Name: "jsgolf.xyz"
+      ResourceRecords:
+        - 
+          Ref: "Address"
+      TTL: 60
+      Type: "A"
 
 
