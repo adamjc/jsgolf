@@ -44,6 +44,7 @@ Resources:
       InstanceType: "t2.micro"
       KeyName: "jsgolf-key-pair.pem"
       SpotPrice: "0.006"
+      ImageId: "ami-4c457735" # CentOS 7
       UserData:
         Fn::Base64: !Sub |
           - "#!/bin/bash -xe\n"
@@ -75,15 +76,5 @@ Resources:
           PropagateAtLaunch: "true"
   Address:
     Type: "AWS::EC2::EIP"
-  DNSEntry:
-    Type: "AWS::Route53::RecordSet"
-    Properties:
-      HostedZoneName: "jsgolf.xyz"
-      Name: "jsgolf.xyz"
-      ResourceRecords:
-        - 
-          Ref: "Address"
-      TTL: 60
-      Type: "A"
 
 
