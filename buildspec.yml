@@ -3,7 +3,6 @@ version: 0.2
 env:
   parameter-store: 
     SECRET: "jsgolf-secret"
-
 phases:
   install:
     commands:
@@ -16,9 +15,9 @@ phases:
   build:
     commands:
       - mkdir target
-      - mv -f * target      
+      - mv api client exercises public utils target
+      - mv package.json app.js index.html robots.txt nginx.conf secret setup_nginx.sh target
       - tar -czf target.tar.gz target
-
 artifacts:
   files:
     - target.tar.gz
