@@ -40,7 +40,7 @@ passport.use(new JwtStrategy(jwtOptions, (jwtPayload, done) => {
 app.use(passport.initialize())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use('/public', express.static(path.resolve(__dirname, '../public')))
+app.use('/public', express.static(path.resolve(__dirname, 'public')))
 
 app.get('/api/is-authorised', isAuthorised)
 app.get('/api/is-username-available/:username', isUsernameAvailable)
@@ -51,7 +51,7 @@ app.post('/api/register', register)
 app.post('/api/sign-in', signIn)
 
 app.get('/*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../index.html'))
+  res.sendFile(path.resolve(__dirname, 'index.html'))
 })
 
 app.set('port', (process.env.PORT || 1337))

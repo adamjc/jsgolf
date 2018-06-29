@@ -4,7 +4,7 @@ const sinon = require('sinon')
 const fs = require('fs')
 const _ = require('lodash')
 const AWS = require('aws-sdk-mock')
-const app = require('../../../server/app.js')
+const app = require('../../../app.js')
 const request = require('request-promise')
 const R = require('ramda')
 
@@ -17,7 +17,7 @@ describe('postExercise', () => {
   let res
   let getExercisePromise
 
-  const postExercise = require('../../../server/api/submit-exercise')
+  const postExercise = require('../../../api/submit-exercise')
 
   beforeEach(() => {
     req = httpMocks.createRequest({

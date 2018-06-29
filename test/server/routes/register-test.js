@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const sinon = require('sinon');
 const httpMocks = require('node-mocks-http');
 const _ = require('lodash');
-const postRegister = require('../../../server/api/register.js');
+const postRegister = require('../../../api/register.js');
 const path = require('path');
 
 describe('postRegister', () => {

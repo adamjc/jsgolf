@@ -2,7 +2,7 @@ const ddbUtils = require('../utils/ddb-utils')
 const jwt = require('jsonwebtoken')
 const passwordUtils = require('../utils/password-utils')
 const fs = require('fs')
-const exerciseFilenames = fs.readdirSync('./server/exercises').map(filename => filename.split('.')[0])
+const exerciseFilenames = fs.readdirSync('./exercises').map(filename => filename.split('.')[0])
 
 async function getExercisesList (req, res) {
   if (!req.headers.authorization) {

@@ -10,7 +10,7 @@ describe('getExercise', () => {
         callback(null, { Items: ['anything'] })
     })
 
-    const getExercise = require('../../../server/api/get-exercise.js')
+    const getExercise = require('../../../api/get-exercise.js')
 
     let req
     let res
@@ -54,7 +54,7 @@ describe('getExercise', () => {
 
     describe('The returned json object', () => {
         it('should contain a title', () => {
-            const file = require('../../../server/exercises/hello-world')
+            const file = require('../../../exercises/hello-world')
 
             let parsedResponse
 
@@ -66,7 +66,7 @@ describe('getExercise', () => {
         })
 
         it('should contain some exercise text', () => {
-            let file = require('../../../server/exercises/hello-world')
+            let file = require('../../../exercises/hello-world')
             let parsedResponse
 
             getExercise(req, res)

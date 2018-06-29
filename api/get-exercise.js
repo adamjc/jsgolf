@@ -1,6 +1,6 @@
 const fs = require('fs')
 const R = require('ramda')
-const exercises = fs.readdirSync('./server/exercises').map(filename => filename.split('.')[0])
+const exercises = fs.readdirSync('./exercises').map(filename => filename.split('.')[0])
 const ddbUtils = require('../utils/ddb-utils')
 
 async function getExercise(req, res) {

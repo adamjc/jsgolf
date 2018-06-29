@@ -5,7 +5,7 @@ const fs = require('fs');
 const _ = require('lodash');
 
 describe('getExercisesList', () => {
-    const getExercisesList = require('../../../server/api/get-exercises-list.js');
+    const getExercisesList = require('../../../api/get-exercises-list.js');
 
     let req;
     let res;
