@@ -16,7 +16,7 @@ phases:
   build:
     commands:
       - mkdir target
-      - mv * target      
+      - mv -f * target      
       - tar -czf target.tar.gz target
 
 artifacts:
