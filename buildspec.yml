@@ -1,23 +1,28 @@
-version: 0.2
-
-env:
-  parameter-store: 
-    SECRET: "jsgolf-secret"
-phases:
-  install:
-    commands:
-      - npm install
-  pre_build:
-    commands:
-      - echo $SECRET > secret
-      - npm test
-      - npx gulp
-  build:
-    commands:
-      - mkdir target
-      - mv api client exercises public utils target
-      - mv package.json app.js index.html robots.txt nginx.conf secret setup_nginx.sh target
-      - tar -czf target.tar.gz target
 artifacts:
   files:
-    - target.tar.gz
+  - target.tar.gz
+eb_codebuild_settings:
+  CodeBuildServiceRole: codebuild-service-role
+  ComputeType: BUILD_GENERAL1_SMALL
+  Image: aws/codebuild/eb-nodejs-6.10.0-amazonlinux-64:4.0.0
+  Timeout: 10
+env:
+  parameter-store:
+    SECRET: jsgolf-secret
+phases:
+  build:
+    commands:
+    - mkdir target
+    - mv api client exercises public utils target
+    - mv package.json app.js index.html robots.txt nginx.conf secret setup_nginx.sh
+      target
+    - tar -czf target.tar.gz target
+  install:
+    commands:
+    - npm install
+  pre_build:
+    commands:
+    - echo $SECRET > secret
+    - npm test
+    - npx gulp
+version: 0.2
