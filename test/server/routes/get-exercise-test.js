@@ -55,25 +55,25 @@ describe('getExercise', () => {
     describe('The returned json object', () => {
         it('should contain a title', () => {
             const file = require('../../../exercises/hello-world')
-
+            
             let parsedResponse
 
-            getExercise(req, res)
+            getExercisePromise.then(() => {
+              parsedResponse = JSON.parse(res._getData())
 
-            parsedResponse = JSON.parse(res._getData())
-
-            expect(parsedResponse.title).to.equal(file.title)
+              expect(parsedResponse.title).to.equal(file.title)
+            })
         })
 
         it('should contain some exercise text', () => {
             let file = require('../../../exercises/hello-world')
             let parsedResponse
 
-            getExercise(req, res)
+            getExercisePromise.then(() => {
+              parsedResponse = JSON.parse(res._getData())
 
-            parsedResponse = JSON.parse(res._getData())
-
-            expect(parsedResponse.description).to.equal(file.description)
+              expect(parsedResponse.description).to.equal(file.description)
+            })            
         })
     })
 })
