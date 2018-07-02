@@ -21,7 +21,7 @@ phases:
       - mkdir target
       - mv node_modules target
       - mv api client exercises public utils target
-      - mv app.js gulpfile.js index.html robots.txt setup_nginx.sh target
+      - mv secret app.js gulpfile.js index.html robots.txt setup_nginx.sh target
 artifacts:
   base-directory: target
   files:
