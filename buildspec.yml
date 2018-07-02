@@ -15,9 +15,13 @@ phases:
     commands:
       - echo $SECRET > secret
       - npm test      
+      - npx gulp
   build:
     commands:
-      - npx gulp
+      - mkdir target
+      - mv api client exercises public utils target
+      - mv app.js gulpfile.js index.html robots.txt setup_nginx.sh target
+      - cd target      
 artifacts:
   files:
     - ./**/*
