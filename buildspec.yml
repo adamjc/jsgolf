@@ -1,6 +1,4 @@
-artifacts:
-  files:
-  - target.tar.gz
+version: 0.2
 eb_codebuild_settings:
   CodeBuildServiceRole: codebuild-service-role
   ComputeType: BUILD_GENERAL1_SMALL
@@ -16,7 +14,8 @@ phases:
     - mv api client exercises public utils target
     - mv package.json app.js index.html robots.txt nginx.conf secret setup_nginx.sh
       target
-    - tar -czf target.tar.gz target
+    - cd target
+    - tar -czf target.tar.gz *
   install:
     commands:
     - npm install
@@ -25,4 +24,7 @@ phases:
     - echo $SECRET > secret
     - npm test
     - npx gulp
-version: 0.2
+artifacts:
+  files:
+    - target.tar.gz
+
