@@ -14,8 +14,6 @@ phases:
     - mv api client exercises public utils target
     - mv package.json app.js index.html robots.txt nginx.conf secret setup_nginx.sh
       target
-    - cd target
-    - tar -czf target.tar.gz *
   install:
     commands:
     - npm install
@@ -26,5 +24,5 @@ phases:
     - npx gulp
 artifacts:
   files:
-    - target/target.tar.gz
+    - target
 
