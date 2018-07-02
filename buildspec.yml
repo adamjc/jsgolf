@@ -19,9 +19,11 @@ phases:
   build:
     commands:
       - mkdir target
+      - touch jsgolf-info.log
+      - touch jsgolf-error.log
       - mv node_modules target
       - mv api client exercises public utils target
-      - mv secret app.js gulpfile.js index.html robots.txt setup_nginx.sh target
+      - mv jsgolf-info.log jsgolf-error.log secret app.js gulpfile.js index.html robots.txt setup_nginx.sh target
 artifacts:
   base-directory: target
   files:
