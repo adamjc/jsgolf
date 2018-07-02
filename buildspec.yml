@@ -20,9 +20,8 @@ phases:
     commands:
       - mkdir target
       - mv api client exercises public utils target
-      - mv app.js gulpfile.js index.html robots.txt setup_nginx.sh target
-      - cd target      
+      - mv app.js gulpfile.js index.html robots.txt setup_nginx.sh target    
 artifacts:
   files:
-    - ./**/*
+    - target/**/*
 
