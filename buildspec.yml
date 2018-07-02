@@ -26,5 +26,5 @@ phases:
     - npx gulp
 artifacts:
   files:
-    - target.tar.gz
+    - target/target.tar.gz
 
