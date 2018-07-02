@@ -18,9 +18,6 @@ phases:
   build:
     commands:
       - npx gulp
-    # - mkdir target
-    # - mv api client exercises public utils target
-    # - mv package.json app.js index.html robots.txt nginx.conf secret setup_nginx.sh target  
 artifacts:
   files:
     - ./**/*
