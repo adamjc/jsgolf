@@ -22,7 +22,7 @@ phases:
       - mv api client exercises public utils target
       - mv app.js gulpfile.js index.html robots.txt setup_nginx.sh target
 artifacts:
+  base-directory: target
   files:
-    - target/**/*
-  discard-paths: yes
+    - ./**/*  
 
