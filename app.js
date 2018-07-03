@@ -54,9 +54,9 @@ app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'index.html'))
 })
 
-app.set('port', (process.env.PORT || 1337))
+app.set('port', process.env.PORT || 1337)
 
-let server = app.listen(app.get('port'), () => {
+let server = app.listen(app.get('port'), _ => {
   logger.log('info', `[${new Date()}] jsgolf server running on port ${server.address().port}`)
 })
 
