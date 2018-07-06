@@ -1,0 +1,19 @@
+language: node_js
+env:
+  global:
+    secure: fs/T5PfaBo3EEYiCDB8lf9idj2/0IHHTnlrYZC1vYjR4eGOJa/3y2ZAu5dfwBYU2I5s7//Pc8rY5u4xXmpmsWLxfA7dZCHcQpFOFg8Hw8Cb7G/NZQrMaHHret8g7O+H7AgTrJ7c2LDYnfET5yiKcfpsp/TJybiAYiEWR33JWS0ih3MQrLcJG4jzSH9EHdcUMP0RzZK5OTXQRzzhwaEuj0p4HjqIPpqzywjkN5j50Rn7hHK78d2s4SDcabq5x4QneGzrbCxwAEUi7qqW3J+mhDxXUDR1XOZlAfSgCWOENsd88ZoTQhQf5UX9qiXAa7/DEzqlS/z3km41xiRlftULab3JXBbFDQX3bPzmczEWyJt8JpseVZorAP1vLAbR3f+PVuqcV7I14LpMEQY2WlDGrQvZTN2intuhWgr/37CEqGAEgv9XmGCYfsoqlUsQujJroLBr+b1Tm//zZSRPaoMyhoW+B4Kf3+Ua5RAKTIZvE2Mba2sh8vSOeN2/3VeEq+Oe1TQ9SOqZDRL/ahCx02REF8Nz6VmEKtFJDBwCqmFsJoO/z5dKF556vRoqxRS+oRA/gkl+WhlZRSRPu3HPLvt/7fOHHNg65L8DKRGFZbz11008sEfaCBG7lrB3yzVHPveO+IcrVcia1ZjrUH5nZElbgFwE3p4TedeoPZCUm/1jyA0I=
+cache:
+  directories:
+  - node_modules
+git:
+  depth: 1
+before_install:
+  - openssl aes-256-cbc \
+    -K $encrypted_833934672973_key \
+    -iv $encrypted_833934672973_iv \
+    -in jsgolf-key.enc -out jsgolf-key -d
+install:
+  - npm install
+  - npx gulp
+after_success:
+  - scp -r root@${SSH_PASSWORD}@159.65.17.103:/var/app/
