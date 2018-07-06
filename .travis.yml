@@ -17,4 +17,4 @@ install:
   - npm install
   - npx gulp
 after_success:
-  - scp -r root@${SSH_PASSWORD}@159.65.17.103:/var/app/
+  - scp -r * root@${SSH_PASSWORD}@159.65.17.103:/var/app/
