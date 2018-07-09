@@ -8,13 +8,19 @@ env:
 cache:
   directories:
   - node_modules
+addons:
+  ssh_known_hosts:
+    - 169.65.17.103
 git:
   depth: 1
 before_install:
+  - openssl aes-256-cbc -K $encrypted_833934672973_key -iv $encrypted_833934672973_iv -in travis_ci.enc -out travis_ci -d
   - echo $SECRET > secret
-  - openssl aes-256-cbc -K $encrypted_833934672973_key -iv $encrypted_833934672973_iv -in jsgolf-key.enc -out jsgolf-key -d
 install:
   - npm install
   - npx gulp
 after_success:
-  - scp -o StrictHostKeyChecking=no -r * root:${SSH_PASSWORD}@159.65.17.103:/var/app/
+  - eval "$(ssh-agent -s)"
+  - chmod 600 travis_ci_key
+  - git remote add origin git@159.65.17.103:/git
+  - git push
