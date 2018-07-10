@@ -10,7 +10,7 @@ cache:
   - node_modules
 addons:
   ssh_known_hosts:
-    - 169.65.17.103
+    - 159.65.17.103
 git:
   depth: 1
 before_install:
