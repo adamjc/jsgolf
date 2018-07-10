@@ -21,6 +21,6 @@ install:
   - npx gulp
 after_success:
   - eval "$(ssh-agent -s)"
-  - chmod 600 travis_ci_key
+  - chmod 600 travis_ci
   - git remote add origin git@159.65.17.103:/git
   - git push
