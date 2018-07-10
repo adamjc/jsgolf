@@ -1,3 +1,4 @@
+# DIR SETUP
 if [ -d /var/jsgolf ]; then
   sudo mkdir -p /var/jsgolf
   sudo git clone /git /var/jsgolf
@@ -7,11 +8,20 @@ cd /var/jsgolf
 git pull --rebase
 sudo cp git-hooks/post-recieve /git/hooks/
 
+# NGINX SETUP
+which nginx
+if [ $? != 0 ]; then
+  apt-get install -y nginx
+fi
+
+cp nginx.conf /usr/local/nginx/conf
+systemctl restart nginx
+
+# APP SETUP
 sudo apt install -y npm
 sudo npm install -g npm@latest
 sudo npm install
 npx gulp
-npm start
+npm start &
 
-# Copy NGINX config across
-# Restart NGINX
+
