@@ -1,7 +1,13 @@
 # Copy files across to /var/jsgolf
-sudo mkdir -p /var/jsgolf
-sudo git clone /git /var/jsgolf
+# Check that /var/jsgolf is a directory, if it is, do nothing
+# If it is not, clone repo
+if [ -d /var/jsgolf ]; then
+  sudo mkdir -p /var/jsgolf
+  sudo git clone /git /var/jsgolf
+fi
+
 cd /var/jsgolf
+git pull --rebase
 sudo cp git-hooks/post-recieve /git/hooks/
 
 sudo apt install -y npm
