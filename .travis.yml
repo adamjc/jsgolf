@@ -22,7 +22,6 @@ after_success:
   - chmod 600 travis_ci
   - ssh-add ./travis_ci
   - git remote add jsgolf ssh://git@159.65.17.103:/git
-  - echo $(git remote -v)
-  - git add secret
+  - git add -f secret
   - git commit -m "add secret"
   - git push jsgolf HEAD:master --force
