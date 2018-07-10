@@ -1,0 +1,6 @@
+# TODO
+# Copy files across to /var/jsgolf
+# Check that PM2 is still running / has restarted the process
+# Copy NGINX config across
+# Restart NGINX
+# Copy post-receive hook (this file) to /git/hooks/
