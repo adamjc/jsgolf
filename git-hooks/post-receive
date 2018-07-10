@@ -1,5 +1,5 @@
 # Copy files across to /var/jsgolf
-mkdir -d /var/jsgolf
+mkdir -p /var/jsgolf
 cp -r /git/ /var/jsgolf
 npm start
 
