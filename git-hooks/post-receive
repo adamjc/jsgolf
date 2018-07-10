@@ -1,6 +1,3 @@
-# Copy files across to /var/jsgolf
-# Check that /var/jsgolf is a directory, if it is, do nothing
-# If it is not, clone repo
 if [ -d /var/jsgolf ]; then
   sudo mkdir -p /var/jsgolf
   sudo git clone /git /var/jsgolf
