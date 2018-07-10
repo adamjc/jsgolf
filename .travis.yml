@@ -23,4 +23,4 @@ after_success:
   - eval "$(ssh-agent -s)"
   - chmod 600 travis_ci
   - git remote add origin git@159.65.17.103:/git
-  - git push
+  - git push origin HEAD:master
