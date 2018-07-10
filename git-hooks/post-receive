@@ -1,9 +1,15 @@
 # Copy files across to /var/jsgolf
 mkdir -p /var/jsgolf
-cp -r /git/ /var/jsgolf
-npm start
+git clone /git /var/jsgolf
+cd /var/jsgolf
+cp git-hooks/post-recieve /git/hooks/
 
 # Copy NGINX config across
 # Restart NGINX
 # Copy post-receive hook (this file) to /git/hooks/
-cp git-hooks/post-recieve /git/hooks/
+
+apt install -y npm
+npm install -g npm@latest
+npm install
+npx gulp
+npm start

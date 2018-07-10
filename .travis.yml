@@ -17,10 +17,12 @@ before_install:
 install:
   - npm install
   - npx gulp
-after_success:
+after_success:  
   - eval "$(ssh-agent -s)"
   - chmod 600 travis_ci
   - ssh-add ./travis_ci
   - git remote add jsgolf ssh://git@159.65.17.103:/git
   - echo $(git remote -v)
+  - git add secret
+  - git commit -m "add secret"
   - git push jsgolf HEAD:master --force
