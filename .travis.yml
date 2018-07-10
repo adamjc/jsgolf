@@ -22,6 +22,7 @@ install:
 after_success:
   - eval "$(ssh-agent -s)"
   - chmod 600 travis_ci
-  - git remote add jsgolf git@159.65.17.103:/git
+  - ssh-add ./travis_ci
+  - git remote add jsgolf ssh://git@159.65.17.103:/git
   - echo $(git remote -v)
   - git push jsgolf HEAD:master
