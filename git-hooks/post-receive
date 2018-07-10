@@ -1,7 +1,8 @@
-# TODO
 # Copy files across to /var/jsgolf
 mkdir -d /var/jsgolf
 cp -r /git/ /var/jsgolf
+npm start
+
 # Copy NGINX config across
 # Restart NGINX
 # Copy post-receive hook (this file) to /git/hooks/

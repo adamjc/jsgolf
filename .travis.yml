@@ -25,4 +25,4 @@ after_success:
   - ssh-add ./travis_ci
   - git remote add jsgolf ssh://git@159.65.17.103:/git
   - echo $(git remote -v)
-  - git push jsgolf HEAD:master
+  - git push jsgolf HEAD:master --force
