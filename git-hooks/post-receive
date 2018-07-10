@@ -16,8 +16,12 @@ if [ $? != 0 ]; then
   apt-get install -y nginx
 fi
 
-cp nginx.conf /usr/local/nginx/conf
-systemctl restart nginx
+cp nginx.conf /etc/nginx/conf
+
+if [ -d /etc/systemd/system/nginx.service.d ]; then
+  mkdir -p /etc/systemd/system/nginx.service.d
+  mv restart-nginx.conf /etc/systemd/system/nginx.service.d/override.conf
+fi
 
 # APP SETUP
 echo "Setting up jsgolf..."
@@ -26,6 +30,6 @@ sudo npm install -g npm@latest
 sudo npm install
 npx gulp
 kill $(pgrep node)
-nodemon 
+npm start
 
 
