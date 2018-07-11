@@ -1,15 +1,16 @@
 # DIR SETUP
+export GIT_WORKING_TREE=/var/jsgolf
+
 echo "Setting up folder structure..."
-if [ -d /var/jsgolf ]; then
-  sudo mkdir -p /var/jsgolf
-  sudo git clone /git /var/jsgolf
+if [ ! -d $GIT_WORKING_TREE ]; then
+  sudo mkdir -p $GIT_WORKING_TREE
 fi
 
-cd /var/jsgolf
-echo $(pwd)
-git reset --hard HEAD
-git pull --rebase
-cp /var/jsgolf/git-hooks/post-recieve /git/hooks/
+git checkout -f
+
+cd GIT_WORKING_TREE
+
+cp GIT_WORKING_TREE/git-hooks/post-recieve /git/hooks/
 
 # NGINX SETUP
 echo "Setting up NGINX..."
@@ -20,7 +21,7 @@ fi
 
 cp nginx.conf /etc/nginx/conf
 
-if [ -d /etc/systemd/system/nginx.service.d ]; then
+if [ ! -d /etc/systemd/system/nginx.service.d ]; then
   mkdir -p /etc/systemd/system/nginx.service.d
   mv restart-nginx.conf /etc/systemd/system/nginx.service.d/override.conf
 fi
