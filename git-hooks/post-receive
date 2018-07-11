@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # DIR SETUP
 export GIT_WORK_TREE=/var/jsgolf
 set -x 
@@ -11,7 +13,7 @@ git checkout -f
 
 cd $GIT_WORK_TREE
 
-cp $GIT_WORK_TREE/git-hooks/post-recieve /git/hooks/
+cp $GIT_WORK_TREE/git-hooks/post-receive /git/hooks/
 
 # NGINX SETUP
 echo "Setting up NGINX..."
@@ -20,7 +22,7 @@ if [ $? != 0 ]; then
   apt-get install -y nginx
 fi
 
-cp nginx.conf /etc/nginx/conf
+cp nginx.conf /etc/nginx/nginx.conf
 
 if [ ! -d /etc/systemd/system/nginx.service.d ]; then
   mkdir -p /etc/systemd/system/nginx.service.d
