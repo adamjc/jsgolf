@@ -1,9 +1,5 @@
 #!/bin/bash
 
-who 
-
-echo $(who)
-
 # DIR SETUP
 echo "Setting up folder structure..."
 
@@ -18,6 +14,12 @@ git checkout -f
 
 cd $GIT_WORK_TREE
 sudo cp $GIT_WORK_TREE/git-hooks/post-receive /git/hooks/
+
+# Add AWS secret
+if [ ! -d ~/.aws ]; then
+  mkdir -p ~/.aws
+  sudo cp aws-secret ~/.aws/credentials
+fi
 
 # NGINX SETUP
 echo "Setting up NGINX..."
