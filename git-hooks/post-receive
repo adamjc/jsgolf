@@ -7,6 +7,7 @@ fi
 
 cd /var/jsgolf
 echo $(pwd)
+git reset --hard HEAD
 git pull --rebase
 cp git-hooks/post-recieve /git/hooks/
 
@@ -38,6 +39,6 @@ if [ $? != 0 ]; then
   pm2 start app.js
 fi
 
-pm2 restart
+pm2 restart app.js
 
 
