@@ -1,10 +1,11 @@
 #!/bin/bash
 
 # DIR SETUP
+echo "Setting up folder structure..."
+
 export GIT_WORK_TREE=/var/jsgolf
 set -x 
 
-echo "Setting up folder structure..."
 if [ ! -d $GIT_WORK_TREE ]; then
   sudo mkdir -p $GIT_WORK_TREE
 fi
@@ -12,22 +13,23 @@ fi
 git checkout -f
 
 cd $GIT_WORK_TREE
-
 cp $GIT_WORK_TREE/git-hooks/post-receive /git/hooks/
 
 # NGINX SETUP
 echo "Setting up NGINX..."
+
 which nginx
 if [ $? != 0 ]; then
   apt-get install -y nginx
 fi
 
-cp nginx.conf /etc/nginx/nginx.conf
-
+# Enable automatic restarting of NGINX if the config changes
 if [ ! -d /etc/systemd/system/nginx.service.d ]; then
   mkdir -p /etc/systemd/system/nginx.service.d
   mv restart-nginx.conf /etc/systemd/system/nginx.service.d/override.conf
 fi
+
+cp nginx.conf /etc/nginx/nginx.conf
 
 # APP SETUP
 echo "Setting up jsgolf..."
