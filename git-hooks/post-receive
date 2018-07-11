@@ -1,16 +1,17 @@
 # DIR SETUP
-export GIT_WORKING_TREE=/var/jsgolf
+export GIT_WORK_TREE=/var/jsgolf
+set -x 
 
 echo "Setting up folder structure..."
-if [ ! -d $GIT_WORKING_TREE ]; then
-  sudo mkdir -p $GIT_WORKING_TREE
+if [ ! -d $GIT_WORK_TREE ]; then
+  sudo mkdir -p $GIT_WORK_TREE
 fi
 
 git checkout -f
 
-cd $GIT_WORKING_TREE
+cd $GIT_WORK_TREE
 
-cp $GIT_WORKING_TREE/git-hooks/post-recieve /git/hooks/
+cp $GIT_WORK_TREE/git-hooks/post-recieve /git/hooks/
 
 # NGINX SETUP
 echo "Setting up NGINX..."
