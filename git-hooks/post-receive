@@ -9,7 +9,7 @@ cd /var/jsgolf
 echo $(pwd)
 git reset --hard HEAD
 git pull --rebase
-cp git-hooks/post-recieve /git/hooks/
+cp /var/jsgolf/git-hooks/post-recieve /git/hooks/
 
 # NGINX SETUP
 echo "Setting up NGINX..."
