@@ -19,11 +19,12 @@ install:
 - npm install
 - npx gulp
 after_success:
-- eval "$(ssh-agent -s)"
-- chmod 600 travis_ci
-- ssh-add ./travis_ci
-- git remote add jsgolf ssh://git@jsgolf.xyz:/git
-- git add -f secret
-- gid add -f aws-secret
-- git commit -m "add secrets"
-- git push jsgolf HEAD:master --force
+  - ls
+  - eval "$(ssh-agent -s)"
+  - chmod 600 travis_ci
+  - ssh-add ./travis_ci
+  - git remote add jsgolf ssh://git@jsgolf.xyz:/git
+  - git add -f secret
+  - gid add -f aws-secret
+  - git commit -m "add secrets"
+  - git push jsgolf HEAD:master --force
