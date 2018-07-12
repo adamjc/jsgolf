@@ -1,30 +1,29 @@
 language: node_js
 node_js:
-- lts/*
+  - lts/*
 env:
   global:
-  - secure: fs/T5PfaBo3EEYiCDB8lf9idj2/0IHHTnlrYZC1vYjR4eGOJa/3y2ZAu5dfwBYU2I5s7//Pc8rY5u4xXmpmsWLxfA7dZCHcQpFOFg8Hw8Cb7G/NZQrMaHHret8g7O+H7AgTrJ7c2LDYnfET5yiKcfpsp/TJybiAYiEWR33JWS0ih3MQrLcJG4jzSH9EHdcUMP0RzZK5OTXQRzzhwaEuj0p4HjqIPpqzywjkN5j50Rn7hHK78d2s4SDcabq5x4QneGzrbCxwAEUi7qqW3J+mhDxXUDR1XOZlAfSgCWOENsd88ZoTQhQf5UX9qiXAa7/DEzqlS/z3km41xiRlftULab3JXBbFDQX3bPzmczEWyJt8JpseVZorAP1vLAbR3f+PVuqcV7I14LpMEQY2WlDGrQvZTN2intuhWgr/37CEqGAEgv9XmGCYfsoqlUsQujJroLBr+b1Tm//zZSRPaoMyhoW+B4Kf3+Ua5RAKTIZvE2Mba2sh8vSOeN2/3VeEq+Oe1TQ9SOqZDRL/ahCx02REF8Nz6VmEKtFJDBwCqmFsJoO/z5dKF556vRoqxRS+oRA/gkl+WhlZRSRPu3HPLvt/7fOHHNg65L8DKRGFZbz11008sEfaCBG7lrB3yzVHPveO+IcrVcia1ZjrUH5nZElbgFwE3p4TedeoPZCUm/1jyA0I=
-  - secure: PtvNPiJ92VNgt3wFpg9lVXnZVk24jVzwx3gPMhfKfriWnURbtlLbST8tjt9fnZyElQR9vSizNSxV7prvJymG2vAXfGGkXKphqc7SFKS8YkW33MMNl8oYayaCsANj3qwVOAUPKv+gKATzxeru7vNlI3GSJndZjf9iVdshJyQNBUlhK9ospE7ugayB3QDixxNV8EbrvIMG9Zxwaypr/Q82/pGlqqMmE/S9FSUJwbYkxv2tfjaWJk/t/Zj51yePoRDG8BxuL1aSUUO0JC8ejnmWMAxSz6PH61eu0tcUiJMphcOgqvwmHU076F6VUIy4xszViykK5VQfYNFEzBIVtcaMcHuY4y2Ryv4kwm7pBP39P3y3HF1T5ozyFhieM5KR1+qw5ZNLKFN2zqZbFw1RxBr6L0/iRtviV+yMiKTwv1+KxCZBBHN0Al4/TvS5c4ROG8fSDKmnK4iz7Gxb7reORG8MjGTVTnZoZFNF96cOzhwDmKuH6saE3JBr2Rmeg6h8Sefyl7P+zAXyO7NC3wa7SobQEAwhVDGNkWFpbTvE/U4eTr+d9n8rf2qraqxjGGLCY5sxa9cX9bEyF9IzNSXkazKGM/ulC2KMNJuju+cbjn1BanaOmbgNu3cxjA7Pu0ZfoN8ZeMbHsh4ClJGYvE8BVQ+U1koIPILaDXhRHkG0B6vtUtA=
+    - secure: fs/T5PfaBo3EEYiCDB8lf9idj2/0IHHTnlrYZC1vYjR4eGOJa/3y2ZAu5dfwBYU2I5s7//Pc8rY5u4xXmpmsWLxfA7dZCHcQpFOFg8Hw8Cb7G/NZQrMaHHret8g7O+H7AgTrJ7c2LDYnfET5yiKcfpsp/TJybiAYiEWR33JWS0ih3MQrLcJG4jzSH9EHdcUMP0RzZK5OTXQRzzhwaEuj0p4HjqIPpqzywjkN5j50Rn7hHK78d2s4SDcabq5x4QneGzrbCxwAEUi7qqW3J+mhDxXUDR1XOZlAfSgCWOENsd88ZoTQhQf5UX9qiXAa7/DEzqlS/z3km41xiRlftULab3JXBbFDQX3bPzmczEWyJt8JpseVZorAP1vLAbR3f+PVuqcV7I14LpMEQY2WlDGrQvZTN2intuhWgr/37CEqGAEgv9XmGCYfsoqlUsQujJroLBr+b1Tm//zZSRPaoMyhoW+B4Kf3+Ua5RAKTIZvE2Mba2sh8vSOeN2/3VeEq+Oe1TQ9SOqZDRL/ahCx02REF8Nz6VmEKtFJDBwCqmFsJoO/z5dKF556vRoqxRS+oRA/gkl+WhlZRSRPu3HPLvt/7fOHHNg65L8DKRGFZbz11008sEfaCBG7lrB3yzVHPveO+IcrVcia1ZjrUH5nZElbgFwE3p4TedeoPZCUm/1jyA0I=
+    - secure: PtvNPiJ92VNgt3wFpg9lVXnZVk24jVzwx3gPMhfKfriWnURbtlLbST8tjt9fnZyElQR9vSizNSxV7prvJymG2vAXfGGkXKphqc7SFKS8YkW33MMNl8oYayaCsANj3qwVOAUPKv+gKATzxeru7vNlI3GSJndZjf9iVdshJyQNBUlhK9ospE7ugayB3QDixxNV8EbrvIMG9Zxwaypr/Q82/pGlqqMmE/S9FSUJwbYkxv2tfjaWJk/t/Zj51yePoRDG8BxuL1aSUUO0JC8ejnmWMAxSz6PH61eu0tcUiJMphcOgqvwmHU076F6VUIy4xszViykK5VQfYNFEzBIVtcaMcHuY4y2Ryv4kwm7pBP39P3y3HF1T5ozyFhieM5KR1+qw5ZNLKFN2zqZbFw1RxBr6L0/iRtviV+yMiKTwv1+KxCZBBHN0Al4/TvS5c4ROG8fSDKmnK4iz7Gxb7reORG8MjGTVTnZoZFNF96cOzhwDmKuH6saE3JBr2Rmeg6h8Sefyl7P+zAXyO7NC3wa7SobQEAwhVDGNkWFpbTvE/U4eTr+d9n8rf2qraqxjGGLCY5sxa9cX9bEyF9IzNSXkazKGM/ulC2KMNJuju+cbjn1BanaOmbgNu3cxjA7Pu0ZfoN8ZeMbHsh4ClJGYvE8BVQ+U1koIPILaDXhRHkG0B6vtUtA=
 cache:
   directories:
-  - node_modules
+    - node_modules
 addons:
   ssh_known_hosts:
-  - jsgolf.xyz
+    - jsgolf.xyz
 before_install:
-- openssl aes-256-cbc -K $encrypted_833934672973_key -iv $encrypted_833934672973_iv -in secrets.tar.enc -out secrets.tar -d
-- tar xvf secrets.tar
-- echo $SECRET > secret
+  - openssl aes-256-cbc -K $encrypted_833934672973_key -iv $encrypted_833934672973_iv -in secrets.tar.enc -out secrets.tar -d
+  - tar xvf secrets.tar
+  - echo $SECRET > secret
 install:
-- npm install
-- npx gulp
+  - npm install
+  - npx gulp
 after_success:
-  - ls
   - eval "$(ssh-agent -s)"
   - chmod 600 travis_ci
   - ssh-add ./travis_ci
   - git remote add jsgolf ssh://git@jsgolf.xyz:/git
   - git add -f secret
-  - gid add -f aws-secret
+  - git add -f aws-secret
   - git commit -m "add secrets"
   - git push jsgolf HEAD:master --force
