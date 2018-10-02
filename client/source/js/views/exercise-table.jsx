@@ -5,14 +5,10 @@ module.exports = React.createClass({
     return {}
   },
 
-  handleRowClick (userAnswer) {
-    alert(userAnswer)
-  },
-
   render() {
     let scores = Object.keys(this.props.scores).map(a => {
       return (
-        <tr key={a} className="exercise-table__row" onClick={this.handleRowClick.bind(this, this.props.scores[a].answer)}>
+        <tr key={a} className="exercise-table__row">
           <td>{a}</td>
           <td>{this.props.scores[a].characters}</td>
         </tr>
