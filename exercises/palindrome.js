@@ -26,7 +26,7 @@ const palindrome = {
     'testInput': ['powerglove 9000'],
     'expectedOutput': false
   }],
-  next: undefined
+  next: 'circular-array'
 }
 
 module.exports = palindrome

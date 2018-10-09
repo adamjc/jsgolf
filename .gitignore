@@ -5,6 +5,7 @@ client/pre-build
 npm-debug.log
 .DS_Store
 secret
+aws-secret
 *.log
 
 # Elastic Beanstalk Files
