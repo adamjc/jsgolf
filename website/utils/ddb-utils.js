@@ -2,6 +2,7 @@ const AWS = require('aws-sdk')
 const exerciseUtils = require('./exercise-utils')
 const logger = require('./logger')
 
+AWS.config.loadFromPath('./aws-credentials.json');
 AWS.config.update({
   region: 'eu-west-1',
   endpoint: 'dynamodb.eu-west-1.amazonaws.com'
@@ -24,10 +25,10 @@ function addUser (username, hash, salt, email) {
   return new Promise((resolve, reject) => {
     docClient.put(params, (err, data) => {
       if (err) {
-        logger.log('error', `Unable to add item: ${JSON.stringify(err, null, 2)}`)
+        logger.log('debug', `Unable to add item: ${JSON.stringify(err, null, 2)}`)
         reject(err)
       } else {
-        logger.log('info', `Added item: ${JSON.stringify(data, null, 2)}`)
+        logger.log('debug', `Added item: ${JSON.stringify(data, null, 2)}`)
         resolve(data)
       }
     })
@@ -35,7 +36,7 @@ function addUser (username, hash, salt, email) {
 }
 
 function updateHighscore (exercise, username, answer) {
-  exercise = exerciseUtils.getExerciseFilename(exercise).split('-').join('_')
+  exercise = dDBifyExercise(getExerciseFilename(exercise))
 
   let answerMap = {
     characters: answer.length,
@@ -62,6 +63,8 @@ function updateHighscore (exercise, username, answer) {
         logger.log('error', `updateHighscore error: ${err}`)
         reject(err)
       }
+
+      resolve()
     })
   })
 }
@@ -71,7 +74,7 @@ function updateExercise (username, exercise, answer) {
     characters: answer.length,
     answer: answer
   }
-  let ddbExercise = exerciseUtils.getExerciseFilename(exercise).split('-').join('_')
+  let ddbExercise = dDBifyExercise(exerciseUtils.getExerciseFilename(exercise))
   let expression = `set exercises.${ddbExercise} = :answer`
   let query = {
     TableName : 'users',
@@ -90,7 +93,8 @@ function updateExercise (username, exercise, answer) {
         logger.log('error', `getExercise error: ${err}`)
         reject(err)
       } else {
-        logger.log('info', `UpdateItem succeeded: ${JSON.stringify(data, null, 2)}`)
+        logger.log('debug', `UpdateItem succeeded: ${JSON.stringify(data, null, 2)}`)
+        resolve()
       }
     })
   })
@@ -98,9 +102,11 @@ function updateExercise (username, exercise, answer) {
 
 function getExercise (exercise) {
   let query = {
-    TableName : 'exercises',
+    TableName: 'exercises',
     KeyConditionExpression: 'exercise = :exercise',
-    ExpressionAttributeValues: { ':exercise': dDBifyExercise(exercise) }
+    ExpressionAttributeValues: {
+      ':exercise': dDBifyExercise(exercise)
+    }
   }
 
   return new Promise((resolve, reject) => {
@@ -117,9 +123,11 @@ function getExercise (exercise) {
 
 function getUser (username) {
   let query = {
-    TableName : 'users',
+    TableName: 'users',
     KeyConditionExpression: 'username = :username',
-    ExpressionAttributeValues: { ':username': username }
+    ExpressionAttributeValues: {
+      ':username': username
+    }
   }
 
   return new Promise((resolve, reject) => {

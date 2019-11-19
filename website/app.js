@@ -23,9 +23,6 @@ const signIn = require('./api/sign-in')
 const isUsernameAvailable = require('./api/is-username-available')
 const isAuthorised = require('./api/is-authorised')
 
-const requireAuth = passport.authenticate('jwt', { session: false })
-const jwt = require('jsonwebtoken')
-
 passport.use(new JwtStrategy(jwtOptions, (jwtPayload, done) => {
   ddbUtils.getUser(jwtPayload.username).then(user => {
     if (!user) {

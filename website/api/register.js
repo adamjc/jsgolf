@@ -34,7 +34,7 @@ function postRegister (req, res) {
           .then(_ => {
             res.status(200).send()
           }).catch(_ => {
-            logger.log('info', `promise rejected: ${data}`)
+            logger.log('error', `promise rejected: ${data}`)
             res.status(500).send()
           })
     })
