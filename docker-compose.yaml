@@ -1,0 +1,14 @@
+version: "3"
+services:
+  website:
+    build:
+      context: ./website
+      dockerfile: ./Dockerfile
+  reverse_proxy:
+    build:
+      context: ./reverse-proxy
+      dockerfile: ./Dockerfile
+    depends_on:
+      - website
+    ports:
+      - "1337:80"

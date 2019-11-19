@@ -1,14 +1,12 @@
 node_modules
 public/css
 public/js
-client/pre-build
+pre-build
 npm-debug.log
 .DS_Store
 secret
 aws-secret
 *.log
-
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
+travis_ci
+secrets.tar
+aws-credentials.json

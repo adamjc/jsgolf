@@ -1,3 +1,5 @@
+// So, so bad...
+
 const publicExercises = {
   'Hello World': 'hello-world',
   'Add One': 'add-one',
