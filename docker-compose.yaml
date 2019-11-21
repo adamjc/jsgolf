@@ -11,4 +11,5 @@ services:
     depends_on:
       - website
     ports:
-      - "1337:80"
+      - "80:80"
+      - "443:443"
