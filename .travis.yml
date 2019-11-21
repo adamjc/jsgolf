@@ -15,6 +15,7 @@ before_install:
 - echo $SECRET > website/secret
 install:
 - tar xvf secrets.tar
+- mv ./aws-credentials.json website/aws-credentials.json
 - cd website
 - npm install
 - npx gulp
