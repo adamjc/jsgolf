@@ -14,13 +14,15 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_833934672973_key -iv $encrypted_833934672973_iv -in secrets.tar.enc -out secrets.tar -d
 - echo $SECRET > website/secret
 install:
+- tar xvf secrets.tar
 - cd website
 - npm install
 - npx gulp
 before_deploy:
+- mv travis_ci /tmp/travis_ci
 - eval "$(ssh-agent -s)"
 - chmod 600 /tmp/travis_ci
-- ssh-add ./travis_ci
+- ssh-add /tmp/travis_ci
 deploy:
   provider: script
   skip_cleanup: true
