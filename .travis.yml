@@ -14,7 +14,7 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_833934672973_key -iv $encrypted_833934672973_iv -in secrets.tar.enc -out secrets.tar -d
 - echo $SECRET > website/secret
 - tar xvf secrets.tar
-- mv travis_ci /tmp/travis_ci
+- mv travis_deploy_key /tmp/travis_deploy_key
 - mv ./aws-credentials.json website/aws-credentials.json
 install:
 - cd website
@@ -23,8 +23,8 @@ install:
 before_deploy:
 - cd $TRAVIS_BUILD_DIR
 - eval "$(ssh-agent -s)"
-- chmod 600 /tmp/travis_ci
-- ssh-add /tmp/travis_ci
+- chmod 600 /tmp/travis_deploy_key
+- ssh-add /tmp/travis_deploy_key
 deploy:
   provider: script
   skip_cleanup: true
