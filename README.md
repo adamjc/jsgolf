@@ -4,4 +4,4 @@
 jsgolf source code
 
 # Live Site
-http://jsgolf.xyz
+https://jsgolf.xyz
