@@ -49,7 +49,7 @@
     "gulp-watch": "^4.3.5",
     "jasmine": "^2.3.2",
     "jsonwebtoken": "^6.2.0",
-    "lodash": "^4.17.13",
+    "lodash": "^4.17.19",
     "mocha": "^5.2.0",
     "node-mocks-http": "^1.4.4",
     "nodemon": "^1.17.4",
