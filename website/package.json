@@ -36,7 +36,7 @@
     "chai": "^3.3.0",
     "classnames": "^2.2.0",
     "del": "^2.0.2",
-    "express": "^4.13.0",
+    "express": "^4.17.3",
     "express-mocks-http": "0.0.11",
     "gulp": "3.9.1",
     "gulp-jasmine": "^2.1.0",
